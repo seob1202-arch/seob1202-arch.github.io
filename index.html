@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0f172a">
+    
+    <meta name="description" content="해외 한인 생활의 모든 것을 연결하는 비즈니스 플랫폼">
+    <meta property="og:title" content="Kornect - 해외 한인 비즈니스 검색">
+    <meta property="og:description" content="해외 한인 생활의 모든 것을 연결하는 비즈니스 플랫폼">
+    <meta property="og:image" content="Kornect Logo 512X512.png">
+    
+    <title>Kornect - 해외 한인 비즈니스 검색</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="Kornect Logo 192X192.png">
+    
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://script.google.com">
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           1. CORE & MOBILE BASE STYLES 
+           ========================================= */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --primary-color: #6366f1;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-icon: #334155;
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+            --text-white: #ffffff;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.4);
+            --safe-top: env(safe-area-inset-top);
+            --safe-bottom: env(safe-area-inset-bottom);
+            
+            /* Intro Page Colors */
+            --intro-primary: #3B82F6;
+            --intro-text-primary: #0F172A;
+            --intro-bg: #F8FAFC;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: "Pretendard Variable", Pretendard, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow: hidden; 
+            display: flex;
+            justify-content: center;
+        }
+
+        ::-webkit-scrollbar { width: 6px; display: none; }
+        
+        .app-container {
+            width: 100%; 
+            height: 100vh;
+            display: flex; flex-direction: column;
+            position: relative; overflow: hidden;
+            background: var(--bg-dark);
+            max-width: 100%;
+        }
+
+        /* 공통 페이지 설정 */
+        .page {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-dark);
+            overflow-y: auto; overflow-x: hidden;
+            padding-bottom: calc(20px + var(--safe-bottom));
+            display: none; z-index: 10;
+        }
+        #mainPage { display: block; }
+        .page.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* 헤더 */
+        .app-header {
+            padding: calc(16px + var(--safe-top)) 20px 16px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            position: sticky; top: 0; z-index: 50;
+            display: flex; align-items: center; justify-content: space-between;
+            width: 100%;
+        }
+        
+        .header-brand { display: flex; flex-direction: column; justify-content: center; gap: 5px; }
+        .header-brand-img { height: 42px; width: auto; object-fit: contain; object-position: left; display: block; }
+        .header-brand-slogan { font-size: 14.3px; font-weight: 600; color: #ffffff; letter-spacing: -0.02em; line-height: 1.1; opacity: 0.95; white-space: nowrap; }
+
+        .header-actions { display: flex; gap: 12px; }
+        .btn-circle { width: 40px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 50%; color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;}
+
+        /* 메인 컨텐츠 영역 */
+        .content-container { padding: 0 20px 24px; }
+        .section { margin-bottom: 32px; }
+        .section-header { margin-bottom: 16px; }
+        .section-title { font-size: 19px; font-weight: 700; color: var(--text-white); display: flex; align-items: center; gap: 6px; }
+
+        /* 카테고리 그리드 */
+        .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 12px; }
+        .cat-item { display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; transition: transform 0.2s; }
+        .cat-icon-box { width: 60px; height: 60px; background: var(--bg-card); border-radius: 22px; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s; }
+        .cat-icon-box .material-icons-round { font-size: 28px; }
+        .cat-item:active .cat-icon-box { transform: scale(0.95); filter: brightness(1.2); }
+        .cat-name { font-size: 12px; color: var(--text-sub); font-weight: 500; text-align: center; }
+
+        /* 현대적 메뉴 그리드 */
+        .modern-menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .modern-card { background: var(--bg-card); border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px; cursor: pointer; transition: 0.2s; border: 1px solid rgba(255,255,255,0.05); }
+        .modern-card:active { transform: scale(0.98); background: rgba(255,255,255,0.1); }
+        .modern-icon { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        .theme-orange { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
+        .theme-indigo { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
+        .theme-pink { background: rgba(244, 114, 182, 0.15); color: #f472b6; }
+        .theme-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+        .theme-teal { background: rgba(45, 212, 191, 0.15); color: #2dd4bf; }
+        .theme-purple { background: rgba(167, 139, 250, 0.15); color: #a78bfa; }
+        .modern-card-text { display: flex; flex-direction: column; gap: 4px; }
+        .modern-card-title { font-size: 15px; font-weight: 700; color: white; }
+        .modern-card-desc { font-size: 11px; color: var(--text-sub); }
+
+        /* 배너 */
+        .banner-card { background: var(--primary-gradient); border-radius: var(--radius-lg); padding: 24px; display: flex; align-items: center; justify-content: space-between; box-shadow: var(--shadow-glow); margin-bottom: 32px; text-decoration: none; transition: transform 0.2s; }
+        .banner-title { font-size: 18px; font-weight: 800; color: white; display: block; margin-bottom: 4px;}
+        .banner-desc { font-size: 13px; color: rgba(255,255,255,0.9); display: block;}
+        .banner-icon { font-size: 32px; background: rgba(255,255,255,0.2); padding: 12px; border-radius: 50%; color: white; }
+
+        /* 통계 */
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 32px; }
+        .stat-card { background: rgba(255,255,255,0.03); padding: 16px 8px; border-radius: 16px; text-align: center; }
+        .stat-number { font-size: 20px; font-weight: 800; color: var(--primary-color); margin-bottom: 4px; }
+        .stat-label { font-size: 11px; color: var(--text-sub); }
+
+        /* 가로 스크롤 영역 (모바일) */
+        .h-scroll-view { display: flex; gap: 16px; overflow-x: auto; padding-right: 20px; margin-right: -20px; padding-bottom: 10px; }
+        .biz-card-sm { min-width: 200px; background: var(--bg-card); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s; }
+        .biz-title { font-size: 15px; font-weight: 700; color: white; margin-bottom: 4px; }
+        .biz-meta { font-size: 12px; color: var(--text-sub); }
+        .biz-rating-badge { margin-top: 10px; font-size: 12px; color: #fbbf24; font-weight: 700; }
+        
+        /* 상세 페이지 (모바일 - Bottom Sheet) */
+        #detailPage { transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex !important; flex-direction: column; z-index: 100; padding: 0; }
+        #detailPage.active { transform: translateY(0); }
+        .detail-header-img { height: 120px; background: var(--primary-gradient); position: relative; flex-shrink: 0; }
+        .detail-nav { position: absolute; top: var(--safe-top); left: 0; right: 0; padding: 12px 20px; display: flex; justify-content: space-between; }
+        .detail-content { flex: 1; background: var(--bg-dark); margin-top: -24px; border-radius: 24px 24px 0 0; position: relative; padding: 24px 20px 100px; overflow-y: auto; }
+        .detail-name { font-size: 26px; font-weight: 800; color: white; margin-bottom: 8px; }
+        .info-group { background: var(--bg-card); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+        .info-item { display: flex; gap: 16px; margin-bottom: 16px; }
+        .info-icon { color: var(--text-sub); width: 24px; }
+        .info-text { flex: 1; color: var(--text-main); font-size: 15px; }
+        .floating-bottom { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 20px calc(16px + var(--safe-bottom)); background: rgba(15, 23, 42, 0.95); display: flex; gap: 12px; }
+        .action-btn { flex: 1; height: 56px; border-radius: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border:none; cursor: pointer; transition: 0.2s;}
+        .action-btn.primary { background: var(--primary-color); color: white; }
+        .action-btn.secondary { background: rgba(255,255,255,0.1); color: white; }
+
+        /* 검색/결과 */
+        .search-btn { width: 100%; padding: 18px; background: var(--primary-gradient); border: none; border-radius: 16px; color: white; font-weight: 700; margin-top: 20px; cursor: pointer; transition: 0.2s; }
+        .location-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .location-chip { padding: 12px; text-align: center; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: var(--text-sub); font-size: 13px; font-weight: 600; cursor: pointer; }
+        .location-chip.selected { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+        .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .service-item { padding: 14px; text-align: center; background: var(--bg-card); border-radius: 12px; color: var(--text-main); font-size: 14px; font-weight: 600; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
+        .service-item.selected { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+        .business-card { background: var(--bg-card); padding: 16px; border-radius: 16px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; }
+        
+        .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 9999; }
+        .loading-overlay.show { display: flex; }
+        .spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .skeleton-loader { background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%); background-size: 200% 100%; animation: loading 1.5s infinite; border-radius: 16px; min-width: 200px; height: 80px; flex-shrink: 0; }
+        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        /* === [INTRO PAGE 전용 스타일] === */
+        #introPage { background-color: var(--intro-bg) !important; color: var(--intro-text-primary); z-index: 200; }
+        #introPage a { text-decoration: none; }
+        .intro-nav { position: absolute; top: 0; left: 0; right: 0; height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .intro-logo { font-size: 18px; font-weight: 800; color: #0F172A; }
+        .intro-close-btn { color: #0F172A; font-size: 24px; cursor: pointer; }
+        #introPage .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        #introPage .bg-mesh { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(244, 63, 94, 0.15) 0px, transparent 50%); filter: blur(40px); }
+        #introPage .hero { padding: 100px 0 60px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+        #introPage .section-eyebrow { font-size: 13px; font-weight: 800; color: var(--intro-primary); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 12px; text-align: center; }
+        #introPage h1 { font-size: clamp(32px, 10vw, 56px); font-weight: 800; line-height: 1.15; margin-bottom: 20px; color: #0F172A; }
+        #introPage .text-gradient { background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #F43F5E 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        #introPage .hero p { font-size: 18px; color: #475569; margin-bottom: 32px; line-height: 1.5; }
+        #introPage .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 16px 32px; font-size: 17px; font-weight: 700; color: white; background: linear-gradient(135deg, #3B82F6 0%, #F43F5E 100%); border-radius: 14px; box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.4); transition: 0.2s; cursor: pointer;}
+        #introPage .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 30px -5px rgba(59, 130, 246, 0.5); }
+        #introPage .grid-3 { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 768px) { #introPage .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+        #introPage .intro-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 20px; padding: 24px; box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07); text-align: left; transition: transform 0.2s; }
+        #introPage .intro-card:hover { transform: translateY(-5px); }
+        #introPage .intro-icon-box { width: 44px; height: 44px; background: white; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        #introPage .intro-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #0F172A; }
+        #introPage .intro-card p { font-size: 14px; color: #475569; line-height: 1.5; }
+        #introPage .problem-section { padding: 60px 0; }
+        
+        /* [완벽한 중앙 정렬 수정] */
+        #introPage .text-center-wrapper { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+        }
+        #introPage .section-title { 
+            font-size: 28px; 
+            font-weight: 800; 
+            color: #0F172A; 
+            margin-bottom: 12px; 
+            line-height: 1.2; 
+            white-space: nowrap; 
+            text-align: center;
+        }
+        #introPage .section-desc { font-size: 16px; color: #475569; margin-bottom: 40px; text-align: center; }
+        
+        #introPage .vision-section { padding: 80px 0; background: #0F172A; color: white; text-align: center; margin-top: 40px; border-radius: 30px 30px 0 0; }
+        #introPage .vision-section h2 { font-size: 32px; font-weight: 800; margin-bottom: 16px; color: white; }
+        #introPage .vision-section p { font-size: 18px; color: rgba(255,255,255,0.8); }
+        #introPage .cta-section { padding: 60px 0 100px; text-align: center; }
+        #introPage .cta-box { background: linear-gradient(135deg, #3B82F6 0%, #6366f1 100%); border-radius: 28px; padding: 40px 24px; color: white; }
+        #introPage .cta-btn-white { background: white; color: #2563EB; padding: 16px 32px; border-radius: 14px; font-weight: 700; display: inline-block; margin-top: 24px; cursor: pointer; transition: 0.2s;}
+        #introPage .cta-btn-white:hover { transform: scale(1.05); }
+        .fade-in-up { opacity: 0; transform: translateY(20px); transition: 0.8s ease-out; }
+        .fade-in-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* =========================================
+           2. DESKTOP / TABLET ADAPTIVE STYLES 
+           ========================================= */
+        @media (min-width: 768px) {
+            ::-webkit-scrollbar { display: block; }
+            ::-webkit-scrollbar-track { background: var(--bg-dark); }
+            ::-webkit-scrollbar-thumb { background: var(--bg-icon); border-radius: 4px; }
+            ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+            .app-container {
+                max-width: 1024px;
+                margin: 0 auto;
+                box-shadow: 0 0 50px rgba(0,0,0,0.5);
+                min-height: 100vh;
+                border-left: 1px solid rgba(255,255,255,0.05);
+                border-right: 1px solid rgba(255,255,255,0.05);
+            }
+
+            .category-grid { grid-template-columns: repeat(8, 1fr); }
+            .modern-menu-grid { grid-template-columns: repeat(4, 1fr); }
+
+            .h-scroll-view { flex-wrap: wrap; overflow-x: visible; padding-right: 0; margin-right: 0; }
+            .biz-card-sm { width: calc(33.333% - 11px); min-width: auto; }
+
+            .cat-item:hover, .modern-card:hover, .banner-card:hover, .business-card:hover, .biz-card-sm:hover, .location-chip:hover, .service-item:hover {
+                transform: translateY(-4px); filter: brightness(1.1);
+            }
+            .btn-circle:hover { background: rgba(255,255,255,0.2); }
+            .search-btn:hover { filter: brightness(1.1); }
+
+            #detailPage.active {
+                transform: translate(-50%, -50%); top: 50%; left: 50%;
+                width: 600px; height: 80vh;
+                border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+                border: 1px solid rgba(255,255,255,0.1); overflow: hidden;
+            }
+            .detail-content { margin-top: 0; padding-top: 24px; }
+            .detail-header-img { height: 160px; }
+            .floating-bottom { position: absolute; border-radius: 0 0 24px 24px; }
+            
+            #detailPage.active::before {
+                content: ''; position: fixed; top: -50vh; left: -50vw; width: 200vw; height: 200vh;
+                background: rgba(0,0,0,0.6); z-index: -1; backdrop-filter: blur(4px);
+                pointer-events: all; cursor: pointer;
+            }
+            
+            #introPage .intro-nav { position: fixed; max-width: 1024px; margin: 0 auto; left: 0; right: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div></div>
+    
+    <div class="app-container">
+        
+        <div class="page active" id="mainPage">
+            <header class="app-header">
+                <div class="header-brand">
+                    <img src="https://drive.google.com/thumbnail?id=1FoWG_L4oKEw-FDk6-kO6KY_6E8rU_mig&sz=w1000" 
+                         alt="Kornect Logo" 
+                         class="header-brand-img">
+                    <span class="header-brand-slogan">해외 한인 생활의 모든 것을 연결합니다</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-circle" onclick="showPage('introPage')" title="서비스 소개"><span class="material-icons-round">info</span></button>
+                </div>
+            </header>
+
+            <div class="content-container">
+                <a href="https://join-olive.vercel.app" target="_blank" class="banner-card">
+                    <div class="banner-content">
+                        <span class="banner-title">비즈니스 무료 등록</span>
+                        <span class="banner-desc">전 세계 한인들에게 홍보하세요!</span>
+                    </div>
+                    <span class="material-icons-round banner-icon">storefront</span>
+                </a>
+
+                <div class="stats">
+                    <div class="stat-card"><div class="stat-number">50+</div><div class="stat-label">도시</div></div>
+                    <div class="stat-card"><div class="stat-number">9</div><div class="stat-label">카테고리</div></div>
+                    <div class="stat-card"><div class="stat-number">Free</div><div class="stat-label">서비스</div></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header"><div class="section-title">업체 검색하기</div></div>
+                    <div class="category-grid">
+                        <div class="cat-item" onclick="openCategoryURL('https://example.com/taxi')"> 
+                            <div class="cat-icon-box"><span class="material-icons-round">local_taxi</span></div> <div class="cat-name">한인택시</div>
+                        </div>
+                        <div class="cat-item" onclick="openCategoryURL('https://example.com/stay')"> 
+                            <div class="cat-icon-box"><span class="material-icons-round">hotel</span></div> <div class="cat-name">한인숙소</div>
+                        </div>
+                        <div class="cat-item" onclick="openCategoryURL('https://example.com/tour')"> 
+                            <div class="cat-icon-box"><span class="material-icons-round">flag</span></div> <div class="cat-name">투어</div>
+                        </div>
+                        <div class="cat-item" onclick="openCategoryURL('https://example.com/restaurant')">
+                            <div class="cat-icon-box"><span class="material-icons-round">restaurant</span></div> <div class="cat-name">한식당</div>
+                        </div>
+                        <div class="cat-item" onclick="openCategoryURL('https://example.com/mart')">
+                            <div class="cat-icon-box"><span class="material-icons-round">shopping_cart</span></div> <div class="cat-name">마트</div>
+                        </div>
+                        <div class="cat-item" onclick="openCategoryURL('https://example.com/beauty')">
+                            <div class="cat-icon-box"><span class="material-icons-round">content_cut</span></div> <div class="cat-name">뷰티</div>
+                        </div>
+                        <div class="cat-item" onclick="openCategoryURL('https://example.com/legal')">
+                            <div class="cat-icon-box"><span class="material-icons-round">gavel</span></div> <div class="cat-name">법률/세무</div>
+                        </div>
+                        <div class="cat-item" onclick="openCategoryURL('https://example.com/life')">
+                            <div class="cat-icon-box"><span class="material-icons-round">build</span></div> <div class="cat-name">생활</div>
+                        </div>
+                        <div class="cat-item" onclick="openCategoryURL('https://example.com/education')">
+                            <div class="cat-icon-box"><span class="material-icons-round">school</span></div> <div class="cat-name">교육</div>
+                        </div>
+                        <div class="cat-item" onclick="openCategoryURL('https://example.com/religion')">
+                            <div class="cat-icon-box"><span class="material-icons-round">church</span></div> <div class="cat-name">종교</div>
+                        </div>
+                        <div class="cat-item" onclick="openCategoryURL('https://example.com/club')">
+                            <div class="cat-icon-box"><span class="material-icons-round">groups</span></div> <div class="cat-name">동호회</div>
+                        </div>
+                        <div class="cat-item" onclick="openCategoryURL('https://example.com/organization')">
+                            <div class="cat-icon-box"><span class="material-icons-round">account_balance</span></div> <div class="cat-name">기관</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-title">✨ 주요 서비스</div>
+                    </div>
+                    <div class="modern-menu-grid">
+                        <div class="modern-card" onclick="openCategoryURL('https://example.com/guide')">
+                            <div class="modern-icon theme-orange"><span class="material-icons-round">auto_stories</span></div>
+                            <div class="modern-card-text"><div class="modern-card-title">올인원 퀵가이드</div><div class="modern-card-desc">여행 준비 필수 정보</div></div>
+                        </div>
+                        <div class="modern-card" onclick="openCategoryURL('https://used-market-omega.vercel.app')">
+                            <div class="modern-icon theme-indigo"><span class="material-icons-round">storefront</span></div>
+                            <div class="modern-card-text"><div class="modern-card-title">중고거래 장터</div><div class="modern-card-desc">교민 간 안전한 거래</div></div>
+                        </div>
+                        <div class="modern-card" onclick="openCategoryURL('https://shopping-seven-taupe.vercel.app')">
+                            <div class="modern-icon theme-pink"><span class="material-icons-round">local_fire_department</span></div>
+                            <div class="modern-card-text"><div class="modern-card-title">현지 핫템 정보</div><div class="modern-card-desc">지금 뜨는 아이템은?</div></div>
+                        </div>
+                        <div class="modern-card" onclick="openCategoryURL('https://freelancer-psi-five.vercel.app')">
+                            <div class="modern-icon theme-blue"><span class="material-icons-round">laptop_mac</span></div>
+                            <div class="modern-card-text"><div class="modern-card-title">K-프리랜서 마켓</div><div class="modern-card-desc">전문가 재능 마켓</div></div>
+                        </div>
+                        <div class="modern-card" onclick="openCategoryURL('https://faq-eight-eta.vercel.app')">
+                            <div class="modern-icon theme-teal"><span class="material-icons-round">map</span></div>
+                            <div class="modern-card-text"><div class="modern-card-title">여행정보 로드맵</div><div class="modern-card-desc">자주 묻는 질문 FAQ</div></div>
+                        </div>
+                        <div class="modern-card" onclick="openCategoryURL('https://k-contents.vercel.app')">
+                            <div class="modern-icon theme-purple"><span class="material-icons-round">play_circle</span></div>
+                            <div class="modern-card-text"><div class="modern-card-title">K-숏폼 큐레이션</div><div class="modern-card-desc">화제의 영상 & 뉴스</div></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-header"><div class="section-title">🔥 인기 비즈니스</div></div>
+                    <div class="h-scroll-view" id="featuredList">
+                        <div class="skeleton-loader"></div><div class="skeleton-loader"></div><div class="skeleton-loader"></div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header"><div class="section-title">✨ 신규 비즈니스</div></div>
+                    <div class="h-scroll-view" id="newList">
+                         <div class="skeleton-loader"></div><div class="skeleton-loader"></div><div class="skeleton-loader"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page" id="searchPage">
+            <header class="app-header">
+                <button class="btn-circle" onclick="goToMain()"><span class="material-icons-round">arrow_back</span></button>
+                <div style="color:white; font-weight:700;">검색 설정</div>
+                <div style="width:40px"></div>
+            </header>
+            <div class="content-container" style="padding-top: 20px;">
+                <div class="section">
+                    <div class="section-title" style="margin-bottom:12px;">📍 위치 선택</div>
+                    <div class="location-grid"><div style="color:var(--text-sub); font-size:13px;">로딩 중...</div></div>
+                </div>
+                <div class="section">
+                    <div class="section-title" style="margin-bottom:12px;">🔍 서비스 카테고리</div>
+                    <div class="service-grid"><div style="color:var(--text-sub); font-size:13px;">로딩 중...</div></div>
+                </div>
+                <button class="search-btn" onclick="doSearch()">검색하기</button>
+            </div>
+        </div>
+        
+        <div class="page" id="resultsPage">
+            <header class="app-header">
+                <button class="btn-circle" onclick="goToSearch()"><span class="material-icons-round">arrow_back</span></button>
+                <div style="color:var(--text-sub); font-size:14px;"><strong id="resultLocation" style="color:var(--primary-color)"></strong>의 <strong id="resultCategory" style="color:var(--primary-color)"></strong></div>
+                <div style="width:40px"></div>
+            </header>
+            <div class="business-list" id="businessList"></div>
+        </div>
+        
+        <div class="page" id="detailPage">
+            <div class="detail-header-img">
+                <div class="detail-nav">
+                    <button class="btn-circle" onclick="handleDetailBack()"><span class="material-icons-round">arrow_back</span></button>
+                    <button class="btn-circle"><span class="material-icons-round">share</span></button>
+                </div>
+            </div>
+            <div class="detail-content">
+                <div class="detail-name" id="detailName">...</div>
+                <div style="color:#fbbf24; font-weight:700; margin-bottom:20px;">⭐ <span id="detailRating">...</span></div>
+                <div class="info-group">
+                    <div class="info-item"><span class="material-icons-round info-icon">location_on</span><div class="info-text" id="detailAddress">...</div></div>
+                    <div class="info-item"><span class="material-icons-round info-icon">call</span><div class="info-text" id="detailPhone">...</div></div>
+                    <div class="info-item"><span class="material-icons-round info-icon">schedule</span><div class="info-text" id="detailHours">...</div></div>
+                    <div class="info-item" id="websiteItem" style="display:none"><span class="material-icons-round info-icon">language</span><div class="info-text" id="detailWebsite">...</div></div>
+                </div>
+            </div>
+            <div class="floating-bottom">
+                <a class="action-btn secondary" id="mapBtn" target="_blank"><span class="material-icons-round">map</span> 길찾기</a>
+                <a class="action-btn primary" id="callBtn"><span class="material-icons-round">call</span> 전화하기</a>
+            </div>
+        </div>
+
+        <div class="page" id="introPage">
+            <div class="bg-mesh"></div>
+            <nav class="intro-nav">
+                <div class="intro-logo">Kornect</div>
+                <span class="material-icons-round intro-close-btn" onclick="goToMain()">close</span>
+            </nav>
+
+            <div style="overflow-y: auto; height: 100%; padding-top: 60px;"> 
+                <section class="hero">
+                    <div class="container">
+                        <span class="section-eyebrow fade-in-up">GLOBAL KOREAN BUSINESS</span>
+                        <h1 class="fade-in-up" style="transition-delay: 0.1s">
+                            한인 비즈니스,<br>
+                            <span class="text-gradient">세상에 닿다</span>
+                        </h1>
+                        <p class="fade-in-up" style="transition-delay: 0.2s">
+                            홍보부터 고객 연결까지<br>
+                            사장님은 <strong>본업</strong>에만 집중하세요.
+                        </p>
+                        <div class="fade-in-up" style="transition-delay: 0.3s">
+                            <a href="https://join-olive.vercel.app" class="btn-primary" target="_blank">무료로 등록하기</a>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="problem-section" id="features">
+                    <div class="container">
+                        <div class="text-center-wrapper">
+                            <span class="section-eyebrow fade-in-up">Current Challenges</span>
+                            <h2 class="section-title fade-in-up">사장님의 현실 고민</h2>
+                            <p class="section-desc fade-in-up">혼자서는 해결하기 힘든 문제들,<br>시스템으로 해결합니다.</p>
+                        </div>
+                        <div class="grid-3">
+                            <div class="intro-card fade-in-up">
+                                <div class="intro-icon-box">🔍</div>
+                                <h3>고객 확보</h3>
+                                <p>현지인과 한인 커뮤니티,<br>동시에 홍보하기 막막하셨죠?</p>
+                            </div>
+                            <div class="intro-card fade-in-up" style="transition-delay: 0.1s">
+                                <div class="intro-icon-box">💸</div>
+                                <h3>마케팅 비용</h3>
+                                <p>복잡하고 비싼 온라인 광고,<br>효과는 없고 부담만 큽니다.</p>
+                            </div>
+                            <div class="intro-card fade-in-up" style="transition-delay: 0.2s">
+                                <div class="intro-icon-box">🤝</div>
+                                <h3>신뢰도 구축</h3>
+                                <p>입소문만으론 부족합니다.<br>검증된 리뷰가 필요합니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="vision-section">
+                    <div class="container">
+                        <span class="section-eyebrow fade-in-up">OUR VISION</span>
+                        <h2 class="fade-in-up" style="transition-delay: 0.1s">Every Korean,<br>Connected.</h2>
+                        <p class="fade-in-up" style="transition-delay: 0.2s">전 세계 한인 비즈니스 생태계,<br>우리가 함께 만듭니다.</p>
+                    </div>
+                </section>
+
+                <section class="cta-section">
+                    <div class="container">
+                        <div class="cta-box fade-in-up">
+                            <h2>3분이면<br>충분합니다</h2>
+                            <p style="color: rgba(255,255,255,0.9); font-size: 16px; margin-bottom: 24px;">
+                                복잡한 절차 없이 바로 시작하세요.
+                            </p>
+                            <a href="https://join-olive.vercel.app" target="_blank" class="cta-btn-white">무료로 시작하기</a>
+                        </div>
+                        <p style="margin-top: 32px; color: #94A3B8; font-size: 12px;">
+                            © 2026 Kornect. All rights reserved.
+                        </p>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </div>
+    
+    <script>
+    // [PWA] Service Worker Registration
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./service-worker.js')
+                .then(reg => console.log('Service Worker registered', reg))
+                .catch(err => console.log('Service Worker registration failed', err));
+        });
+    }
+
+    (function() {
+        'use strict';
+        const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzN8mtYeMS2JRIABZ0Mkm6CAwDM0UOOdah6mmakuiYlh0Oa6p1enjrZJiYD6PhuwmqoKw/exec';
+        
+        const initialDataPromise = fetch(GAS_WEB_APP_URL)
+            .then(res => {
+                if(!res.ok) throw new Error('Network error');
+                return res.json();
+            })
+            .catch(err => ({ error: err.message }));
+
+        const categoryEmojiMap = { '한식당/카페': '🍽️', '마트/식품점': '🛒', '뷰티 서비스': '💇', '의료 서비스': '🏥', '법률/세무': '⚖️', '생활 서비스': '🛠️', '교육/학원': '📚', '이사/운송': '📦', '종교': '⛪' };
+        const state = { allBusinessData: {}, currentResultsList: [], selectedLocation: '', selectedCategory: '', currentBusiness: null, userLocation: null, cameFromMainPage: false, dataCache: null, cacheTimestamp: null };
+        const dom = {};
+        
+        function cacheDOMElements() {
+            dom.loadingOverlay = document.getElementById('loadingOverlay');
+            dom.featuredList = document.getElementById('featuredList');
+            dom.newList = document.getElementById('newList');
+            dom.locationGrid = document.querySelector('.location-grid');
+            dom.serviceGrid = document.querySelector('.service-grid');
+            dom.businessList = document.getElementById('businessList');
+            dom.resultLocation = document.getElementById('resultLocation');
+            dom.resultCategory = document.getElementById('resultCategory');
+        }
+
+        document.addEventListener('DOMContentLoaded', async function() { 
+            cacheDOMElements(); 
+            setupEventListeners(); 
+            requestUserLocation();
+            setupIntroAnimations();
+            await initAppOptimized();
+        });
+
+        function setupIntroAnimations() {
+            const introPage = document.getElementById('introPage');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, root: introPage }); 
+
+            introPage.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+        }
+
+        async function initAppOptimized() {
+            try {
+                const data = await initialDataPromise;
+                if (data.error) throw new Error(data.error);
+                state.dataCache = data; 
+                state.cacheTimestamp = Date.now();
+                processData(data);
+            } catch (error) { 
+                console.error('Error:', error);
+                if(dom.featuredList) dom.featuredList.innerHTML = '<div style="padding:10px; font-size:13px; color:#ef4444">데이터 로드 실패</div>';
+                if(dom.newList) dom.newList.innerHTML = '<div style="padding:10px; font-size:13px; color:#ef4444">데이터 로드 실패</div>';
+            }
+        }
+
+        function processData(data) {
+            state.allBusinessData = data.businessesByCategory;
+            displayFeatured(data.featured, dom.featuredList);
+            displayFeatured(data.new, dom.newList);
+            populateFilters(data.filters);
+        }
+
+        function displayFeatured(items, container) {
+            if (!container) return;
+            container.innerHTML = ''; 
+            if (!items || items.length === 0) { 
+                container.innerHTML = '<div style="color:var(--text-sub); font-size:13px; padding:10px;">데이터가 없습니다.</div>'; 
+                return; 
+            }
+            const fragment = document.createDocumentFragment();
+            items.forEach(biz => {
+                const card = document.createElement('div');
+                card.className = 'biz-card-sm';
+                card.onclick = () => handleCardClick(biz);
+                card.innerHTML = `<div class="biz-title">${biz.name}</div><div class="biz-meta">${biz.category} • ${biz.location||'위치'}</div><div class="biz-rating-badge">⭐ ${biz.rating||0}</div>`;
+                fragment.appendChild(card);
+            });
+            container.appendChild(fragment);
+        }
+
+        function populateFilters(filters) {
+            if (!dom.locationGrid || !dom.serviceGrid) return;
+            dom.locationGrid.innerHTML = filters.locations.map((loc, i) => `<div class="location-chip ${i===0?'selected':''}" data-value="${loc}">${loc}</div>`).join('');
+            if(filters.locations[0]) state.selectedLocation = filters.locations[0];
+            dom.serviceGrid.innerHTML = filters.categories.map(cat => `<div class="service-item" data-value="${cat}">${categoryEmojiMap[cat]||'❔'} ${cat}</div>`).join('');
+        }
+
+        function renderBusinessList(list) {
+            if (!dom.businessList) return;
+            dom.businessList.innerHTML = list.length ? list.map(biz => `
+                <div class="business-card" onclick="handleCardClickProxy('${biz.name}')">
+                    <div style="display:flex; justify-content:space-between"><div style="color:white; font-weight:700">${biz.name}</div><div style="color:#fbbf24; font-size:13px">⭐ ${biz.rating||0}</div></div>
+                    <div style="color:var(--text-sub); font-size:13px; margin-top:4px">📍 ${biz.address||'주소 없음'}</div>
+                </div>`).join('') : '<div style="text-align:center;color:var(--text-sub);padding:40px">검색 결과가 없습니다.</div>';
+            
+            window.handleCardClickProxy = (name) => {
+                const found = list.find(b => b.name === name);
+                if(found) { state.cameFromMainPage = false; showDetail(found); }
+            };
+        }
+
+        function handleCardClick(biz) {
+            if (biz.website && biz.website.length > 5) window.open(biz.website.startsWith('http')?biz.website:'https://'+biz.website, '_blank');
+            else { state.cameFromMainPage = true; showDetail(biz); }
+        }
+
+        function doSearch() {
+            if (!state.selectedCategory || !state.selectedLocation) { alert('위치와 카테고리를 선택해주세요'); return; }
+            showLoading(); 
+            setTimeout(() => {
+                dom.resultLocation.textContent = state.selectedLocation; dom.resultCategory.textContent = state.selectedCategory;
+                const data = state.allBusinessData[state.selectedCategory] || [];
+                state.currentResultsList = data.filter(biz => biz.location && biz.location.includes(state.selectedLocation));
+                renderBusinessList(state.currentResultsList);
+                hideLoading(); 
+                showPage('resultsPage'); 
+            }, 300);
+        }
+
+        function showDetail(biz) {
+            document.getElementById('detailName').textContent = biz.name;
+            document.getElementById('detailRating').textContent = `${biz.rating||0} (${biz.reviews||0})`;
+            document.getElementById('detailAddress').textContent = biz.address||'정보 없음';
+            document.getElementById('detailPhone').textContent = biz.phone||'정보 없음';
+            document.getElementById('detailHours').textContent = biz.hours||'정보 없음';
+            
+            const webItem = document.getElementById('websiteItem');
+            if(biz.website && biz.website.length > 4 && biz.website !== '정보 없음') {
+                let url = biz.website.startsWith('http') ? biz.website : 'https://' + biz.website;
+                document.getElementById('detailWebsite').innerHTML = `<a href="${url}" target="_blank" style="color:var(--primary-color)">홈페이지 방문</a>`;
+                webItem.style.display = 'flex';
+            } else { webItem.style.display = 'none'; }
+            
+            const callBtn = document.getElementById('callBtn');
+            if (biz.phone && biz.phone !== '정보 없음') {
+                callBtn.href = `tel:${biz.phone.replace(/[^0-9+]/g,'')}`;
+                callBtn.style.opacity = '1';
+            } else { callBtn.href = '#'; callBtn.style.opacity = '0.5'; }
+
+            const mapBtn = document.getElementById('mapBtn');
+            const mapURL = biz.googleMapsUrl || biz.googleMapsURL || biz.mapURL;
+            const query = biz.address && biz.address !== '정보 없음' ? biz.address : biz.name;
+            
+            if (mapURL && mapURL !== '정보 없음') {
+                mapBtn.href = mapURL; mapBtn.target = "_blank";
+            } else {
+                mapBtn.href = `http://googleusercontent.com/maps.google.com/3{encodeURIComponent(query)}`;
+                mapBtn.target = "_blank";
+            }
+            showPage('detailPage');
+        }
+
+        function showPage(id) { 
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); 
+            document.getElementById(id).classList.add('active'); 
+        }
+        window.showPage = showPage;
+
+        function showLoading() { if (dom.loadingOverlay) dom.loadingOverlay.classList.add('show'); }
+        function hideLoading() { if (dom.loadingOverlay) dom.loadingOverlay.classList.remove('show'); }
+        function requestUserLocation() { if (navigator.geolocation) navigator.geolocation.getCurrentPosition(pos => state.userLocation = pos.coords, () => state.userLocation = null); }
+        function setupEventListeners() {
+            document.addEventListener('click', e => {
+                if (e.target.classList.contains('location-chip')) {
+                    document.querySelectorAll('.location-chip').forEach(c => c.classList.remove('selected'));
+                    e.target.classList.add('selected'); state.selectedLocation = e.target.dataset.value;
+                } else if (e.target.classList.contains('service-item')) {
+                    document.querySelectorAll('.service-item').forEach(i => i.classList.remove('selected'));
+                    e.target.classList.add('selected'); state.selectedCategory = e.target.dataset.value;
+                }
+                
+                if (e.target.id === 'detailPage' && window.innerWidth >= 768) {
+                    handleDetailBack();
+                }
+            });
+        }
+
+        window.openCategoryURL = (url) => window.open(url, '_blank');
+        window.goToMain = () => { state.cameFromMainPage = false; showPage('mainPage'); };
+        window.goToSearch = () => showPage('searchPage');
+        window.goToResults = () => showPage('resultsPage');
+        window.doSearch = doSearch;
+        window.handleDetailBack = () => state.cameFromMainPage ? goToMain() : goToResults();
+    })();
+    </script>
+</body>
+</html>

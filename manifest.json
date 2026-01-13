@@ -1,0 +1,21 @@
+{
+  "name": "Kornect - 해외 한인 비즈니스 검색",
+  "short_name": "Kornect",
+  "description": "해외 한인 생활의 모든 것을 연결하는 비즈니스 플랫폼",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "Kornect Logo 192X192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Kornect Logo 512X512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
