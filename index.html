@@ -11,6 +11,9 @@
     
     <title>Kornect - 해외 한인 비즈니스 검색</title>
     
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="Kornect Logo 192X192.png">
+
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     
@@ -93,7 +96,7 @@
         .section-header { margin-bottom: 16px; }
         .section-title { font-size: 19px; font-weight: 700; color: var(--text-white); display: flex; align-items: center; gap: 6px; }
 
-        /* 카테고리 & 메뉴 그리드 (기존 유지) */
+        /* 카테고리 & 메뉴 그리드 */
         .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 12px; }
         .cat-item { display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; transition: transform 0.2s; }
         .cat-icon-box { width: 60px; height: 60px; background: var(--bg-card); border-radius: 22px; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s; }
@@ -170,9 +173,7 @@
         .skeleton-loader { background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%); background-size: 200% 100%; animation: loading 1.5s infinite; border-radius: 16px; min-width: 200px; height: 80px; flex-shrink: 0; }
         @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-        /* =========================================
-           [추가됨] Footer 및 법적 고지 스타일
-           ========================================= */
+        /* Footer 및 법적 고지 스타일 */
         .app-footer {
             padding: 40px 20px calc(80px + var(--safe-bottom)) 20px;
             text-align: center;
@@ -184,7 +185,7 @@
         .footer-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 20px; }
         .footer-link-item { font-size: 12px; color: var(--text-sub); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
 
-        /* [추가됨] 플로팅 문의 버튼 */
+        /* 플로팅 문의 버튼 */
         .fab-contact {
             position: fixed;
             bottom: calc(20px + var(--safe-bottom));
@@ -202,7 +203,7 @@
         }
         .fab-contact:active { transform: scale(0.95); }
 
-        /* [추가됨] 팝업 모달 스타일 */
+        /* 팝업 모달 스타일 */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.7);
@@ -245,6 +246,29 @@
         }
         @keyframes fadeInOut { 0% { opacity:0; } 10% { opacity:1; } 90% { opacity:1; } 100% { opacity:0; } }
 
+        /* [추가됨] 앱 설치 배너 스타일 */
+        .install-banner {
+            position: fixed; bottom: 20px; left: 20px; right: 20px;
+            background: rgba(30, 41, 59, 0.95);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 16px;
+            display: none; /* 기본적으로 숨김 */
+            align-items: center; justify-content: space-between;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+            animation: slideUp 0.5s ease;
+        }
+        @keyframes slideUp { from { transform: translateY(100px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+        .install-text { color: white; font-size: 14px; font-weight: 600; }
+        .install-action {
+            background: var(--primary-color); color: white;
+            border: none; padding: 8px 16px; border-radius: 8px;
+            font-weight: 700; font-size: 13px; cursor: pointer;
+        }
+        .install-close { color: #94a3b8; font-size: 20px; cursor: pointer; margin-left: 12px; }
+
         /* 데스크탑 대응 */
         @media (min-width: 768px) {
             .app-container { max-width: 1024px; margin: 0 auto; box-shadow: 0 0 50px rgba(0,0,0,0.5); min-height: 100vh; border: 1px solid rgba(255,255,255,0.05); }
@@ -259,9 +283,13 @@
             .floating-bottom { position: absolute; border-radius: 0 0 24px 24px; bottom: 0; }
             #detailPage.active::before { content: ''; position: fixed; top: -50vh; left: -50vw; width: 200vw; height: 200vh; background: rgba(0,0,0,0.6); z-index: -1; backdrop-filter: blur(4px); pointer-events: all; cursor: pointer; }
             .fab-contact { right: calc(50% - 490px); }
+            
+            /* 데스크탑에서는 설치 배너 중앙 하단 배치 (선택사항) */
+            .install-banner { width: 400px; left: 50%; transform: translateX(-50%); animation: slideUpDesktop 0.5s ease; }
+            @keyframes slideUpDesktop { from { transform: translate(-50%, 100px); opacity:0; } to { transform: translate(-50%, 0); opacity:1; } }
         }
         
-        /* Intro 스타일 유지 */
+        /* Intro 스타일 */
         #introPage { background-color: #F8FAFC !important; color: #0F172A; z-index: 200; }
         .intro-nav { position: absolute; top: 0; left: 0; right: 0; height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); }
         .bg-mesh { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(244, 63, 94, 0.15) 0px, transparent 50%); filter: blur(40px); }
@@ -513,10 +541,24 @@
         </div>
     </div>
     
+    <div id="installBanner" class="install-banner">
+        <div style="display:flex; align-items:center; gap:12px;">
+            <img src="Kornect Logo 192X192.png" style="width:40px; height:40px; border-radius:8px;">
+            <div class="install-text">앱으로 더 편하게 이용하세요!<br><span style="font-size:11px; color:#94a3b8; font-weight:400;">빠른 접속 및 알림 기능 제공</span></div>
+        </div>
+        <div style="display:flex; align-items:center;">
+            <button class="install-action" onclick="installPWA()">설치</button>
+            <span class="material-icons-round install-close" onclick="closeInstallBanner()">close</span>
+        </div>
+    </div>
+    
     <script>
+    // Service Worker Registration
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./service-worker.js').catch(err => console.log('SW Fail', err));
+            navigator.serviceWorker.register('./service-worker.js')
+                .then(reg => console.log('SW Registered', reg))
+                .catch(err => console.log('SW Fail', err));
         });
     }
 
@@ -547,7 +589,30 @@
             await initAppOptimized();
         });
 
-        // --- Modal & Legal Logic Added ---
+        // --- PWA Install Logic ---
+        let deferredPrompt;
+        const installBanner = document.getElementById('installBanner');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            if(installBanner) installBanner.style.display = 'flex';
+        });
+
+        window.installPWA = async () => {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to the install prompt: ${outcome}`);
+            deferredPrompt = null;
+            closeInstallBanner();
+        };
+
+        window.closeInstallBanner = () => {
+            if(installBanner) installBanner.style.display = 'none';
+        };
+
+        // --- Modal & Legal Logic ---
         window.openInquiryModal = () => {
             document.getElementById('inquiryModal').classList.add('open');
         }
@@ -569,13 +634,11 @@
             });
         }
         
-        // Close modal when clicking outside
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', (e) => {
                 if(e.target === overlay) window.closeModals();
             });
         });
-        // ---------------------------------
 
         function setupIntroAnimations() {
             const introPage = document.getElementById('introPage');

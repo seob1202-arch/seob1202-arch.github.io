@@ -1,6 +1,6 @@
 {
   "name": "Kornect - 해외 한인 비즈니스 검색",
-  "short_name": "Kornect",
+  "short_name": "코넥트",
   "description": "해외 한인 생활의 모든 것을 연결하는 비즈니스 플랫폼",
   "start_url": "./index.html",
   "display": "standalone",
