@@ -2,802 +2,550 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#0f172a">
-    
-    <meta name="description" content="해외 한인 생활의 모든 것을 연결하는 비즈니스 플랫폼">
-    <meta property="og:title" content="Kornect - 해외 한인 비즈니스 검색">
-    <meta property="og:description" content="해외 한인 생활의 모든 것을 연결하는 비즈니스 플랫폼">
-    
-    <title>Kornect - 해외 한인 비즈니스 검색</title>
-    
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="Kornect Logo 192X192.png">
-
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    
-    <style>
-        /* =========================================
-           1. CORE & MOBILE BASE STYLES 
-           ========================================= */
-        :root {
-            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-            --primary-color: #6366f1;
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --bg-icon: #334155;
-            --text-main: #f1f5f9;
-            --text-sub: #94a3b8;
-            --text-white: #ffffff;
-            --radius-lg: 24px;
-            --safe-top: env(safe-area-inset-top);
-            --safe-bottom: env(safe-area-inset-bottom);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body {
-            font-family: "Pretendard Variable", Pretendard, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-main);
-            min-height: 100vh;
-            overflow: hidden; 
-            display: flex;
-            justify-content: center;
-        }
-
-        ::-webkit-scrollbar { width: 6px; display: none; }
-        
-        .app-container {
-            width: 100%; 
-            height: 100vh;
-            display: flex; flex-direction: column;
-            position: relative; overflow: hidden;
-            background: var(--bg-dark);
-            max-width: 100%;
-        }
-
-        /* 공통 페이지 설정 */
-        .page {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--bg-dark);
-            overflow-y: auto; overflow-x: hidden;
-            padding-bottom: calc(80px + var(--safe-bottom)); /* Footer space included */
-            display: none; z-index: 10;
-        }
-        #mainPage { display: block; }
-        .page.active { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* 헤더 */
-        .app-header {
-            padding: calc(16px + var(--safe-top)) 20px 16px;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(12px);
-            position: sticky; top: 0; z-index: 50;
-            display: flex; align-items: center; justify-content: space-between;
-            width: 100%;
-        }
-        
-        .header-brand { display: flex; flex-direction: column; justify-content: center; gap: 5px; }
-        .header-brand-img { height: 42px; width: auto; object-fit: contain; object-position: left; display: block; }
-        .header-brand-slogan { font-size: 14.3px; font-weight: 600; color: #ffffff; letter-spacing: -0.02em; line-height: 1.1; opacity: 0.95; white-space: nowrap; }
-
-        .header-actions { display: flex; gap: 12px; }
-        .btn-circle { width: 40px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 50%; color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;}
-
-        /* 메인 컨텐츠 영역 */
-        .content-container { padding: 0 20px 24px; }
-        .section { margin-bottom: 32px; }
-        .section-header { margin-bottom: 16px; }
-        .section-title { font-size: 19px; font-weight: 700; color: var(--text-white); display: flex; align-items: center; gap: 6px; }
-
-        /* 카테고리 & 메뉴 그리드 */
-        .category-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px 12px; }
-        .cat-item { display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; transition: transform 0.2s; }
-        .cat-icon-box { width: 60px; height: 60px; background: var(--bg-card); border-radius: 22px; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s; }
-        .cat-icon-box .material-icons-round { font-size: 28px; }
-        .cat-item:active .cat-icon-box { transform: scale(0.95); filter: brightness(1.2); }
-        .cat-name { font-size: 12px; color: var(--text-sub); font-weight: 500; text-align: center; }
-
-        .modern-menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        .modern-card { background: var(--bg-card); border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px; cursor: pointer; transition: 0.2s; border: 1px solid rgba(255,255,255,0.05); }
-        .modern-card:active { transform: scale(0.98); background: rgba(255,255,255,0.1); }
-        .modern-icon { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
-        
-        /* 테마 컬러 클래스 */
-        .theme-orange { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
-        .theme-indigo { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
-        .theme-pink { background: rgba(244, 114, 182, 0.15); color: #f472b6; }
-        .theme-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
-        .theme-teal { background: rgba(45, 212, 191, 0.15); color: #2dd4bf; }
-        .theme-purple { background: rgba(167, 139, 250, 0.15); color: #a78bfa; }
-        
-        .modern-card-text { display: flex; flex-direction: column; gap: 4px; }
-        .modern-card-title { font-size: 15px; font-weight: 700; color: white; }
-        .modern-card-desc { font-size: 11px; color: var(--text-sub); }
-
-        /* 배너 & 통계 */
-        .banner-card { background: var(--primary-gradient); border-radius: var(--radius-lg); padding: 24px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); margin-bottom: 32px; text-decoration: none; transition: transform 0.2s; }
-        .banner-title { font-size: 18px; font-weight: 800; color: white; display: block; margin-bottom: 4px;}
-        .banner-desc { font-size: 13px; color: rgba(255,255,255,0.9); display: block;}
-        .banner-icon { font-size: 32px; background: rgba(255,255,255,0.2); padding: 12px; border-radius: 50%; color: white; }
-
-        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 32px; }
-        .stat-card { background: rgba(255,255,255,0.03); padding: 16px 8px; border-radius: 16px; text-align: center; }
-        .stat-number { font-size: 20px; font-weight: 800; color: var(--primary-color); margin-bottom: 4px; }
-        .stat-label { font-size: 11px; color: var(--text-sub); }
-
-        /* 가로 스크롤 */
-        .h-scroll-view { display: flex; gap: 16px; overflow-x: auto; padding-right: 20px; margin-right: -20px; padding-bottom: 10px; }
-        .biz-card-sm { min-width: 200px; background: var(--bg-card); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s; }
-        .biz-title { font-size: 15px; font-weight: 700; color: white; margin-bottom: 4px; }
-        .biz-meta { font-size: 12px; color: var(--text-sub); }
-        .biz-rating-badge { margin-top: 10px; font-size: 12px; color: #fbbf24; font-weight: 700; }
-
-        /* 검색/결과/상세 */
-        .search-btn { width: 100%; padding: 18px; background: var(--primary-gradient); border: none; border-radius: 16px; color: white; font-weight: 700; margin-top: 20px; cursor: pointer; transition: 0.2s; }
-        .location-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .location-chip { padding: 12px; text-align: center; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: var(--text-sub); font-size: 13px; font-weight: 600; cursor: pointer; }
-        .location-chip.selected { background: var(--primary-color); color: white; border-color: var(--primary-color); }
-        .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .service-item { padding: 14px; text-align: center; background: var(--bg-card); border-radius: 12px; color: var(--text-main); font-size: 14px; font-weight: 600; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
-        .service-item.selected { background: var(--primary-color); color: white; border-color: var(--primary-color); }
-        .business-card { background: var(--bg-card); padding: 16px; border-radius: 16px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; }
-        
-        /* 상세 페이지 */
-        #detailPage { transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex !important; flex-direction: column; z-index: 100; padding: 0; }
-        #detailPage.active { transform: translateY(0); }
-        .detail-header-img { height: 120px; background: var(--primary-gradient); position: relative; flex-shrink: 0; }
-        .detail-nav { position: absolute; top: var(--safe-top); left: 0; right: 0; padding: 12px 20px; display: flex; justify-content: space-between; }
-        .detail-content { flex: 1; background: var(--bg-dark); margin-top: -24px; border-radius: 24px 24px 0 0; position: relative; padding: 24px 20px 100px; overflow-y: auto; }
-        .detail-name { font-size: 26px; font-weight: 800; color: white; margin-bottom: 8px; }
-        .info-group { background: var(--bg-card); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
-        .info-item { display: flex; gap: 16px; margin-bottom: 16px; }
-        .info-icon { color: var(--text-sub); width: 24px; }
-        .info-text { flex: 1; color: var(--text-main); font-size: 15px; }
-        .floating-bottom { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 20px calc(16px + var(--safe-bottom)); background: rgba(15, 23, 42, 0.95); display: flex; gap: 12px; }
-        .action-btn { flex: 1; height: 56px; border-radius: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border:none; cursor: pointer; transition: 0.2s;}
-        .action-btn.primary { background: var(--primary-color); color: white; }
-        .action-btn.secondary { background: rgba(255,255,255,0.1); color: white; }
-
-        /* 로더 */
-        .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 9999; }
-        .loading-overlay.show { display: flex; }
-        .spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 0.8s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .skeleton-loader { background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%); background-size: 200% 100%; animation: loading 1.5s infinite; border-radius: 16px; min-width: 200px; height: 80px; flex-shrink: 0; }
-        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
-        /* Footer 및 법적 고지 스타일 */
-        .app-footer {
-            padding: 40px 20px calc(80px + var(--safe-bottom)) 20px;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            margin-top: 40px;
-        }
-        .footer-logo { font-weight: 800; font-size: 16px; color: var(--text-sub); margin-bottom: 12px; }
-        .footer-info { font-size: 11px; color: #64748b; line-height: 1.6; margin-bottom: 16px; word-break: keep-all;}
-        .footer-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 20px; }
-        .footer-link-item { font-size: 12px; color: var(--text-sub); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
-
-        /* 플로팅 문의 버튼 */
-        .fab-contact {
-            position: fixed;
-            bottom: calc(20px + var(--safe-bottom));
-            right: 20px;
-            width: 56px; height: 56px;
-            background: var(--primary-gradient);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            color: white;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
-            z-index: 90;
-            cursor: pointer;
-            transition: transform 0.2s;
-            border: none;
-        }
-        .fab-contact:active { transform: scale(0.95); }
-
-        /* 팝업 모달 스타일 */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
-            z-index: 2000;
-            display: none;
-            align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.3s;
-        }
-        .modal-overlay.open { display: flex; opacity: 1; }
-        
-        .modal-box {
-            width: 90%; max-width: 500px;
-            background: var(--bg-card);
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.1);
-            overflow: hidden;
-            display: flex; flex-direction: column;
-            max-height: 80vh;
-            transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .modal-overlay.open .modal-box { transform: scale(1); }
-        
-        .modal-header { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
-        .modal-title { font-size: 18px; font-weight: 700; color: white; }
-        .modal-close { color: var(--text-sub); cursor: pointer; }
-        
-        .modal-body { padding: 24px 20px; overflow-y: auto; font-size: 14px; color: var(--text-sub); line-height: 1.6; white-space: pre-line; }
-        
-        .inquiry-options { display: flex; flex-direction: column; gap: 12px; }
-        .inquiry-btn { width: 100%; padding: 16px; border-radius: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; border: none; font-size: 15px; }
-        .btn-email { background: var(--primary-color); color: white; }
-        .btn-copy { background: rgba(255,255,255,0.1); color: white; }
-
-        .toast-msg {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: rgba(0,0,0,0.8); color: white; padding: 12px 24px; border-radius: 30px;
-            font-size: 14px; z-index: 3000; display: none; pointer-events: none;
-            animation: fadeInOut 2s ease forwards;
-        }
-        @keyframes fadeInOut { 0% { opacity:0; } 10% { opacity:1; } 90% { opacity:1; } 100% { opacity:0; } }
-
-        /* [추가됨] 앱 설치 배너 스타일 */
-        .install-banner {
-            position: fixed; bottom: 20px; left: 20px; right: 20px;
-            background: rgba(30, 41, 59, 0.95);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            padding: 16px;
-            display: none; /* 기본적으로 숨김 */
-            align-items: center; justify-content: space-between;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            z-index: 9999;
-            backdrop-filter: blur(10px);
-            animation: slideUp 0.5s ease;
-        }
-        @keyframes slideUp { from { transform: translateY(100px); opacity:0; } to { transform: translateY(0); opacity:1; } }
-        .install-text { color: white; font-size: 14px; font-weight: 600; }
-        .install-action {
-            background: var(--primary-color); color: white;
-            border: none; padding: 8px 16px; border-radius: 8px;
-            font-weight: 700; font-size: 13px; cursor: pointer;
-        }
-        .install-close { color: #94a3b8; font-size: 20px; cursor: pointer; margin-left: 12px; }
-
-        /* 데스크탑 대응 */
-        @media (min-width: 768px) {
-            .app-container { max-width: 1024px; margin: 0 auto; box-shadow: 0 0 50px rgba(0,0,0,0.5); min-height: 100vh; border: 1px solid rgba(255,255,255,0.05); }
-            .category-grid { grid-template-columns: repeat(8, 1fr); }
-            .modern-menu-grid { grid-template-columns: repeat(4, 1fr); }
-            .h-scroll-view { flex-wrap: wrap; overflow-x: visible; padding-right: 0; margin-right: 0; }
-            .biz-card-sm { width: calc(33.333% - 11px); min-width: auto; }
-            
-            #detailPage.active { transform: translate(-50%, -50%); top: 50%; left: 50%; width: 600px; height: 80vh; border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); border: 1px solid rgba(255,255,255,0.1); overflow: hidden; }
-            .detail-content { margin-top: 0; padding-top: 24px; }
-            .detail-header-img { height: 160px; }
-            .floating-bottom { position: absolute; border-radius: 0 0 24px 24px; bottom: 0; }
-            #detailPage.active::before { content: ''; position: fixed; top: -50vh; left: -50vw; width: 200vw; height: 200vh; background: rgba(0,0,0,0.6); z-index: -1; backdrop-filter: blur(4px); pointer-events: all; cursor: pointer; }
-            .fab-contact { right: calc(50% - 490px); }
-            
-            /* 데스크탑에서는 설치 배너 중앙 하단 배치 (선택사항) */
-            .install-banner { width: 400px; left: 50%; transform: translateX(-50%); animation: slideUpDesktop 0.5s ease; }
-            @keyframes slideUpDesktop { from { transform: translate(-50%, 100px); opacity:0; } to { transform: translate(-50%, 0); opacity:1; } }
-        }
-        
-        /* Intro 스타일 */
-        #introPage { background-color: #F8FAFC !important; color: #0F172A; z-index: 200; }
-        .intro-nav { position: absolute; top: 0; left: 0; right: 0; height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .bg-mesh { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(244, 63, 94, 0.15) 0px, transparent 50%); filter: blur(40px); }
-        .hero { padding: 100px 0 60px; text-align: center; }
-        .section-eyebrow { font-size: 13px; font-weight: 800; color: #3B82F6; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 12px; }
-        .text-gradient { background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #F43F5E 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .intro-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 20px; padding: 24px; margin-bottom: 16px; }
-        .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 16px 32px; font-size: 17px; font-weight: 700; color: white; background: linear-gradient(135deg, #3B82F6 0%, #F43F5E 100%); border-radius: 14px; text-decoration: none; box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.4); }
-    </style>
-</head>
-<body>
-    <div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div></div>
-    
-    <div id="toast" class="toast-msg">이메일 주소가 복사되었습니다.</div>
-
-    <div class="app-container">
-        
-        <div class="page active" id="mainPage">
-            <header class="app-header">
-                <div class="header-brand">
-                    <img src="https://drive.google.com/thumbnail?id=1FoWG_L4oKEw-FDk6-kO6KY_6E8rU_mig&sz=w1000" class="header-brand-img" alt="Kornect Logo">
-                    <span class="header-brand-slogan">해외 한인 생활의 모든 것을 연결합니다</span>
-                </div>
-                <div class="header-actions">
-                    <button class="btn-circle" onclick="showPage('introPage')" title="서비스 소개"><span class="material-icons-round">info</span></button>
-                </div>
-            </header>
-
-            <div class="content-container">
-                <a href="https://join-olive.vercel.app" target="_blank" class="banner-card">
-                    <div class="banner-content">
-                        <span class="banner-title">비즈니스 무료 등록</span>
-                        <span class="banner-desc">전 세계 한인들에게 홍보하세요!</span>
-                    </div>
-                    <span class="material-icons-round banner-icon">storefront</span>
-                </a>
-
-                <div class="stats">
-                    <div class="stat-card"><div class="stat-number">50+</div><div class="stat-label">도시</div></div>
-                    <div class="stat-card"><div class="stat-number">9</div><div class="stat-label">카테고리</div></div>
-                    <div class="stat-card"><div class="stat-number">Free</div><div class="stat-label">서비스</div></div>
-                </div>
-
-                <div class="section">
-                    <div class="section-header"><div class="section-title">업체 검색하기</div></div>
-                    <div class="category-grid">
-                        <div class="cat-item" onclick="openCategoryURL('https://example.com/taxi')"><div class="cat-icon-box"><span class="material-icons-round">local_taxi</span></div> <div class="cat-name">한인택시</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://example.com/stay')"><div class="cat-icon-box"><span class="material-icons-round">hotel</span></div> <div class="cat-name">한인숙소</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://example.com/tour')"><div class="cat-icon-box"><span class="material-icons-round">flag</span></div> <div class="cat-name">투어</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://example.com/restaurant')"><div class="cat-icon-box"><span class="material-icons-round">restaurant</span></div> <div class="cat-name">한식당</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://example.com/mart')"><div class="cat-icon-box"><span class="material-icons-round">shopping_cart</span></div> <div class="cat-name">마트</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://example.com/beauty')"><div class="cat-icon-box"><span class="material-icons-round">content_cut</span></div> <div class="cat-name">뷰티</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://example.com/legal')"><div class="cat-icon-box"><span class="material-icons-round">gavel</span></div> <div class="cat-name">법률/세무</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://example.com/life')"><div class="cat-icon-box"><span class="material-icons-round">build</span></div> <div class="cat-name">생활</div></div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-header"><div class="section-title">✨ 주요 서비스</div></div>
-                    <div class="modern-menu-grid">
-                        <div class="modern-card" onclick="openCategoryURL('https://example.com/guide')"><div class="modern-icon theme-orange"><span class="material-icons-round">auto_stories</span></div><div class="modern-card-text"><div class="modern-card-title">올인원 퀵가이드</div><div class="modern-card-desc">여행 준비 필수 정보</div></div></div>
-                        <div class="modern-card" onclick="openCategoryURL('https://used-market-omega.vercel.app')"><div class="modern-icon theme-indigo"><span class="material-icons-round">storefront</span></div><div class="modern-card-text"><div class="modern-card-title">중고거래 장터</div><div class="modern-card-desc">교민 간 안전한 거래</div></div></div>
-                        <div class="modern-card" onclick="openCategoryURL('https://shopping-seven-taupe.vercel.app')"><div class="modern-icon theme-pink"><span class="material-icons-round">local_fire_department</span></div><div class="modern-card-text"><div class="modern-card-title">현지 핫템 정보</div><div class="modern-card-desc">지금 뜨는 아이템은?</div></div></div>
-                        <div class="modern-card" onclick="openCategoryURL('https://freelancer-psi-five.vercel.app')"><div class="modern-icon theme-blue"><span class="material-icons-round">laptop_mac</span></div><div class="modern-card-text"><div class="modern-card-title">K-프리랜서 마켓</div><div class="modern-card-desc">전문가 재능 마켓</div></div></div>
-                        <div class="modern-card" onclick="openCategoryURL('https://faq-eight-eta.vercel.app')"><div class="modern-icon theme-teal"><span class="material-icons-round">map</span></div><div class="modern-card-text"><div class="modern-card-title">여행정보 로드맵</div><div class="modern-card-desc">자주 묻는 질문 FAQ</div></div></div>
-                        <div class="modern-card" onclick="openCategoryURL('https://k-contents.vercel.app')"><div class="modern-icon theme-purple"><span class="material-icons-round">play_circle</span></div><div class="modern-card-text"><div class="modern-card-title">K-숏폼 큐레이션</div><div class="modern-card-desc">화제의 영상 & 뉴스</div></div></div>
-                    </div>
-                </div>
-                
-                <div class="section">
-                    <div class="section-header"><div class="section-title">🔥 인기 비즈니스</div></div>
-                    <div class="h-scroll-view" id="featuredList">
-                        <div class="skeleton-loader"></div><div class="skeleton-loader"></div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-header"><div class="section-title">✨ 신규 비즈니스</div></div>
-                    <div class="h-scroll-view" id="newList">
-                         <div class="skeleton-loader"></div><div class="skeleton-loader"></div>
-                    </div>
-                </div>
-
-                <footer class="app-footer">
-                    <div class="footer-links">
-                        <span class="footer-link-item" onclick="openLegalModal('terms')">이용약관</span>
-                        <span style="color:#334155">|</span>
-                        <span class="footer-link-item" onclick="openLegalModal('privacy')" style="font-weight:700">개인정보처리방침</span>
-                    </div>
-                    <div class="footer-logo">Kornect</div>
-                    <div class="footer-info">
-                        상호명: Kornect (코넥트) | 대표자: 신영섭<br>
-                        주소: 경기도 광명시 하안로 108, 521호(소하동, 에이스 광명타워)<br>
-                        사업자등록번호: 347-02-03104 | 이메일: admin@kornect.kr<br>
-                        <br>
-                        Kornect는 통신판매중개자로서 거래 당사자가 아니며,<br>
-                        등록된 업체 정보의 정확성에 대해 책임을 지지 않습니다.
-                    </div>
-                    <div style="font-size:10px; color:#475569; margin-top:8px;">© 2026 Kornect. All rights reserved.</div>
-                </footer>
-            </div>
-            
-            <button class="fab-contact" onclick="openInquiryModal()">
-                <span class="material-icons-round" style="font-size:24px;">mail</span>
-            </button>
-        </div>
-        
-        <div class="page" id="searchPage">
-            <header class="app-header">
-                <button class="btn-circle" onclick="goToMain()"><span class="material-icons-round">arrow_back</span></button>
-                <div style="color:white; font-weight:700;">검색 설정</div>
-                <div style="width:40px"></div>
-            </header>
-            <div class="content-container" style="padding-top: 20px;">
-                <div class="section">
-                    <div class="section-title" style="margin-bottom:12px;">📍 위치 선택</div>
-                    <div class="location-grid"><div style="color:var(--text-sub); font-size:13px;">로딩 중...</div></div>
-                </div>
-                <div class="section">
-                    <div class="section-title" style="margin-bottom:12px;">🔍 서비스 카테고리</div>
-                    <div class="service-grid"><div style="color:var(--text-sub); font-size:13px;">로딩 중...</div></div>
-                </div>
-                <button class="search-btn" onclick="doSearch()">검색하기</button>
-            </div>
-        </div>
-        
-        <div class="page" id="resultsPage">
-            <header class="app-header">
-                <button class="btn-circle" onclick="goToSearch()"><span class="material-icons-round">arrow_back</span></button>
-                <div style="color:var(--text-sub); font-size:14px;"><strong id="resultLocation" style="color:var(--primary-color)"></strong>의 <strong id="resultCategory" style="color:var(--primary-color)"></strong></div>
-                <div style="width:40px"></div>
-            </header>
-            <div class="business-list" id="businessList"></div>
-        </div>
-        
-        <div class="page" id="detailPage">
-            <div class="detail-header-img">
-                <div class="detail-nav">
-                    <button class="btn-circle" onclick="handleDetailBack()"><span class="material-icons-round">arrow_back</span></button>
-                    <button class="btn-circle"><span class="material-icons-round">share</span></button>
-                </div>
-            </div>
-            <div class="detail-content">
-                <div class="detail-name" id="detailName">...</div>
-                <div style="color:#fbbf24; font-weight:700; margin-bottom:20px;">⭐ <span id="detailRating">...</span></div>
-                <div class="info-group">
-                    <div class="info-item"><span class="material-icons-round info-icon">location_on</span><div class="info-text" id="detailAddress">...</div></div>
-                    <div class="info-item"><span class="material-icons-round info-icon">call</span><div class="info-text" id="detailPhone">...</div></div>
-                    <div class="info-item"><span class="material-icons-round info-icon">schedule</span><div class="info-text" id="detailHours">...</div></div>
-                    <div class="info-item" id="websiteItem" style="display:none"><span class="material-icons-round info-icon">language</span><div class="info-text" id="detailWebsite">...</div></div>
-                </div>
-            </div>
-            <div class="floating-bottom">
-                <a class="action-btn secondary" id="mapBtn" target="_blank"><span class="material-icons-round">map</span> 길찾기</a>
-                <a class="action-btn primary" id="callBtn"><span class="material-icons-round">call</span> 전화하기</a>
-            </div>
-        </div>
-
-        <div class="page" id="introPage">
-            <div class="bg-mesh"></div>
-            <nav class="intro-nav">
-                <div class="intro-logo" style="font-weight:800; font-size:18px;">Kornect</div>
-                <span class="material-icons-round intro-close-btn" style="font-size:24px; cursor:pointer;" onclick="goToMain()">close</span>
-            </nav>
-
-            <div style="overflow-y: auto; height: 100%; padding-top: 60px;"> 
-                <section class="hero">
-                    <div class="container" style="padding:0 24px;">
-                        <span class="section-eyebrow fade-in-up">GLOBAL KOREAN BUSINESS</span>
-                        <h1 class="fade-in-up" style="font-size:36px; font-weight:800; line-height:1.2; margin-bottom:20px; color:#0F172A;">
-                            한인 비즈니스,<br><span class="text-gradient">세상에 닿다</span>
-                        </h1>
-                        <p class="fade-in-up" style="color:#475569; margin-bottom:32px;">홍보부터 고객 연결까지<br>사장님은 <strong>본업</strong>에만 집중하세요.</p>
-                        <a href="https://join-olive.vercel.app" class="btn-primary fade-in-up" target="_blank">무료로 등록하기</a>
-                    </div>
-                </section>
-                <div style="padding: 20px;">
-                    <div class="intro-card"><h3 style="font-size:18px; font-weight:700; margin-bottom:8px;">🔍 고객 확보</h3><p style="font-size:14px; color:#475569;">현지인과 한인 커뮤니티,<br>동시에 홍보하기 막막하셨죠?</p></div>
-                    <div class="intro-card"><h3 style="font-size:18px; font-weight:700; margin-bottom:8px;">💸 마케팅 비용</h3><p style="font-size:14px; color:#475569;">복잡하고 비싼 온라인 광고,<br>효과는 없고 부담만 큽니다.</p></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="modal-overlay" id="inquiryModal">
-        <div class="modal-box">
-            <div class="modal-header">
-                <span class="modal-title">문의 및 제휴</span>
-                <span class="material-icons-round modal-close" onclick="closeModals()">close</span>
-            </div>
-            <div class="modal-body" style="text-align:center; padding-bottom:30px;">
-                <p style="margin-bottom:20px;">Kornect 서비스 이용 문의나<br>제휴 제안은 이메일로 보내주세요.</p>
-                <div class="inquiry-options">
-                    <button class="inquiry-btn btn-email" onclick="location.href='mailto:admin@kornect.kr'">
-                        <span class="material-icons-round">send</span> 이메일 앱 열기
-                    </button>
-                    <button class="inquiry-btn btn-copy" onclick="copyEmail()">
-                        <span class="material-icons-round">content_copy</span> 주소 복사하기
-                    </button>
-                </div>
-                <div style="margin-top:16px; font-size:13px; color:#64748b;">admin@kornect.kr</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="termsModal">
-        <div class="modal-box">
-            <div class="modal-header">
-                <span class="modal-title">이용약관</span>
-                <span class="material-icons-round modal-close" onclick="closeModals()">close</span>
-            </div>
-            <div class="modal-body">
-                <strong>제1조 (목적)</strong>
-                본 약관은 Kornect(이하 "회사")가 제공하는 한인 비즈니스 정보 제공 서비스(이하 "서비스")의 이용과 관련하여 회사와 회원의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.
-
-                <strong>제2조 (서비스의 내용)</strong>
-                1. 회사는 전 세계 한인 비즈니스 정보를 수집하여 이용자에게 제공하는 플랫폼 서비스를 운영합니다.
-                2. 회사는 직접 상품을 판매하거나 용역을 제공하는 당사자가 아니며, 입점 업체와 이용자 간의 거래에 대해 책임을 지지 않습니다.
-
-                <strong>제3조 (면책 조항)</strong>
-                회사는 플랫폼 내에 등록된 업체의 정보(상호, 연락처, 주소 등)의 정확성, 신뢰성 등에 대하여 보증하지 않으며, 이를 신뢰하여 발생한 손해에 대해 책임을 지지 않습니다.
-
-                <strong>제4조 (지식재산권)</strong>
-                서비스 내의 모든 콘텐츠에 대한 저작권은 회사 또는 해당 콘텐츠 제공자에게 있습니다.
-                
-                </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="privacyModal">
-        <div class="modal-box">
-            <div class="modal-header">
-                <span class="modal-title">개인정보처리방침</span>
-                <span class="material-icons-round modal-close" onclick="closeModals()">close</span>
-            </div>
-            <div class="modal-body">
-                <strong>1. 개인정보 수집 항목</strong>
-                Kornect는 별도의 회원가입 없이 이용 가능하며, 서비스 제공을 위해 최소한의 정보를 수집합니다.
-                - 필수항목: 서비스 이용 기록, 접속 로그, 쿠키, 위치 정보(이용자 동의 시)
-
-                <strong>2. 개인정보 수집 목적</strong>
-                수집된 정보는 서비스 제공, 사용자 경험 개선, 접속 빈도 파악 및 서비스 이용 통계 작성을 위해 사용됩니다.
-
-                <strong>3. 개인정보의 보유 및 이용 기간</strong>
-                수집된 정보는 목적 달성 후 지체 없이 파기합니다. 단, 관계 법령에 따라 보존이 필요한 경우 해당 기간 동안 보관합니다.
-
-                <strong>4. 사용자 권리</strong>
-                이용자는 언제든지 자신의 개인정보 수집에 대한 동의를 철회하거나 삭제를 요청할 수 있습니다. 문의사항은 admin@kornect.kr로 연락 바랍니다.
-                
-                </div>
-        </div>
-    </div>
-    
-    <div id="installBanner" class="install-banner">
-        <div style="display:flex; align-items:center; gap:12px;">
-            <img src="Kornect Logo 192X192.png" style="width:40px; height:40px; border-radius:8px;">
-            <div class="install-text">앱으로 더 편하게 이용하세요!<br><span style="font-size:11px; color:#94a3b8; font-weight:400;">빠른 접속 및 알림 기능 제공</span></div>
-        </div>
-        <div style="display:flex; align-items:center;">
-            <button class="install-action" onclick="installPWA()">설치</button>
-            <span class="material-icons-round install-close" onclick="closeInstallBanner()">close</span>
-        </div>
-    </div>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>StayPick AI - 나만의 여행 큐레이터</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <script>
-    // Service Worker Registration
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./service-worker.js')
-                .then(reg => console.log('SW Registered', reg))
-                .catch(err => console.log('SW Fail', err));
-        });
-    }
-
-    (function() {
-        'use strict';
-        const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzN8mtYeMS2JRIABZ0Mkm6CAwDM0UOOdah6mmakuiYlh0Oa6p1enjrZJiYD6PhuwmqoKw/exec';
-        
-        const categoryEmojiMap = { '한식당/카페': '🍽️', '마트/식품점': '🛒', '뷰티 서비스': '💇', '의료 서비스': '🏥', '법률/세무': '⚖️', '생활 서비스': '🛠️', '교육/학원': '📚', '이사/운송': '📦', '종교': '⛪' };
-        const state = { allBusinessData: {}, currentResultsList: [], selectedLocation: '', selectedCategory: '', userLocation: null, cameFromMainPage: false };
-        const dom = {};
-        
-        function cacheDOMElements() {
-            dom.loadingOverlay = document.getElementById('loadingOverlay');
-            dom.featuredList = document.getElementById('featuredList');
-            dom.newList = document.getElementById('newList');
-            dom.locationGrid = document.querySelector('.location-grid');
-            dom.serviceGrid = document.querySelector('.service-grid');
-            dom.businessList = document.getElementById('businessList');
-            dom.resultLocation = document.getElementById('resultLocation');
-            dom.resultCategory = document.getElementById('resultCategory');
-        }
-
-        document.addEventListener('DOMContentLoaded', async function() { 
-            cacheDOMElements(); 
-            setupEventListeners(); 
-            requestUserLocation();
-            setupIntroAnimations();
-            await initAppOptimized();
-        });
-
-        // --- PWA Install Logic ---
-        let deferredPrompt;
-        const installBanner = document.getElementById('installBanner');
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            if(installBanner) installBanner.style.display = 'flex';
-        });
-
-        window.installPWA = async () => {
-            if (!deferredPrompt) return;
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            console.log(`User response to the install prompt: ${outcome}`);
-            deferredPrompt = null;
-            closeInstallBanner();
-        };
-
-        window.closeInstallBanner = () => {
-            if(installBanner) installBanner.style.display = 'none';
-        };
-
-        // --- Modal & Legal Logic ---
-        window.openInquiryModal = () => {
-            document.getElementById('inquiryModal').classList.add('open');
-        }
-        
-        window.openLegalModal = (type) => {
-            if(type === 'terms') document.getElementById('termsModal').classList.add('open');
-            if(type === 'privacy') document.getElementById('privacyModal').classList.add('open');
-        }
-        
-        window.closeModals = () => {
-            document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('open'));
-        }
-        
-        window.copyEmail = () => {
-            navigator.clipboard.writeText('admin@kornect.kr').then(() => {
-                const toast = document.getElementById('toast');
-                toast.style.display = 'block';
-                setTimeout(() => { toast.style.display = 'none'; }, 2000);
-            });
-        }
-        
-        document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', (e) => {
-                if(e.target === overlay) window.closeModals();
-            });
-        });
-
-        function setupIntroAnimations() {
-            const introPage = document.getElementById('introPage');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1, root: introPage }); 
-            introPage.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
-        }
-
-        async function initAppOptimized() {
-            try {
-                const res = await fetch(GAS_WEB_APP_URL);
-                if(!res.ok) throw new Error('Network error');
-                const data = await res.json();
-                if (data.error) throw new Error(data.error);
-                processData(data);
-            } catch (error) { 
-                console.error('Error:', error);
-                if(dom.featuredList) dom.featuredList.innerHTML = '<div style="padding:10px; font-size:13px; color:#ef4444">데이터 로드 실패</div>';
-                if(dom.newList) dom.newList.innerHTML = '<div style="padding:10px; font-size:13px; color:#ef4444">데이터 로드 실패</div>';
-            }
-        }
-
-        function processData(data) {
-            state.allBusinessData = data.businessesByCategory;
-            displayFeatured(data.featured, dom.featuredList);
-            displayFeatured(data.new, dom.newList);
-            populateFilters(data.filters);
-        }
-
-        function displayFeatured(items, container) {
-            if (!container) return;
-            container.innerHTML = ''; 
-            if (!items || items.length === 0) { 
-                container.innerHTML = '<div style="color:var(--text-sub); font-size:13px; padding:10px;">데이터가 없습니다.</div>'; 
-                return; 
-            }
-            const fragment = document.createDocumentFragment();
-            items.forEach(biz => {
-                const card = document.createElement('div');
-                card.className = 'biz-card-sm';
-                card.onclick = () => handleCardClick(biz);
-                card.innerHTML = `<div class="biz-title">${biz.name}</div><div class="biz-meta">${biz.category} • ${biz.location||'위치'}</div><div class="biz-rating-badge">⭐ ${biz.rating||0}</div>`;
-                fragment.appendChild(card);
-            });
-            container.appendChild(fragment);
-        }
-
-        function populateFilters(filters) {
-            if (!dom.locationGrid || !dom.serviceGrid) return;
-            dom.locationGrid.innerHTML = filters.locations.map((loc, i) => `<div class="location-chip ${i===0?'selected':''}" data-value="${loc}">${loc}</div>`).join('');
-            if(filters.locations[0]) state.selectedLocation = filters.locations[0];
-            dom.serviceGrid.innerHTML = filters.categories.map(cat => `<div class="service-item" data-value="${cat}">${categoryEmojiMap[cat]||'❔'} ${cat}</div>`).join('');
-        }
-
-        function renderBusinessList(list) {
-            if (!dom.businessList) return;
-            dom.businessList.innerHTML = list.length ? list.map(biz => `
-                <div class="business-card" onclick="handleCardClickProxy('${biz.name}')">
-                    <div style="display:flex; justify-content:space-between"><div style="color:white; font-weight:700">${biz.name}</div><div style="color:#fbbf24; font-size:13px">⭐ ${biz.rating||0}</div></div>
-                    <div style="color:var(--text-sub); font-size:13px; margin-top:4px">📍 ${biz.address||'주소 없음'}</div>
-                </div>`).join('') : '<div style="text-align:center;color:var(--text-sub);padding:40px">검색 결과가 없습니다.</div>';
-            
-            window.handleCardClickProxy = (name) => {
-                const found = list.find(b => b.name === name);
-                if(found) { state.cameFromMainPage = false; showDetail(found); }
-            };
-        }
-
-        function handleCardClick(biz) {
-            if (biz.website && biz.website.length > 5) window.open(biz.website.startsWith('http')?biz.website:'https://'+biz.website, '_blank');
-            else { state.cameFromMainPage = true; showDetail(biz); }
-        }
-
-        function doSearch() {
-            if (!state.selectedCategory || !state.selectedLocation) { alert('위치와 카테고리를 선택해주세요'); return; }
-            showLoading(); 
-            setTimeout(() => {
-                dom.resultLocation.textContent = state.selectedLocation; dom.resultCategory.textContent = state.selectedCategory;
-                const data = state.allBusinessData[state.selectedCategory] || [];
-                state.currentResultsList = data.filter(biz => biz.location && biz.location.includes(state.selectedLocation));
-                renderBusinessList(state.currentResultsList);
-                hideLoading(); 
-                showPage('resultsPage'); 
-            }, 300);
-        }
-
-        function showDetail(biz) {
-            document.getElementById('detailName').textContent = biz.name;
-            document.getElementById('detailRating').textContent = `${biz.rating||0} (${biz.reviews||0})`;
-            document.getElementById('detailAddress').textContent = biz.address||'정보 없음';
-            document.getElementById('detailPhone').textContent = biz.phone||'정보 없음';
-            document.getElementById('detailHours').textContent = biz.hours||'정보 없음';
-            
-            const webItem = document.getElementById('websiteItem');
-            if(biz.website && biz.website.length > 4 && biz.website !== '정보 없음') {
-                let url = biz.website.startsWith('http') ? biz.website : 'https://' + biz.website;
-                document.getElementById('detailWebsite').innerHTML = `<a href="${url}" target="_blank" style="color:var(--primary-color)">홈페이지 방문</a>`;
-                webItem.style.display = 'flex';
-            } else { webItem.style.display = 'none'; }
-            
-            const callBtn = document.getElementById('callBtn');
-            if (biz.phone && biz.phone !== '정보 없음') {
-                callBtn.href = `tel:${biz.phone.replace(/[^0-9+]/g,'')}`;
-                callBtn.style.opacity = '1';
-            } else { callBtn.href = '#'; callBtn.style.opacity = '0.5'; }
-
-            const mapBtn = document.getElementById('mapBtn');
-            const mapURL = biz.googleMapsUrl || biz.googleMapsURL || biz.mapURL;
-            const query = biz.address && biz.address !== '정보 없음' ? biz.address : biz.name;
-            
-            if (mapURL && mapURL !== '정보 없음') {
-                mapBtn.href = mapURL; mapBtn.target = "_blank";
-            } else {
-                mapBtn.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-                mapBtn.target = "_blank";
-            }
-            showPage('detailPage');
-        }
-
-        function showPage(id) { 
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); 
-            document.getElementById(id).classList.add('active'); 
-        }
-        window.showPage = showPage;
-
-        function showLoading() { if (dom.loadingOverlay) dom.loadingOverlay.classList.add('show'); }
-        function hideLoading() { if (dom.loadingOverlay) dom.loadingOverlay.classList.remove('show'); }
-        function requestUserLocation() { if (navigator.geolocation) navigator.geolocation.getCurrentPosition(pos => state.userLocation = pos.coords, () => state.userLocation = null); }
-        function setupEventListeners() {
-            document.addEventListener('click', e => {
-                if (e.target.classList.contains('location-chip')) {
-                    document.querySelectorAll('.location-chip').forEach(c => c.classList.remove('selected'));
-                    e.target.classList.add('selected'); state.selectedLocation = e.target.dataset.value;
-                } else if (e.target.classList.contains('service-item')) {
-                    document.querySelectorAll('.service-item').forEach(i => i.classList.remove('selected'));
-                    e.target.classList.add('selected'); state.selectedCategory = e.target.dataset.value;
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: { primary: '#FF385C', dark: '#222222', bg: '#F7F7F7' },
+                    boxShadow: { 'float': '0 6px 16px rgba(0,0,0,0.08)' },
+                    animation: { 'fade-in-up': 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards' },
+                    keyframes: { fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } } }
                 }
+            }
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .radio-option input:checked + div { border-color: #FF385C; background-color: #FFF0F3; color: #FF385C; font-weight: 700; box-shadow: 0 4px 12px rgba(255, 56, 92, 0.15); transform: translateY(-2px); }
+        .radio-option div { transition: all 0.2s ease-in-out; }
+        .filter-chip { transition: all 0.2s; white-space: nowrap; }
+        .filter-chip.active { background-color: #222222; color: white; border-color: #222222; font-weight: 700; }
+        
+        /* Modal Transition */
+        #comment-modal, #success-modal { transition: opacity 0.2s ease, visibility 0.2s ease; }
+        .modal-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .modal-visible { opacity: 1; visibility: visible; pointer-events: auto; }
+        
+        /* Dropdown Animation */
+        #location-dropdown { transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1); transform-origin: top right; }
+        #location-dropdown.hidden { opacity: 0; transform: scale(0.95); pointer-events: none; }
+        #location-dropdown:not(.hidden) { opacity: 1; transform: scale(1); pointer-events: auto; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-dark antialiased pb-10">
+
+    <div class="max-w-[600px] mx-auto bg-white min-h-screen shadow-2xl relative flex flex-col">
+        <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100 px-5 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-extrabold text-primary tracking-tight cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">StayPick<span class="text-dark font-normal">.AI</span></h1>
+            <button class="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center text-gray-500"><i class="fa-regular fa-user"></i></button>
+        </header>
+
+        <section class="px-5 pt-6 pb-8 bg-gradient-to-b from-white to-gray-50">
+            <div class="mb-6"><h2 class="text-2xl font-bold leading-tight mb-2">어떤 여행을<br>꿈꾸시나요?</h2><p class="text-sm text-gray-500">빅데이터가 당신의 취향을 분석합니다.</p></div>
+            <div class="bg-white rounded-3xl p-6 shadow-float border border-gray-100 relative overflow-visible">
+                <div class="absolute -top-10 -right-10 w-40 h-40 bg-rose-100 rounded-full blur-3xl opacity-50 pointer-events-none"></div>
+                <div class="space-y-8 relative z-10">
+                    <div>
+                        <label class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 block">01. Companions</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <label class="radio-option cursor-pointer block"><input type="radio" name="who" value="couple" class="hidden" checked><div class="border border-gray-100 bg-gray-50 rounded-2xl p-3 text-center h-full flex flex-col justify-center items-center hover:bg-white"><span class="text-xl mb-1">👩‍❤️‍👨</span><span class="text-xs font-medium text-gray-600">커플/로맨틱</span></div></label>
+                            <label class="radio-option cursor-pointer block"><input type="radio" name="who" value="friends" class="hidden"><div class="border border-gray-100 bg-gray-50 rounded-2xl p-3 text-center h-full flex flex-col justify-center items-center hover:bg-white"><span class="text-xl mb-1">👯‍♀️</span><span class="text-xs font-medium text-gray-600">우정 여행</span></div></label>
+                            <label class="radio-option cursor-pointer block"><input type="radio" name="who" value="solo" class="hidden"><div class="border border-gray-100 bg-gray-50 rounded-2xl p-3 text-center h-full flex flex-col justify-center items-center hover:bg-white"><span class="text-xl mb-1">🎒</span><span class="text-xs font-medium text-gray-600">나홀로</span></div></label>
+                            <label class="radio-option cursor-pointer block"><input type="radio" name="who" value="work" class="hidden"><div class="border border-gray-100 bg-gray-50 rounded-2xl p-3 text-center h-full flex flex-col justify-center items-center hover:bg-white"><span class="text-xl mb-1">💻</span><span class="text-xs font-medium text-gray-600">워케이션</span></div></label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 block">02. Priority</label>
+                        <div class="flex gap-2 overflow-x-auto no-scrollbar py-1 pl-1">
+                            <label class="radio-option cursor-pointer shrink-0"><input type="radio" name="vibe" value="photo" class="hidden" checked><div class="border border-gray-100 bg-gray-50 rounded-full px-5 py-3 text-xs font-medium text-gray-600">✨ 감성/인생샷</div></label>
+                            <label class="radio-option cursor-pointer shrink-0"><input type="radio" name="vibe" value="price" class="hidden"><div class="border border-gray-100 bg-gray-50 rounded-full px-5 py-3 text-xs font-medium text-gray-600">💰 가성비 최고</div></label>
+                            <label class="radio-option cursor-pointer shrink-0"><input type="radio" name="vibe" value="local" class="hidden"><div class="border border-gray-100 bg-gray-50 rounded-full px-5 py-3 text-xs font-medium text-gray-600">🏡 현지인 느낌</div></label>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 block">03. Destination</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-location-dot absolute left-4 top-3.5 text-gray-400 text-sm"></i>
+                            <select id="pref-location" class="w-full bg-gray-50 border border-gray-100 rounded-xl pl-10 pr-8 py-3 text-sm font-semibold text-dark appearance-none focus:outline-none focus:ring-2 focus:ring-primary/20 transition">
+                                <option value="all">모든 여행지 (All Cities)</option>
+                                <option value="영국">🇬🇧 영국 런던</option>
+                                <option value="프랑스">🇫🇷 프랑스 파리</option>
+                                <option value="일본">🇯🇵 일본 오사카</option>
+                                <option value="미국">🇺🇸 미국 뉴욕</option>
+                                <option value="이탈리아">🇮🇹 이탈리아 로마</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down absolute right-4 top-4 text-gray-300 text-xs pointer-events-none"></i>
+                        </div>
+                    </div>
+                    <button onclick="startAnalysis()" class="w-full bg-gradient-to-r from-primary to-rose-600 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-rose-200 hover:shadow-xl transition transform active:scale-[0.98] flex justify-center items-center group"><i class="fa-solid fa-wand-magic-sparkles mr-2 group-hover:rotate-12 transition"></i><span>AI 맞춤 숙소 추천받기</span></button>
+                </div>
+            </div>
+        </section>
+
+        <div id="loading-overlay" class="hidden fixed inset-0 z-50 bg-white/98 flex flex-col items-center justify-center px-8 text-center backdrop-blur-sm">
+            <div class="w-16 h-16 border-4 border-gray-100 border-t-primary rounded-full animate-spin mb-6"></div>
+            <h3 class="text-xl font-bold mb-2 text-dark">AI 분석 중...</h3>
+            <p id="loading-text" class="text-sm text-gray-500 animate-pulse">데이터베이스에 접속하고 있습니다.</p>
+        </div>
+
+        <section id="result-container" class="hidden px-5 mb-8 scroll-mt-20">
+            <div class="flex items-center justify-between mb-4"><h3 class="font-bold text-xl flex items-center"><span class="text-primary mr-2"><i class="fa-solid fa-crown"></i></span> AI Top 3 Picks</h3><button onclick="resetAI()" class="text-xs text-gray-400 underline">다시하기</button></div>
+            <div id="recommendation-list" class="flex gap-4 overflow-x-auto no-scrollbar pb-6 px-1 -mx-1 snap-x snap-mandatory"></div>
+            <hr class="border-gray-100">
+        </section>
+
+        <section class="px-5 flex-1 pb-10">
+            <div class="sticky top-[70px] z-30 bg-white/95 backdrop-blur -mx-5 px-5 border-b border-gray-50 mb-4 shadow-sm">
+                <div class="relative py-3">
+                    <input type="text" id="search-input" placeholder="숙소명, 지역, 편의시설 검색" class="w-full bg-gray-100 border-none rounded-full py-3 pl-11 pr-4 text-sm text-dark placeholder-gray-400 focus:ring-2 focus:ring-primary/50 transition"><i class="fa-solid fa-magnifying-glass absolute left-4 top-6 text-gray-400"></i>
+                </div>
                 
-                if (e.target.id === 'detailPage' && window.innerWidth >= 768) {
-                    handleDetailBack();
+                <div class="flex justify-between items-center pb-3">
+                    <div class="flex gap-2 overflow-x-auto no-scrollbar flex-1 mr-2" id="sort-filter-container">
+                        <button onclick="changeSort('recommend', this)" class="filter-chip active border border-gray-200 bg-white text-dark px-3 py-1.5 rounded-full text-xs font-medium shrink-0">추천순</button>
+                        <button onclick="changeSort('price', this)" class="filter-chip border border-gray-200 bg-white text-gray-500 px-3 py-1.5 rounded-full text-xs font-medium shrink-0">최저가순</button>
+                        <button onclick="changeSort('reviews', this)" class="filter-chip border border-gray-200 bg-white text-gray-500 px-3 py-1.5 rounded-full text-xs font-medium shrink-0">리뷰많은순</button>
+                        <button onclick="changeSort('rating', this)" class="filter-chip border border-gray-200 bg-white text-gray-500 px-3 py-1.5 rounded-full text-xs font-medium shrink-0">평점순</button>
+                    </div>
+
+                    <div class="relative shrink-0">
+                        <button onclick="toggleLocDropdown()" id="loc-btn" class="flex items-center gap-1 border border-gray-200 bg-white text-dark px-3 py-1.5 rounded-full text-xs font-bold shadow-sm hover:bg-gray-50 transition">
+                            <span id="current-loc-text">모든 지역</span> <i class="fa-solid fa-chevron-down text-[10px] ml-1"></i>
+                        </button>
+                        
+                        <div id="location-dropdown" class="hidden absolute right-0 top-full mt-2 w-32 bg-white rounded-xl shadow-xl border border-gray-100 z-50 overflow-hidden py-1">
+                            <button onclick="changeLocation('all')" class="w-full text-left px-4 py-2 text-xs hover:bg-gray-50 text-dark font-medium">전체보기</button>
+                            <button onclick="changeLocation('영국')" class="w-full text-left px-4 py-2 text-xs hover:bg-gray-50 text-gray-500">🇬🇧 영국</button>
+                            <button onclick="changeLocation('프랑스')" class="w-full text-left px-4 py-2 text-xs hover:bg-gray-50 text-gray-500">🇫🇷 프랑스</button>
+                            <button onclick="changeLocation('이탈리아')" class="w-full text-left px-4 py-2 text-xs hover:bg-gray-50 text-gray-500">🇮🇹 이탈리아</button>
+                            <button onclick="changeLocation('미국')" class="w-full text-left px-4 py-2 text-xs hover:bg-gray-50 text-gray-500">🇺🇸 미국</button>
+                            <button onclick="changeLocation('일본')" class="w-full text-left px-4 py-2 text-xs hover:bg-gray-50 text-gray-500">🇯🇵 일본</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-end mb-4"><h3 class="font-bold text-lg text-dark">숙소 리스트</h3><span id="total-count" class="text-xs text-gray-400">Loading...</span></div>
+            <div id="main-list" class="space-y-5">
+                <div class="animate-pulse flex space-x-4 mb-4"><div class="rounded-xl bg-gray-200 h-24 w-24"></div><div class="flex-1 space-y-2 py-1"><div class="h-4 bg-gray-200 rounded w-3/4"></div><div class="h-4 bg-gray-200 rounded w-1/2"></div></div></div>
+            </div>
+        </section>
+
+        <div id="comment-modal" class="modal-hidden fixed inset-0 z-50 flex items-end justify-center sm:items-center">
+            <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeCommentModal()"></div>
+            <div class="bg-white w-full max-w-[500px] h-[85vh] sm:h-auto sm:max-h-[80vh] sm:rounded-2xl rounded-t-2xl z-10 flex flex-col relative shadow-2xl">
+                <div class="px-5 py-4 border-b border-gray-100 flex justify-between items-center bg-white rounded-t-2xl">
+                    <h3 class="font-bold text-lg">📝 이용자 리뷰</h3>
+                    <button onclick="closeCommentModal()" class="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 hover:bg-gray-200"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                
+                <div id="modal-comments-list" class="flex-1 overflow-y-auto p-5 space-y-4 bg-gray-50"></div>
+
+                <div class="p-5 border-t border-gray-100 bg-white sm:rounded-b-2xl">
+                    <div class="relative">
+                        <textarea id="comment-input" class="w-full bg-gray-100 border-none rounded-xl p-4 text-sm focus:ring-2 focus:ring-primary/20 focus:bg-white transition resize-none h-24" placeholder="솔직한 경험을 남겨주세요."></textarea>
+                        <button onclick="submitComment()" class="absolute bottom-3 right-3 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-rose-600 transition">등록하기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="success-modal" class="modal-hidden fixed inset-0 z-[60] flex items-center justify-center px-4">
+            <div class="bg-white rounded-2xl shadow-2xl p-6 text-center w-64 transform transition-all scale-100 relative overflow-hidden">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 text-green-500 text-xl">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h4 class="font-bold text-dark text-base mb-1">등록 완료!</h4>
+                <p class="text-xs text-gray-500">소중한 후기가 등록되었습니다.</p>
+            </div>
+        </div>
+
+        <section class="px-5 pb-8">
+            <a href="https://blog.naver.com/example" target="_blank" class="block w-full group">
+                <div class="bg-gray-900 rounded-2xl p-5 relative overflow-hidden shadow-lg transform transition group-hover:scale-[0.99]">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gray-800 rounded-full mix-blend-overlay filter blur-2xl opacity-50 -mr-10 -mt-10"></div>
+                    <div class="relative z-10 flex items-center justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold text-primary uppercase tracking-widest mb-1 block">EXPERT INSIGHTS</span>
+                            <h4 class="text-white font-bold text-lg leading-snug">실패 없는 여행을 위한<br>전문가 숙소 분석 보기</h4>
+                            <p class="text-gray-400 text-xs mt-2 group-hover:text-gray-300 transition">더 자세한 리뷰와 꿀팁을 확인하세요</p>
+                        </div>
+                        <div class="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white group-hover:bg-primary group-hover:text-white transition duration-300">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </section>
+
+        <footer class="bg-gray-50 pt-8 pb-8 px-5 border-t border-gray-100 mt-auto">
+            <div class="text-[10px] text-gray-400 leading-relaxed text-center">
+                <p class="mb-2">본 서비스는 파트너스 활동의 일환으로 수수료를 제공받을 수 있습니다.</p>
+                <p class="font-bold text-gray-300">© 2026 StayPick AI.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // ⚠️ [새 배포] 후 발급받은 '웹 앱 URL'을 여기에 입력하세요!
+        const API_URL = "https://script.google.com/macros/s/AKfycbyxvoBZzXldh2sRXnw6eX18o89em0qfQTL7Lwt4afoqe0w5qa0nEoD_BME-q_ryoHOLdw/exec"; 
+        // ============================================
+
+        let allAccommodations = [];
+        let filteredAccommodations = [];
+        let currentModalId = null;
+
+        // 필터 상태 관리
+        let currentSort = 'recommend';
+        let currentLocation = 'all';
+
+        window.onload = async function() {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                initData(data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                document.getElementById('main-list').innerHTML = '<div class="text-center py-10 text-red-400">데이터를 불러오는데 실패했습니다.<br>잠시 후 다시 시도해주세요.</div>';
+                document.getElementById('total-count').innerText = "Error";
+            }
+            document.getElementById('search-input').addEventListener('input', handleSearch);
+        };
+
+        function initData(data) {
+            allAccommodations = data.map(item => ({
+                ...item,
+                comments: item.comments || []
+            }));
+            applyUnifiedFilter(); // 초기 렌더링
+        }
+
+        // --- 신규 필터 로직 ---
+        function changeSort(type, btnElement) {
+            currentSort = type;
+            // 버튼 스타일 업데이트
+            const buttons = document.querySelectorAll('#sort-filter-container button');
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'bg-dark', 'text-white', 'border-dark');
+                btn.classList.add('bg-white', 'text-gray-500', 'border-gray-200');
+            });
+            btnElement.classList.remove('bg-white', 'text-gray-500', 'border-gray-200');
+            btnElement.classList.add('active', 'bg-dark', 'text-white', 'border-dark');
+            
+            applyUnifiedFilter();
+        }
+
+        function toggleLocDropdown() {
+            const dropdown = document.getElementById('location-dropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        function changeLocation(loc) {
+            currentLocation = loc;
+            const btnText = loc === 'all' ? '모든 지역' : loc;
+            document.getElementById('current-loc-text').innerText = btnText;
+            
+            // 드롭다운 닫기
+            document.getElementById('location-dropdown').classList.add('hidden');
+            
+            // 스타일 업데이트 (선택된 항목 강조)
+            const options = document.querySelectorAll('#location-dropdown button');
+            options.forEach(opt => {
+                if(opt.innerText.includes(loc) || (loc === 'all' && opt.innerText.includes('전체'))) {
+                    opt.classList.add('text-primary', 'font-bold');
+                    opt.classList.remove('text-gray-500');
+                } else {
+                    opt.classList.remove('text-primary', 'font-bold');
+                    opt.classList.add('text-gray-500');
                 }
+            });
+
+            applyUnifiedFilter();
+        }
+
+        // 통합 필터 적용 함수
+        function applyUnifiedFilter() {
+            let result = [...allAccommodations];
+
+            // 1. 지역 필터링
+            if (currentLocation !== 'all') {
+                result = result.filter(item => item.location.includes(currentLocation));
+            }
+
+            // 2. 정렬 적용
+            if (currentSort === 'price') {
+                result.sort((a, b) => a.price - b.price);
+            } else if (currentSort === 'recommend') {
+                result.sort((a, b) => b.recommendCount - a.recommendCount);
+            } else if (currentSort === 'rating') {
+                result.sort((a, b) => b.rating - a.rating);
+            } else if (currentSort === 'reviews') { 
+                // [수정됨] 내부 댓글 수(comments.length) 대신 실제 리뷰 수(reviewCount)로 정렬
+                result.sort((a, b) => b.reviewCount - a.reviewCount);
+            }
+
+            filteredAccommodations = result;
+            renderMainList(filteredAccommodations);
+        }
+
+        function handleSearch(e) {
+            const query = e.target.value.toLowerCase().trim();
+            // 검색 시에는 전체 데이터에서 검색
+            
+            if (!query) {
+                applyUnifiedFilter(); // 검색어 없으면 기존 필터 상태 복구
+                return;
+            }
+
+            filteredAccommodations = allAccommodations.filter(item => 
+                item.name.toLowerCase().includes(query) || 
+                item.location.toLowerCase().includes(query) ||
+                item.amenities.toLowerCase().includes(query)
+            );
+            renderMainList(filteredAccommodations);
+        }
+
+        // --- 리스트 렌더링 ---
+        function renderMainList(data) {
+            const listEl = document.getElementById('main-list');
+            document.getElementById('total-count').innerText = `${data.length}개`;
+            listEl.innerHTML = '';
+            if (data.length === 0) { listEl.innerHTML = '<div class="text-center py-10 text-gray-400">검색 결과가 없습니다.</div>'; return; }
+            
+            data.forEach((item, idx) => {
+                const priceFormatted = new Intl.NumberFormat('ko-KR').format(item.price);
+                const amenitiesStr = item.amenities || "";
+                const amenitiesTags = amenitiesStr.split(',').slice(0, 3).map(tag => `<span class="inline-block bg-gray-100 text-gray-500 text-[10px] px-1.5 py-0.5 rounded-[4px] mr-1 mb-1">${tag.trim()}</span>`).join('');
+                
+                const isLiked = localStorage.getItem(`liked_${item.id}`) ? 'text-primary' : 'text-gray-400 hover:text-primary';
+
+                const html = `
+                    <div class="bg-white rounded-xl p-4 border border-gray-100 shadow-sm flex gap-4 animate-fade-in-up hover:shadow-md transition relative group" style="animation-delay: ${idx * 0.05}s">
+                        <div class="w-24 h-24 rounded-lg overflow-hidden shrink-0 relative bg-gray-100">
+                            <img src="${item.image}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy">
+                            <div class="absolute top-0 left-0 bg-black/50 backdrop-blur-[1px] text-white text-[9px] px-1.5 py-0.5 rounded-br-lg">${item.location}</div>
+                        </div>
+                        <div class="flex-1 flex flex-col min-w-0">
+                            <div class="mb-1">
+                                <h4 class="font-bold text-dark text-sm truncate pr-4">${item.name}</h4>
+                                <p class="text-xs text-gray-400 truncate mt-0.5">${item.intro}</p>
+                            </div>
+                            <div class="mb-2 flex flex-wrap">${amenitiesTags}</div>
+                            
+                            <div class="mt-auto flex justify-between items-end border-t border-gray-50 pt-2 relative z-20">
+                                <div class="flex items-center gap-3">
+                                    <button onclick="toggleRecommend(${item.id}, this)" class="flex items-center gap-1 text-xs font-medium transition ${isLiked}">
+                                        <i class="fa-solid fa-thumbs-up"></i> <span class="like-count">${item.recommendCount}</span>
+                                    </button>
+                                    <span class="text-gray-200 text-[10px]">|</span>
+                                    <button onclick="openCommentModal(${item.id})" class="flex items-center gap-1 text-xs font-medium text-gray-400 hover:text-dark transition">
+                                        <i class="fa-solid fa-comment-dots"></i> <span>${item.comments.length}</span>
+                                    </button>
+                                </div>
+                                <div class="text-right pointer-events-none">
+                                    <div class="flex items-center justify-end mb-0.5">
+                                        <i class="fa-solid fa-star text-yellow-400 text-[10px] mr-1"></i>
+                                        <span class="text-xs font-bold text-dark mr-1">${item.rating}</span>
+                                        <span class="text-[10px] text-gray-400">(${item.reviewCount})</span>
+                                    </div>
+                                    <span class="text-base font-bold text-primary">₩${priceFormatted}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="${item.link}" target="_blank" class="absolute inset-0 z-10"></a>
+                    </div>`;
+                listEl.innerHTML += html;
             });
         }
 
-        window.openCategoryURL = (url) => window.open(url, '_blank');
-        window.goToMain = () => { state.cameFromMainPage = false; showPage('mainPage'); };
-        window.goToSearch = () => showPage('searchPage');
-        window.goToResults = () => showPage('resultsPage');
-        window.doSearch = doSearch;
-        window.handleDetailBack = () => state.cameFromMainPage ? goToMain() : goToResults();
-    })();
+        // --- 기능 로직 ---
+        function toggleRecommend(id, btnElement) {
+            const storageKey = `liked_${id}`;
+            if (localStorage.getItem(storageKey)) {
+                alert("이미 추천하셨습니다!");
+                return;
+            }
+
+            const item = allAccommodations.find(i => i.id === id);
+            if (item) {
+                item.recommendCount++;
+                btnElement.classList.remove('text-gray-400');
+                btnElement.classList.add('text-primary');
+                btnElement.querySelector('.like-count').innerText = item.recommendCount;
+                localStorage.setItem(storageKey, 'true');
+
+                fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ action: 'like', id: id })
+                }).catch(err => console.error("추천 전송 오류:", err));
+            }
+        }
+
+        function openCommentModal(id) {
+            currentModalId = id;
+            const item = allAccommodations.find(i => i.id === id);
+            const list = document.getElementById('modal-comments-list');
+            list.innerHTML = '';
+
+            if (!item.comments || item.comments.length === 0) {
+                list.innerHTML = '<div class="text-center text-gray-400 text-sm py-10">아직 작성된 리뷰가 없습니다.<br>첫 번째 리뷰를 남겨보세요!</div>';
+            } else {
+                [...item.comments].reverse().forEach(c => {
+                    list.innerHTML += `
+                        <div class="bg-white p-3 rounded-xl border border-gray-100 shadow-sm">
+                            <p class="text-sm text-dark mb-1">${c.text}</p>
+                            <span class="text-[10px] text-gray-400">${c.date}</span>
+                        </div>
+                    `;
+                });
+            }
+            const modal = document.getElementById('comment-modal');
+            modal.classList.remove('modal-hidden');
+            modal.classList.add('modal-visible');
+        }
+
+        function closeCommentModal() {
+            const modal = document.getElementById('comment-modal');
+            modal.classList.remove('modal-visible');
+            modal.classList.add('modal-hidden');
+            currentModalId = null;
+        }
+
+        function showSuccessModal() {
+            const modal = document.getElementById('success-modal');
+            modal.classList.remove('modal-hidden');
+            modal.classList.add('modal-visible');
+            
+            // 1.5초 후 자동 닫기
+            setTimeout(() => {
+                modal.classList.remove('modal-visible');
+                modal.classList.add('modal-hidden');
+            }, 1500);
+        }
+
+        function submitComment() {
+            const input = document.getElementById('comment-input');
+            const text = input.value.trim();
+            if (!text) { alert("내용을 입력해주세요."); return; }
+            
+            const item = allAccommodations.find(i => i.id === currentModalId);
+            if (item) {
+                const today = new Date().toISOString().split('T')[0];
+                
+                if (!item.comments) item.comments = [];
+                item.comments.push({ text: text, date: today });
+                item.commentCount = item.comments.length; 
+                
+                input.value = '';
+                openCommentModal(currentModalId); // 댓글 목록 갱신
+                applyUnifiedFilter(); // 메인 리스트(댓글수 반영) 갱신
+                
+                // 성공 알림 모달 표시
+                showSuccessModal();
+
+                // 서버 전송
+                fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ 
+                        action: 'comment', 
+                        id: currentModalId, 
+                        text: text, 
+                        date: today 
+                    })
+                }).catch(err => console.error("댓글 전송 오류:", err));
+            }
+        }
+
+        function startAnalysis() {
+            if(allAccommodations.length === 0) { alert("데이터를 불러오는 중입니다. 잠시만 기다려주세요."); return; }
+            document.getElementById('loading-overlay').classList.remove('hidden');
+            const msgs = ["여행 스타일 분석 중...", "위치 및 치안 데이터 대조...", "최적의 숙소 선별 완료!"];
+            let i = 0;
+            const interval = setInterval(() => { i++; if (i < msgs.length) document.getElementById('loading-text').innerText = msgs[i]; }, 800);
+            setTimeout(() => {
+                clearInterval(interval);
+                runRecommendation();
+                document.getElementById('loading-overlay').classList.add('hidden');
+                document.getElementById('result-container').classList.remove('hidden');
+                document.getElementById('result-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 2500);
+        }
+
+        function runRecommendation() {
+            const who = document.querySelector('input[name="who"]:checked').value;
+            const vibe = document.querySelector('input[name="vibe"]:checked').value;
+            const loc = document.getElementById('pref-location').value;
+            
+            let scored = allAccommodations.map(item => {
+                if(loc !== 'all' && !item.location.includes(loc)) return null;
+                
+                let score = item.rating * 10;
+                const text = (item.intro + item.amenities + item.name).toLowerCase();
+                
+                if (who === 'couple' && (text.includes('뷰') || text.includes('로맨틱'))) score += 20;
+                if (who === 'friends' && (text.includes('넓') || text.includes('파티'))) score += 20;
+                if (who === 'solo' && (text.includes('치안') || text.includes('역'))) score += 25;
+                if (who === 'work' && (text.includes('책상') || text.includes('와이파이'))) score += 25;
+                
+                if (vibe === 'price') score += (300000 - item.price) / 5000;
+                if (vibe === 'photo' && text.includes('감성')) score += 15;
+                if (vibe === 'local' && text.includes('현지')) score += 15;
+                
+                score += (item.recommendCount * 0.5);
+
+                return { ...item, score: score };
+            }).filter(i => i !== null);
+            
+            scored.sort((a, b) => b.score - a.score);
+            renderRecommendations(scored.slice(0, 3));
+        }
+
+        function renderRecommendations(items) {
+            const container = document.getElementById('recommendation-list');
+            container.innerHTML = '';
+            if(items.length === 0) { container.innerHTML = '<div class="w-full text-center text-gray-400 py-4">조건에 맞는 숙소가 없습니다.</div>'; return; }
+            items.forEach((item, idx) => {
+                const price = new Intl.NumberFormat('ko-KR').format(item.price);
+                container.innerHTML += `
+                    <div class="snap-center shrink-0 w-[280px] bg-white rounded-2xl shadow-float overflow-hidden border border-gray-100 relative group">
+                        <div class="h-40 relative">
+                            <span class="absolute top-3 left-3 bg-primary text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm z-10">AI Match ${(98 - idx*2)}%</span>
+                            <img src="${item.image}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h4 class="font-bold text-dark truncate mb-1">${item.name}</h4>
+                            <p class="text-xs text-gray-500 line-clamp-1 mb-2">${item.intro}</p>
+                            <div class="flex justify-between items-center border-t border-gray-50 pt-3">
+                                <span class="font-bold text-primary">₩${price}</span>
+                                <a href="${item.link}" target="_blank" class="bg-dark text-white text-xs font-bold px-3 py-1.5 rounded-lg">예약</a>
+                            </div>
+                        </div>
+                    </div>`;
+            });
+        }
+        function resetAI() { document.getElementById('result-container').classList.add('hidden'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        
+        // 외부 클릭 시 드롭다운 닫기
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('location-dropdown');
+            const button = document.getElementById('loc-btn');
+            if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
     </script>
 </body>
 </html>
