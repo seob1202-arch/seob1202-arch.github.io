@@ -26,7 +26,7 @@
         :root {
             --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             --primary-color: #6366f1;
-            --sos-gradient: linear-gradient(135deg, #ef4444 0%, #f87171 100%); /* SOS 전용 그라디언트 */
+            --sos-gradient: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
             --bg-dark: #0f172a;
             --bg-card: #1e293b;
             --bg-icon: #334155;
@@ -88,7 +88,7 @@
         .header-brand-slogan { font-size: 14.3px; font-weight: 600; color: #ffffff; letter-spacing: -0.02em; line-height: 1.1; opacity: 0.95; white-space: nowrap; }
 
         .header-actions { display: flex; gap: 8px; }
-        .btn-circle { width: 40px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 50%; color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s;}
+        .btn-circle { width: 40px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 50%; color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; z-index: 60; position: relative;}
         
         /* Main Content */
         .content-container { padding: 0 20px 24px; }
@@ -96,7 +96,7 @@
         .section-header { margin-bottom: 16px; }
         .section-title { font-size: 19px; font-weight: 700; color: var(--text-white); display: flex; align-items: center; gap: 6px; }
 
-        /* Category Grid (Modified for Optimization: Auto-fill) */
+        /* Category Grid */
         .category-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); 
@@ -219,7 +219,7 @@
             display: flex; align-items: center; justify-content: center; 
             color: white; 
             box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5); 
-            z-index: 90; 
+            z-index: 900; /* Increased Z-Index to prevent covering */
             cursor: pointer; 
             transition: transform 0.2s; 
             border: none; 
@@ -278,9 +278,20 @@
             @keyframes slideUpDesktop { from { transform: translate(-50%, 100px); opacity:0; } to { transform: translate(-50%, 0); opacity:1; } }
         }
         
-        /* Intro Styles */
+        /* Intro Styles (FIXED FOR IPHONE NOTCH & SCROLL) */
         #introPage { background-color: #F8FAFC !important; color: #0F172A; z-index: 200; }
-        .intro-nav { position: absolute; top: 0; left: 0; right: 0; height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .intro-nav { 
+            position: fixed; 
+            top: 0; left: 0; right: 0; 
+            height: calc(60px + env(safe-area-inset-top)); 
+            padding-top: env(safe-area-inset-top);
+            display: flex; align-items: center; justify-content: space-between; 
+            padding-left: 20px; padding-right: 20px;
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(12px); 
+            z-index: 1000; 
+            border-bottom: 1px solid rgba(0,0,0,0.05); 
+        }
         .bg-mesh { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(244, 63, 94, 0.15) 0px, transparent 50%); filter: blur(40px); }
         .hero { padding: 100px 0 60px; text-align: center; }
         .section-eyebrow { font-size: 13px; font-weight: 800; color: #3B82F6; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 12px; }
@@ -394,7 +405,7 @@
         
         <div class="page" id="sosPage">
             <header class="app-header sos-header">
-                <button class="btn-circle" onclick="goToMain()"><span class="material-icons-round">arrow_back</span></button>
+                <button class="btn-circle" onclick="goBack()"><span class="material-icons-round">arrow_back</span></button>
                 <div class="sos-title"><span class="material-icons-round">emergency</span> 긴급 영사관 연결</div>
                 <div style="width:40px"></div>
             </header>
@@ -411,7 +422,7 @@
 
         <div class="page" id="searchPage">
             <header class="app-header">
-                <button class="btn-circle" onclick="goToMain()"><span class="material-icons-round">arrow_back</span></button>
+                <button class="btn-circle" onclick="goBack()"><span class="material-icons-round">arrow_back</span></button>
                 <div style="color:white; font-weight:700;">검색 설정</div>
                 <div style="width:40px"></div>
             </header>
@@ -430,7 +441,7 @@
         
         <div class="page" id="resultsPage">
             <header class="app-header">
-                <button class="btn-circle" onclick="goToSearch()"><span class="material-icons-round">arrow_back</span></button>
+                <button class="btn-circle" onclick="goBack()"><span class="material-icons-round">arrow_back</span></button>
                 <div style="color:var(--text-sub); font-size:14px;"><strong id="resultLocation" style="color:var(--primary-color)"></strong>의 <strong id="resultCategory" style="color:var(--primary-color)"></strong></div>
                 <div style="width:40px"></div>
             </header>
@@ -440,7 +451,7 @@
         <div class="page" id="detailPage">
             <div class="detail-header-img">
                 <div class="detail-nav">
-                    <button class="btn-circle" onclick="handleDetailBack()"><span class="material-icons-round">arrow_back</span></button>
+                    <button class="btn-circle" onclick="goBack()"><span class="material-icons-round">arrow_back</span></button>
                     <button class="btn-circle"><span class="material-icons-round">share</span></button>
                 </div>
             </div>
@@ -464,10 +475,10 @@
             <div class="bg-mesh"></div>
             <nav class="intro-nav">
                 <div class="intro-logo" style="font-weight:800; font-size:18px;">Kornect</div>
-                <span class="material-icons-round intro-close-btn" style="font-size:24px; cursor:pointer;" onclick="goToMain()">close</span>
+                <span class="material-icons-round intro-close-btn" style="font-size:24px; cursor:pointer;" onclick="goBack()">close</span>
             </nav>
 
-            <div style="padding-top: 80px; padding-bottom: 150px; box-sizing: border-box; width: 100%;"> 
+            <div style="padding-top: 100px; padding-bottom: 150px; box-sizing: border-box; width: 100%;"> 
                 
                 <section class="hero">
                     <div class="container" style="padding:0 24px;">
@@ -670,160 +681,161 @@
         });
     }
 
-    /* SOS App Logic (Isolated) */
-    const sosApp = {
-        // 요청사항: 자주 방문하는 국가 위주 50개 DB 확장
-        data: [
-            { country: '괌', city: '하갓냐', phone: '+1-671-647-6488', flag: '🇬🇺' },
-            { country: '그리스', city: '아테네', phone: '+30-210-698-4080', flag: '🇬🇷' },
-            { country: '남아공', city: '프리토리아', phone: '+27-12-460-2508', flag: '🇿🇦' },
-            { country: '네덜란드', city: '헤이그', phone: '+31-70-740-0214', flag: '🇳🇱' },
-            { country: '대만', city: '타이베이', phone: '+886-2-2758-8320', flag: '🇹🇼' },
-            { country: '독일', city: '베를린', phone: '+49-30-260-650', flag: '🇩🇪' },
-            { country: '독일', city: '프랑크푸르트', phone: '+49-69-956-7520', flag: '🇩🇪' },
-            { country: '라오스', city: '비엔티안', phone: '+856-21-352-031', flag: '🇱🇦' },
-            { country: '러시아', city: '모스크바', phone: '+7-495-783-2727', flag: '🇷🇺' },
-            { country: '러시아', city: '블라디보스톡', phone: '+7-423-240-2222', flag: '🇷🇺' },
-            { country: '말레이시아', city: '쿠알라룸푸르', phone: '+60-3-4251-2336', flag: '🇲🇾' },
-            { country: '멕시코', city: '멕시코시티', phone: '+52-55-5202-9866', flag: '🇲🇽' },
-            { country: '몽골', city: '울란바토르', phone: '+976-7007-1020', flag: '🇲🇳' },
-            { country: '미국', city: '워싱턴', phone: '+1-202-939-5654', flag: '🇺🇸' },
-            { country: '미국', city: '뉴욕', phone: '+1-646-674-1600', flag: '🇺🇸' },
-            { country: '미국', city: 'LA', phone: '+1-213-385-9300', flag: '🇺🇸' },
-            { country: '미국', city: '샌프란시스코', phone: '+1-415-921-2251', flag: '🇺🇸' },
-            { country: '미국', city: '하와이', phone: '+1-808-595-6109', flag: '🇺🇸' },
-            { country: '베트남', city: '하노이', phone: '+84-90-402-6126', flag: '🇻🇳' },
-            { country: '베트남', city: '호치민', phone: '+84-93-850-0238', flag: '🇻🇳' },
-            { country: '베트남', city: '다낭', phone: '+84-93-246-5036', flag: '🇻🇳' },
-            { country: '벨기에', city: '브뤼셀', phone: '+32-2-675-5777', flag: '🇧🇪' },
-            { country: '브라질', city: '상파울루', phone: '+55-11-3141-1278', flag: '🇧🇷' },
-            { country: '사이판', city: '사이판', phone: '+1-670-234-0422', flag: '🇲🇵' },
-            { country: '스위스', city: '베른', phone: '+41-31-356-2444', flag: '🇨🇭' },
-            { country: '스페인', city: '마드리드', phone: '+34-91-353-2000', flag: '🇪🇸' },
-            { country: '스페인', city: '바르셀로나', phone: '+34-93-487-3153', flag: '🇪🇸' },
-            { country: '싱가포르', city: '싱가포르', phone: '+65-6256-1188', flag: '🇸🇬' },
-            { country: '아랍에미리트', city: '두바이', phone: '+971-4-344-9200', flag: '🇦🇪' },
-            { country: '아르헨티나', city: '부에노스아이레스', phone: '+54-11-4802-8865', flag: '🇦🇷' },
-            { country: '영국', city: '런던', phone: '+44-78-7650-6895', flag: '🇬🇧' },
-            { country: '오스트리아', city: '빈', phone: '+43-1-478-1991', flag: '🇦🇹' },
-            { country: '이탈리아', city: '로마', phone: '+39-06-802461', flag: '🇮🇹' },
-            { country: '이탈리아', city: '밀라노', phone: '+39-02-2906-2641', flag: '🇮🇹' },
-            { country: '인도', city: '뉴델리', phone: '+91-11-4200-7000', flag: '🇮🇳' },
-            { country: '인도네시아', city: '자카르타', phone: '+62-21-2967-2580', flag: '🇮🇩' },
-            { country: '인도네시아', city: '발리', phone: '+62-811-386-7357', flag: '🇮🇩' },
-            { country: '일본', city: '도쿄', phone: '+81-3-3452-7611', flag: '🇯🇵' },
-            { country: '일본', city: '오사카', phone: '+81-90-3050-0746', flag: '🇯🇵' },
-            { country: '일본', city: '후쿠오카', phone: '+81-92-771-0461', flag: '🇯🇵' },
-            { country: '일본', city: '삿포로', phone: '+81-11-218-0288', flag: '🇯🇵' },
-            { country: '중국', city: '베이징', phone: '+86-10-8531-0700', flag: '🇨🇳' },
-            { country: '중국', city: '상하이', phone: '+86-21-6295-5000', flag: '🇨🇳' },
-            { country: '중국', city: '청도', phone: '+86-532-8897-6001', flag: '🇨🇳' },
-            { country: '체코', city: '프라하', phone: '+420-234-090-411', flag: '🇨🇿' },
-            { country: '캄보디아', city: '프놈펜', phone: '+855-23-211-900', flag: '🇰🇭' },
-            { country: '캐나다', city: '오타와', phone: '+1-613-244-5010', flag: '🇨🇦' },
-            { country: '캐나다', city: '밴쿠버', phone: '+1-604-681-9581', flag: '🇨🇦' },
-            { country: '캐나다', city: '토론토', phone: '+1-416-920-3809', flag: '🇨🇦' },
-            { country: '태국', city: '방콕', phone: '+66-81-914-5803', flag: '🇹🇭' },
-            { country: '튀르키예', city: '앙카라', phone: '+90-312-468-4821', flag: '🇹🇷' },
-            { country: '튀르키예', city: '이스탄불', phone: '+90-212-368-8368', flag: '🇹🇷' },
-            { country: '프랑스', city: '파리', phone: '+33-1-4753-0101', flag: '🇫🇷' },
-            { country: '필리핀', city: '마닐라', phone: '+63-917-817-5703', flag: '🇵🇭' },
-            { country: '필리핀', city: '세부', phone: '+63-917-808-3907', flag: '🇵🇭' },
-            { country: '호주', city: '캔버라', phone: '+61-2-6270-4100', flag: '🇦🇺' },
-            { country: '호주', city: '시드니', phone: '+61-2-9210-0200', flag: '🇦🇺' },
-            { country: '홍콩', city: '홍콩', phone: '+852-2529-4141', flag: '🇭🇰' },
-        ],
-        
-        elements: {
-            listContainer: null,
-            searchInput: null,
-            modal: null,
-            flag: null,
-            title: null,
-            desc: null,
-            callBtn: null
-        },
-
-        init: function() {
-            this.elements.listContainer = document.getElementById('sosListContainer');
-            this.elements.searchInput = document.getElementById('sosSearchInput');
-            this.elements.modal = document.getElementById('sosModal');
-            this.elements.flag = document.getElementById('sosModalFlag');
-            this.elements.title = document.getElementById('sosModalTitle');
-            this.elements.desc = document.getElementById('sosModalDesc');
-            this.elements.callBtn = document.getElementById('sosCallBtn');
-
-            // Render Full List Initially
-            this.renderList(this.data);
-
-            // Search Event
-            this.elements.searchInput.addEventListener('input', (e) => {
-                const term = e.target.value.toLowerCase().trim();
-                const filtered = this.data.filter(item => 
-                    item.country.includes(term) || item.city.includes(term)
-                );
-                this.renderList(filtered);
-            });
-            
-            // Close Modal on Overlay Click
-            this.elements.modal.addEventListener('click', (e) => {
-                if(e.target === this.elements.modal) this.closeSOSModal();
-            });
-        },
-
-        renderList: function(data) {
-            const container = this.elements.listContainer;
-            container.innerHTML = '';
-
-            if (data.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b;">검색 결과가 없습니다.</div>`;
-                return;
-            }
-
-            // Sort by Country Name
-            data.sort((a, b) => a.country.localeCompare(b.country));
-
-            data.forEach(item => {
-                const div = document.createElement('div');
-                div.className = 'sos-list-item';
-                div.innerHTML = `
-                    <div style="display:flex; align-items:center;">
-                        <span style="font-size:20px; margin-right:10px;">${item.flag}</span>
-                        <div>
-                            <span class="sos-country">${item.country}</span>
-                            <span class="sos-city">${item.city}</span>
-                        </div>
-                    </div>
-                    <span class="material-icons-round sos-arrow">call</span>
-                `;
-                div.onclick = () => this.openSOSModal(item);
-                container.appendChild(div);
-            });
-        },
-
-        openSOS: function() {
-            showPage('sosPage');
-        },
-
-        openSOSModal: function(item) {
-            this.elements.flag.textContent = item.flag;
-            this.elements.title.textContent = `${item.country} (${item.city})`;
-            this.elements.desc.textContent = `주 ${item.country} 대한민국 영사관으로 연결합니다.`;
-            this.elements.callBtn.href = `tel:${item.phone}`;
-            this.elements.modal.classList.add('open');
-        },
-
-        closeSOSModal: function() {
-            this.elements.modal.classList.remove('open');
-        }
-    };
-
     (function() {
         'use strict';
         const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzN8mtYeMS2JRIABZ0Mkm6CAwDM0UOOdah6mmakuiYlh0Oa6p1enjrZJiYD6PhuwmqoKw/exec';
         
+        // Define sosApp INSIDE the IIFE to ensure it can access showPage safely
+        const sosApp = {
+            data: [
+                { country: '괌', city: '하갓냐', phone: '+1-671-647-6488', flag: '🇬🇺' },
+                { country: '그리스', city: '아테네', phone: '+30-210-698-4080', flag: '🇬🇷' },
+                { country: '남아공', city: '프리토리아', phone: '+27-12-460-2508', flag: '🇿🇦' },
+                { country: '네덜란드', city: '헤이그', phone: '+31-70-740-0214', flag: '🇳🇱' },
+                { country: '대만', city: '타이베이', phone: '+886-2-2758-8320', flag: '🇹🇼' },
+                { country: '독일', city: '베를린', phone: '+49-30-260-650', flag: '🇩🇪' },
+                { country: '독일', city: '프랑크푸르트', phone: '+49-69-956-7520', flag: '🇩🇪' },
+                { country: '라오스', city: '비엔티안', phone: '+856-21-352-031', flag: '🇱🇦' },
+                { country: '러시아', city: '모스크바', phone: '+7-495-783-2727', flag: '🇷🇺' },
+                { country: '러시아', city: '블라디보스톡', phone: '+7-423-240-2222', flag: '🇷🇺' },
+                { country: '말레이시아', city: '쿠알라룸푸르', phone: '+60-3-4251-2336', flag: '🇲🇾' },
+                { country: '멕시코', city: '멕시코시티', phone: '+52-55-5202-9866', flag: '🇲🇽' },
+                { country: '몽골', city: '울란바토르', phone: '+976-7007-1020', flag: '🇲🇳' },
+                { country: '미국', city: '워싱턴', phone: '+1-202-939-5654', flag: '🇺🇸' },
+                { country: '미국', city: '뉴욕', phone: '+1-646-674-1600', flag: '🇺🇸' },
+                { country: '미국', city: 'LA', phone: '+1-213-385-9300', flag: '🇺🇸' },
+                { country: '미국', city: '샌프란시스코', phone: '+1-415-921-2251', flag: '🇺🇸' },
+                { country: '미국', city: '하와이', phone: '+1-808-595-6109', flag: '🇺🇸' },
+                { country: '베트남', city: '하노이', phone: '+84-90-402-6126', flag: '🇻🇳' },
+                { country: '베트남', city: '호치민', phone: '+84-93-850-0238', flag: '🇻🇳' },
+                { country: '베트남', city: '다낭', phone: '+84-93-246-5036', flag: '🇻🇳' },
+                { country: '벨기에', city: '브뤼셀', phone: '+32-2-675-5777', flag: '🇧🇪' },
+                { country: '브라질', city: '상파울루', phone: '+55-11-3141-1278', flag: '🇧🇷' },
+                { country: '사이판', city: '사이판', phone: '+1-670-234-0422', flag: '🇲🇵' },
+                { country: '스위스', city: '베른', phone: '+41-31-356-2444', flag: '🇨🇭' },
+                { country: '스페인', city: '마드리드', phone: '+34-91-353-2000', flag: '🇪🇸' },
+                { country: '스페인', city: '바르셀로나', phone: '+34-93-487-3153', flag: '🇪🇸' },
+                { country: '싱가포르', city: '싱가포르', phone: '+65-6256-1188', flag: '🇸🇬' },
+                { country: '아랍에미리트', city: '두바이', phone: '+971-4-344-9200', flag: '🇦🇪' },
+                { country: '아르헨티나', city: '부에노스아이레스', phone: '+54-11-4802-8865', flag: '🇦🇷' },
+                { country: '영국', city: '런던', phone: '+44-78-7650-6895', flag: '🇬🇧' },
+                { country: '오스트리아', city: '빈', phone: '+43-1-478-1991', flag: '🇦🇹' },
+                { country: '이탈리아', city: '로마', phone: '+39-06-802461', flag: '🇮🇹' },
+                { country: '이탈리아', city: '밀라노', phone: '+39-02-2906-2641', flag: '🇮🇹' },
+                { country: '인도', city: '뉴델리', phone: '+91-11-4200-7000', flag: '🇮🇳' },
+                { country: '인도네시아', city: '자카르타', phone: '+62-21-2967-2580', flag: '🇮🇩' },
+                { country: '인도네시아', city: '발리', phone: '+62-811-386-7357', flag: '🇮🇩' },
+                { country: '일본', city: '도쿄', phone: '+81-3-3452-7611', flag: '🇯🇵' },
+                { country: '일본', city: '오사카', phone: '+81-90-3050-0746', flag: '🇯🇵' },
+                { country: '일본', city: '후쿠오카', phone: '+81-92-771-0461', flag: '🇯🇵' },
+                { country: '일본', city: '삿포로', phone: '+81-11-218-0288', flag: '🇯🇵' },
+                { country: '중국', city: '베이징', phone: '+86-10-8531-0700', flag: '🇨🇳' },
+                { country: '중국', city: '상하이', phone: '+86-21-6295-5000', flag: '🇨🇳' },
+                { country: '중국', city: '청도', phone: '+86-532-8897-6001', flag: '🇨🇳' },
+                { country: '체코', city: '프라하', phone: '+420-234-090-411', flag: '🇨🇿' },
+                { country: '캄보디아', city: '프놈펜', phone: '+855-23-211-900', flag: '🇰🇭' },
+                { country: '캐나다', city: '오타와', phone: '+1-613-244-5010', flag: '🇨🇦' },
+                { country: '캐나다', city: '밴쿠버', phone: '+1-604-681-9581', flag: '🇨🇦' },
+                { country: '캐나다', city: '토론토', phone: '+1-416-920-3809', flag: '🇨🇦' },
+                { country: '태국', city: '방콕', phone: '+66-81-914-5803', flag: '🇹🇭' },
+                { country: '튀르키예', city: '앙카라', phone: '+90-312-468-4821', flag: '🇹🇷' },
+                { country: '튀르키예', city: '이스탄불', phone: '+90-212-368-8368', flag: '🇹🇷' },
+                { country: '프랑스', city: '파리', phone: '+33-1-4753-0101', flag: '🇫🇷' },
+                { country: '필리핀', city: '마닐라', phone: '+63-917-817-5703', flag: '🇵🇭' },
+                { country: '필리핀', city: '세부', phone: '+63-917-808-3907', flag: '🇵🇭' },
+                { country: '호주', city: '캔버라', phone: '+61-2-6270-4100', flag: '🇦🇺' },
+                { country: '호주', city: '시드니', phone: '+61-2-9210-0200', flag: '🇦🇺' },
+                { country: '홍콩', city: '홍콩', phone: '+852-2529-4141', flag: '🇭🇰' },
+            ],
+            
+            elements: {
+                listContainer: null, searchInput: null, modal: null, flag: null, title: null, desc: null, callBtn: null
+            },
+
+            init: function() {
+                try {
+                    this.elements.listContainer = document.getElementById('sosListContainer');
+                    this.elements.searchInput = document.getElementById('sosSearchInput');
+                    this.elements.modal = document.getElementById('sosModal');
+                    this.elements.flag = document.getElementById('sosModalFlag');
+                    this.elements.title = document.getElementById('sosModalTitle');
+                    this.elements.desc = document.getElementById('sosModalDesc');
+                    this.elements.callBtn = document.getElementById('sosCallBtn');
+
+                    if(this.elements.listContainer) this.renderList(this.data);
+
+                    if(this.elements.searchInput) {
+                        this.elements.searchInput.addEventListener('input', (e) => {
+                            const term = e.target.value.toLowerCase().trim();
+                            const filtered = this.data.filter(item => 
+                                item.country.includes(term) || item.city.includes(term)
+                            );
+                            this.renderList(filtered);
+                        });
+                    }
+                    
+                    if(this.elements.modal) {
+                        this.elements.modal.addEventListener('click', (e) => {
+                            if(e.target === this.elements.modal) this.closeSOSModal();
+                        });
+                    }
+                } catch(e) { console.error('SOS Init Error', e); }
+            },
+
+            renderList: function(data) {
+                const container = this.elements.listContainer;
+                if(!container) return;
+                container.innerHTML = '';
+
+                if (data.length === 0) {
+                    container.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b;">검색 결과가 없습니다.</div>`;
+                    return;
+                }
+
+                data.sort((a, b) => a.country.localeCompare(b.country));
+
+                data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'sos-list-item';
+                    div.innerHTML = `
+                        <div style="display:flex; align-items:center;">
+                            <span style="font-size:20px; margin-right:10px;">${item.flag}</span>
+                            <div>
+                                <span class="sos-country">${item.country}</span>
+                                <span class="sos-city">${item.city}</span>
+                            </div>
+                        </div>
+                        <span class="material-icons-round sos-arrow">call</span>
+                    `;
+                    div.onclick = () => this.openSOSModal(item);
+                    container.appendChild(div);
+                });
+            },
+
+            openSOS: function() {
+                // IMPORTANT: showPage is accessible here because it is defined in the IIFE
+                if (typeof showPage === 'function') {
+                    showPage('sosPage');
+                } else {
+                    console.error('showPage function not found');
+                }
+            },
+
+            openSOSModal: function(item) {
+                this.elements.flag.textContent = item.flag;
+                this.elements.title.textContent = `${item.country} (${item.city})`;
+                this.elements.desc.textContent = `주 ${item.country} 대한민국 영사관으로 연결합니다.`;
+                this.elements.callBtn.href = `tel:${item.phone}`;
+                this.elements.modal.classList.add('open');
+            },
+
+            closeSOSModal: function() {
+                this.elements.modal.classList.remove('open');
+            }
+        };
+
         const categoryEmojiMap = { '한식당/카페': '🍽️', '마트/식품점': '🛒', '뷰티 서비스': '💇', '의료 서비스': '🏥', '법률/세무': '⚖️', '생활 서비스': '🛠️', '교육/학원': '📚', '이사/운송': '📦', '종교': '⛪' };
-        const state = { allBusinessData: {}, currentResultsList: [], selectedLocation: '', selectedCategory: '', userLocation: null, cameFromMainPage: false };
+        const state = { allBusinessData: {}, currentResultsList: [], selectedLocation: '', selectedCategory: '', userLocation: null };
         const dom = {};
         
         function cacheDOMElements() {
@@ -843,49 +855,88 @@
             requestUserLocation();
             setupIntroAnimations();
             
-            // Init SOS App
+            // Init SOS App (It is safe to call here)
             sosApp.init();
+            
+            // Initial History State
+            if(window.history && window.history.replaceState) {
+                window.history.replaceState({page: 'mainPage'}, '', '#mainPage');
+            }
 
             await initAppOptimized();
         });
 
-        // --- PWA Install Logic ---
+        // --- Navigation Logic ---
+        window.addEventListener('popstate', (event) => {
+            const page = event.state ? event.state.page : 'mainPage';
+            _updateUIOnly(page);
+            closeModals(); 
+        });
+
+        function showPage(id) {
+            _updateUIOnly(id);
+            if(window.history && window.history.pushState) {
+                window.history.pushState({page: id}, '', `#${id}`);
+            }
+        }
+
+        function _updateUIOnly(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById(id);
+            if(target) target.classList.add('active');
+        }
+
+        // Global functions for HTML onclick
+        window.showPage = showPage;
+        
+        window.goBack = () => {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                _updateUIOnly('mainPage');
+            }
+        };
+
+        window.openCategoryURL = (url) => window.open(url, '_blank');
+        window.goToSearch = () => showPage('searchPage');
+        window.goToResults = () => showPage('resultsPage');
+        window.doSearch = doSearch;
+        
+        // Expose sosApp to window so HTML onclick="sosApp.openSOS()" works
+        window.sosApp = sosApp; 
+
+        // --- Other Functions ---
+        
+        // PWA Install Logic
         let deferredPrompt;
         const installBanner = document.getElementById('installBanner');
-
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
             if(installBanner) installBanner.style.display = 'flex';
         });
-
         window.installPWA = async () => {
             if (!deferredPrompt) return;
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
-            console.log(`User response to the install prompt: ${outcome}`);
             deferredPrompt = null;
             closeInstallBanner();
         };
-
         window.closeInstallBanner = () => {
             if(installBanner) installBanner.style.display = 'none';
         };
 
-        // --- Modal & Legal Logic ---
+        // Modal & Legal Logic
         window.openInquiryModal = () => {
             document.getElementById('inquiryModal').classList.add('open');
         }
-        
         window.openLegalModal = (type) => {
             if(type === 'terms') document.getElementById('termsModal').classList.add('open');
             if(type === 'privacy') document.getElementById('privacyModal').classList.add('open');
         }
-        
         window.closeModals = () => {
             document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('open'));
         }
-        
         window.copyEmail = () => {
             navigator.clipboard.writeText('admin@kornect.kr').then(() => {
                 const toast = document.getElementById('toast');
@@ -893,7 +944,6 @@
                 setTimeout(() => { toast.style.display = 'none'; }, 2000);
             });
         }
-        
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
             overlay.addEventListener('click', (e) => {
                 if(e.target === overlay) window.closeModals();
@@ -902,6 +952,7 @@
 
         function setupIntroAnimations() {
             const introPage = document.getElementById('introPage');
+            if(!introPage) return;
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -969,13 +1020,13 @@
             
             window.handleCardClickProxy = (name) => {
                 const found = list.find(b => b.name === name);
-                if(found) { state.cameFromMainPage = false; showDetail(found); }
+                if(found) showDetail(found);
             };
         }
 
         function handleCardClick(biz) {
             if (biz.website && biz.website.length > 5) window.open(biz.website.startsWith('http')?biz.website:'https://'+biz.website, '_blank');
-            else { state.cameFromMainPage = true; showDetail(biz); }
+            else showDetail(biz);
         }
 
         function doSearch() {
@@ -1024,12 +1075,6 @@
             showPage('detailPage');
         }
 
-        function showPage(id) { 
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active')); 
-            document.getElementById(id).classList.add('active'); 
-        }
-        window.showPage = showPage;
-
         function showLoading() { if (dom.loadingOverlay) dom.loadingOverlay.classList.add('show'); }
         function hideLoading() { if (dom.loadingOverlay) dom.loadingOverlay.classList.remove('show'); }
         function requestUserLocation() { if (navigator.geolocation) navigator.geolocation.getCurrentPosition(pos => state.userLocation = pos.coords, () => state.userLocation = null); }
@@ -1044,19 +1089,10 @@
                 }
                 
                 if (e.target.id === 'detailPage' && window.innerWidth >= 768) {
-                    handleDetailBack();
+                    goBack();
                 }
             });
         }
-
-        window.openCategoryURL = (url) => window.open(url, '_blank');
-        window.goToMain = () => { state.cameFromMainPage = false; showPage('mainPage'); };
-        window.goToSearch = () => showPage('searchPage');
-        window.goToResults = () => showPage('resultsPage');
-        window.doSearch = doSearch;
-        window.handleDetailBack = () => state.cameFromMainPage ? goToMain() : goToResults();
-        
-        window.sosApp = sosApp;
     })();
     </script>
 </body>
