@@ -44,7 +44,9 @@
             font-family: "Pretendard Variable", Pretendard, sans-serif;
             background: var(--bg-dark);
             color: var(--text-main);
+            /* 모바일 브라우저 UI 대응을 위한 높이 설정 수정 (dvh 적용) */
             min-height: 100vh;
+            min-height: 100dvh; 
             overflow: hidden; 
             display: flex;
             justify-content: center;
@@ -54,7 +56,9 @@
         
         .app-container {
             width: 100%; 
+            /* 화면 꽉 채우기 (dvh 적용) */
             height: 100vh;
+            height: 100dvh;
             display: flex; flex-direction: column;
             position: relative; overflow: hidden;
             background: var(--bg-dark);
@@ -66,7 +70,8 @@
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: var(--bg-dark);
             overflow-y: auto; overflow-x: hidden;
-            padding-bottom: calc(80px + var(--safe-bottom));
+            /* 하단 플로팅 버튼이 내용을 가리지 않도록 여백 확보 */
+            padding-bottom: calc(120px + var(--safe-bottom)); 
             display: none; z-index: 10;
         }
         #mainPage { display: block; }
@@ -158,13 +163,30 @@
         #detailPage.active { transform: translateY(0); }
         .detail-header-img { height: 120px; background: var(--primary-gradient); position: relative; flex-shrink: 0; }
         .detail-nav { position: absolute; top: var(--safe-top); left: 0; right: 0; padding: 12px 20px; display: flex; justify-content: space-between; }
-        .detail-content { flex: 1; background: var(--bg-dark); margin-top: -24px; border-radius: 24px 24px 0 0; position: relative; padding: 24px 20px 100px; overflow-y: auto; }
+        
+        /* 패딩 조정: 하단 버튼에 가려지지 않도록 padding-bottom을 넉넉히 줌 */
+        .detail-content { flex: 1; background: var(--bg-dark); margin-top: -24px; border-radius: 24px 24px 0 0; position: relative; padding: 24px 20px 160px; overflow-y: auto; }
+        
         .detail-name { font-size: 26px; font-weight: 800; color: white; margin-bottom: 8px; }
         .info-group { background: var(--bg-card); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
         .info-item { display: flex; gap: 16px; margin-bottom: 16px; }
         .info-icon { color: var(--text-sub); width: 24px; }
         .info-text { flex: 1; color: var(--text-main); font-size: 15px; }
-        .floating-bottom { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 20px calc(16px + var(--safe-bottom)); background: rgba(15, 23, 42, 0.95); display: flex; gap: 12px; }
+        
+        /* [수정] 하단 버튼 영역 스타일 변경 */
+        .floating-bottom { 
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            /* 하단 패딩을 넉넉하게 주어 버튼을 위로 올림 (기본 30px + safe-area) */
+            padding: 24px 20px calc(30px + env(safe-area-inset-bottom)); 
+            background: #0f172a; /* 배경색을 확실하게 주어 겹침 방지 */
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex; 
+            gap: 12px; 
+            z-index: 50;
+        }
         .action-btn { flex: 1; height: 56px; border-radius: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border:none; cursor: pointer; transition: 0.2s;}
         .action-btn.primary { background: var(--primary-color); color: white; }
         .action-btn.secondary { background: rgba(255,255,255,0.1); color: white; }
@@ -219,11 +241,11 @@
             display: flex; align-items: center; justify-content: center; 
             color: white; 
             box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5); 
-            z-index: 900; /* Increased Z-Index to prevent covering */
+            z-index: 900; 
             cursor: pointer; 
             transition: transform 0.2s; 
             border: none; 
-            animation: heartBeat 2s infinite; /* 심장박동 애니메이션 */
+            animation: heartBeat 2s infinite; 
         }
         .fab-sos:active { transform: scale(0.95); }
         .fab-icon { font-size: 28px; }
@@ -1093,6 +1115,18 @@
                 }
             });
         }
+
+        // iOS PWA External Link Fix
+        document.addEventListener('click', function(e) {
+            const anchor = e.target.closest('a');
+            if (!anchor) return;
+            
+            const href = anchor.getAttribute('href');
+            if (href && href.startsWith('http') && !href.includes(window.location.hostname)) {
+                e.preventDefault();
+                window.open(href, '_blank');
+            }
+        });
     })();
     </script>
 </body>
