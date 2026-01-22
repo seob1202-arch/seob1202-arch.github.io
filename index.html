@@ -44,7 +44,7 @@
             font-family: "Pretendard Variable", Pretendard, sans-serif;
             background: var(--bg-dark);
             color: var(--text-main);
-            /* 모바일 브라우저 UI 대응을 위한 높이 설정 수정 (dvh 적용) */
+            /* 모바일 브라우저 UI 대응 (dvh) */
             min-height: 100vh;
             min-height: 100dvh; 
             overflow: hidden; 
@@ -56,7 +56,7 @@
         
         .app-container {
             width: 100%; 
-            /* 화면 꽉 채우기 (dvh 적용) */
+            /* 화면 꽉 채우기 (dvh) */
             height: 100vh;
             height: 100dvh;
             display: flex; flex-direction: column;
@@ -70,7 +70,7 @@
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: var(--bg-dark);
             overflow-y: auto; overflow-x: hidden;
-            /* 하단 플로팅 버튼이 내용을 가리지 않도록 여백 확보 */
+            /* 하단 플로팅 버튼이 내용을 가리지 않도록 넉넉한 여백 확보 */
             padding-bottom: calc(120px + var(--safe-bottom)); 
             display: none; z-index: 10;
         }
@@ -172,20 +172,20 @@
         .info-item { display: flex; gap: 16px; margin-bottom: 16px; }
         .info-icon { color: var(--text-sub); width: 24px; }
         .info-text { flex: 1; color: var(--text-main); font-size: 15px; }
-        
-        /* [수정] 하단 버튼 영역 스타일 변경 */
+
+        /* [NEW] Fixed Floating Bottom (Button Visibility Fix) */
         .floating-bottom { 
             position: absolute; 
             bottom: 0; 
             left: 0; 
             right: 0; 
-            /* 하단 패딩을 넉넉하게 주어 버튼을 위로 올림 (기본 30px + safe-area) */
+            /* env(safe-area-inset-bottom) adds padding for iPhone home indicator */
             padding: 24px 20px calc(30px + env(safe-area-inset-bottom)); 
-            background: #0f172a; /* 배경색을 확실하게 주어 겹침 방지 */
-            border-top: 1px solid rgba(255,255,255,0.05);
+            background: #0f172a; 
+            border-top: 1px solid rgba(255,255,255,0.05); 
             display: flex; 
             gap: 12px; 
-            z-index: 50;
+            z-index: 50; 
         }
         .action-btn { flex: 1; height: 56px; border-radius: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border:none; cursor: pointer; transition: 0.2s;}
         .action-btn.primary { background: var(--primary-color); color: white; }
@@ -230,18 +230,18 @@
         .footer-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
         .footer-link-item { font-size: 12px; color: var(--text-sub); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
 
-        /* [MODIFIED] Floating Action Button for SOS */
+        /* Floating Action Button */
         .fab-sos { 
             position: fixed; 
             bottom: calc(20px + var(--safe-bottom)); 
             right: 20px; 
             width: 56px; height: 56px; 
-            background: var(--sos-gradient); /* 빨간색 그라디언트 */
+            background: var(--sos-gradient); 
             border-radius: 50%; 
             display: flex; align-items: center; justify-content: center; 
             color: white; 
             box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5); 
-            z-index: 900; 
+            z-index: 90; 
             cursor: pointer; 
             transition: transform 0.2s; 
             border: none; 
@@ -300,13 +300,13 @@
             @keyframes slideUpDesktop { from { transform: translate(-50%, 100px); opacity:0; } to { transform: translate(-50%, 0); opacity:1; } }
         }
         
-        /* Intro Styles (FIXED FOR IPHONE NOTCH & SCROLL) */
+        /* Intro Styles (FIXED FOR IPHONE) */
         #introPage { background-color: #F8FAFC !important; color: #0F172A; z-index: 200; }
         .intro-nav { 
-            position: fixed; 
+            position: fixed; /* Fixed to stay at top during scroll */
             top: 0; left: 0; right: 0; 
-            height: calc(60px + env(safe-area-inset-top)); 
-            padding-top: env(safe-area-inset-top);
+            height: calc(60px + env(safe-area-inset-top)); /* Adjust height for notch */
+            padding-top: env(safe-area-inset-top); /* Push content down from notch */
             display: flex; align-items: center; justify-content: space-between; 
             padding-left: 20px; padding-right: 20px;
             background: rgba(255, 255, 255, 0.85); 
@@ -354,7 +354,7 @@
                 <div class="stats">
                     <div class="stat-card"><div class="stat-number">50</div><div class="stat-label">국가</div></div>
                     <div class="stat-card"><div class="stat-number">340</div><div class="stat-label">도시</div></div>
-                    <div class="stat-card"><div class="stat-number">12,350</div><div class="stat-label">등록업체</div></div>
+                    <div class="stat-card"><div class="stat-number">12,350+</div><div class="stat-label">등록 서비스</div></div>
                 </div>
 
                 <div class="section">
@@ -369,7 +369,10 @@
                         <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/beauty')"><div class="cat-icon-box"><span class="material-icons-round">content_cut</span></div> <div class="cat-name">뷰티</div></div>
                         <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/law')"><div class="cat-icon-box"><span class="material-icons-round">gavel</span></div> <div class="cat-name">법률/세무</div></div>
                         <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/daily')"><div class="cat-icon-box"><span class="material-icons-round">build</span></div> <div class="cat-name">생활</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/edu')"><div class="cat-icon-box"><span class="material-icons-round">school</span></div> <div class="cat-name">교육</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/religion')"><div class="cat-icon-box"><span class="material-icons-round">church</span></div> <div class="cat-name">종교</div></div>
                         <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/society')"><div class="cat-icon-box"><span class="material-icons-round">diversity_3</span></div> <div class="cat-name">동호회</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/gov')"><div class="cat-icon-box"><span class="material-icons-round">account_balance</span></div> <div class="cat-name">기관</div></div>
                     </div>
                 </div>
 
@@ -661,10 +664,19 @@
                 <span class="material-icons-round modal-close" onclick="closeModals()">close</span>
             </div>
             <div class="modal-body">
-                <strong>제1조 (목적)</strong>
-                본 약관은 Kornect(이하 "회사")가 제공하는 한인 비즈니스 정보 제공 서비스(이하 "서비스")의 이용과 관련하여 회사와 회원의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.
-                <br><br>
-                </div>
+                <strong>제1조 (목적)</strong><br>
+                본 약관은 Kornect(이하 "회사")가 제공하는 한인 비즈니스 정보 제공 서비스(이하 "서비스")의 이용과 관련하여 회사와 회원의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.<br><br>
+
+                <strong>제2조 (서비스의 내용)</strong><br>
+                1. 회사는 전 세계 한인 비즈니스 정보를 수집하여 이용자에게 제공하는 플랫폼 서비스를 운영합니다.<br>
+                2. 회사는 직접 상품을 판매하거나 용역을 제공하는 당사자가 아니며, 입점 업체와 이용자 간의 거래에 대해 책임을 지지 않습니다.<br><br>
+
+                <strong>제3조 (면책 조항)</strong><br>
+                회사는 플랫폼 내에 등록된 업체의 정보(상호, 연락처, 주소 등)의 정확성, 신뢰성 등에 대하여 보증하지 않으며, 이를 신뢰하여 발생한 손해에 대해 책임을 지지 않습니다.<br><br>
+
+                <strong>제4조 (지식재산권)</strong><br>
+                서비스 내의 모든 콘텐츠에 대한 저작권은 회사 또는 해당 콘텐츠 제공자에게 있습니다.
+            </div>
         </div>
     </div>
 
@@ -675,10 +687,19 @@
                 <span class="material-icons-round modal-close" onclick="closeModals()">close</span>
             </div>
             <div class="modal-body">
-                <strong>1. 개인정보 수집 항목</strong>
-                Kornect는 별도의 회원가입 없이 이용 가능하며, 서비스 제공을 위해 최소한의 정보를 수집합니다.
-                <br><br>
-                </div>
+                <strong>1. 개인정보 수집 항목</strong><br>
+                Kornect는 별도의 회원가입 없이 이용 가능하며, 서비스 제공을 위해 최소한의 정보를 수집합니다.<br>
+                - 필수항목: 서비스 이용 기록, 접속 로그, 쿠키, 위치 정보(이용자 동의 시)<br><br>
+
+                <strong>2. 개인정보 수집 목적</strong><br>
+                수집된 정보는 서비스 제공, 사용자 경험 개선, 접속 빈도 파악 및 서비스 이용 통계 작성을 위해 사용됩니다.<br><br>
+
+                <strong>3. 개인정보의 보유 및 이용 기간</strong><br>
+                수집된 정보는 목적 달성 후 지체 없이 파기합니다. 단, 관계 법령에 따라 보존이 필요한 경우 해당 기간 동안 보관합니다.<br><br>
+
+                <strong>4. 사용자 권리</strong><br>
+                이용자는 언제든지 자신의 개인정보 수집에 대한 동의를 철회하거나 삭제를 요청할 수 있습니다. 문의사항은 admin@kornect.kr로 연락 바랍니다.
+            </div>
         </div>
     </div>
     
