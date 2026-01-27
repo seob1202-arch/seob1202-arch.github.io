@@ -136,6 +136,22 @@
         .banner-desc { font-size: 13px; color: rgba(255,255,255,0.9); display: block;}
         .banner-icon { font-size: 32px; background: rgba(255,255,255,0.2); padding: 12px; border-radius: 50%; color: white; }
 
+        /* [추가됨] 제휴 업체 배너 스타일 */
+        .partner-banner { 
+            background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%); 
+            border-radius: var(--radius-lg); 
+            padding: 24px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.4); 
+            margin-bottom: 32px; 
+            text-decoration: none; 
+            transition: transform 0.2s; 
+            cursor: pointer;
+        }
+        .partner-banner:active { transform: scale(0.98); }
+
         .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 32px; }
         .stat-card { background: rgba(255,255,255,0.03); padding: 16px 8px; border-radius: 16px; text-align: center; }
         .stat-number { font-size: 20px; font-weight: 800; color: var(--primary-color); margin-bottom: 4px; }
@@ -401,7 +417,14 @@
                          <div class="skeleton-loader"></div><div class="skeleton-loader"></div>
                     </div>
                 </div>
-
+                
+                <a href="https://kornect.kr/Partners" target="_blank" class="partner-banner"> 
+                    <div class="banner-content">
+                        <span class="banner-title">Kornect 제휴 업체</span>
+                        <span class="banner-desc">엄선된 파트너 리스트 확인하기</span>
+                    </div>
+                    <span class="material-icons-round banner-icon">verified_user</span>
+                </a>
                 <footer class="app-footer">
                     <div class="footer-links">
                         <span class="footer-link-item" onclick="openLegalModal('terms')">이용약관</span>
