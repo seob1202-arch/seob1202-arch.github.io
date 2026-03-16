@@ -20,9 +20,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     
     <style>
-        /* =========================================
-           CORE & MOBILE BASE STYLES 
-           ========================================= */
         :root {
             --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
             --primary-color: #6366f1;
@@ -44,7 +41,6 @@
             font-family: "Pretendard Variable", Pretendard, sans-serif;
             background: var(--bg-dark);
             color: var(--text-main);
-            /* 모바일 브라우저 UI 대응 (dvh) */
             min-height: 100vh;
             min-height: 100dvh; 
             overflow: hidden; 
@@ -56,7 +52,6 @@
         
         .app-container {
             width: 100%; 
-            /* 화면 꽉 채우기 (dvh) */
             height: 100vh;
             height: 100dvh;
             display: flex; flex-direction: column;
@@ -65,12 +60,10 @@
             max-width: 100%;
         }
 
-        /* Page Transitions */
         .page {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: var(--bg-dark);
             overflow-y: auto; overflow-x: hidden;
-            /* 하단 플로팅 버튼이 내용을 가리지 않도록 넉넉한 여백 확보 */
             padding-bottom: calc(120px + var(--safe-bottom)); 
             display: none; z-index: 10;
         }
@@ -78,7 +71,6 @@
         .page.active { display: block; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Header */
         .app-header {
             padding: calc(16px + var(--safe-top)) 20px 16px;
             background: rgba(15, 23, 42, 0.9);
@@ -95,13 +87,11 @@
         .header-actions { display: flex; gap: 8px; }
         .btn-circle { width: 40px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 50%; color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; z-index: 60; position: relative;}
         
-        /* Main Content */
         .content-container { padding: 0 20px 24px; }
         .section { margin-bottom: 32px; }
         .section-header { margin-bottom: 16px; }
         .section-title { font-size: 19px; font-weight: 700; color: var(--text-white); display: flex; align-items: center; gap: 6px; }
 
-        /* Category Grid */
         .category-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); 
@@ -113,7 +103,6 @@
         .cat-item:active .cat-icon-box { transform: scale(0.95); filter: brightness(1.2); }
         .cat-name { font-size: 12px; color: var(--text-sub); font-weight: 500; text-align: center; white-space: nowrap; }
 
-        /* Modern Menu Grid */
         .modern-menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
         .modern-card { background: var(--bg-card); border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px; cursor: pointer; transition: 0.2s; border: 1px solid rgba(255,255,255,0.05); }
         .modern-card:active { transform: scale(0.98); background: rgba(255,255,255,0.1); }
@@ -130,13 +119,11 @@
         .modern-card-title { font-size: 15px; font-weight: 700; color: white; }
         .modern-card-desc { font-size: 11px; color: var(--text-sub); }
 
-        /* Banner & Stats */
-        .banner-card { background: var(--primary-gradient); border-radius: var(--radius-lg); padding: 24px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); margin-bottom: 32px; text-decoration: none; transition: transform 0.2s; }
+        .banner-card { background: var(--primary-gradient); border-radius: var(--radius-lg); padding: 24px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); margin-bottom: 32px; text-decoration: none; transition: transform 0.2s; cursor: pointer; }
         .banner-title { font-size: 18px; font-weight: 800; color: white; display: block; margin-bottom: 4px;}
         .banner-desc { font-size: 13px; color: rgba(255,255,255,0.9); display: block;}
         .banner-icon { font-size: 32px; background: rgba(255,255,255,0.2); padding: 12px; border-radius: 50%; color: white; }
 
-        /* [추가됨] 제휴 업체 배너 스타일 */
         .partner-banner { 
             background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%); 
             border-radius: var(--radius-lg); 
@@ -157,14 +144,12 @@
         .stat-number { font-size: 20px; font-weight: 800; color: var(--primary-color); margin-bottom: 4px; }
         .stat-label { font-size: 11px; color: var(--text-sub); }
 
-        /* Horizontal Scroll & Biz Card */
         .h-scroll-view { display: flex; gap: 16px; overflow-x: auto; padding-right: 20px; margin-right: -20px; padding-bottom: 10px; }
         .biz-card-sm { min-width: 200px; background: var(--bg-card); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s; }
         .biz-title { font-size: 15px; font-weight: 700; color: white; margin-bottom: 4px; }
         .biz-meta { font-size: 12px; color: var(--text-sub); }
         .biz-rating-badge { margin-top: 10px; font-size: 12px; color: #fbbf24; font-weight: 700; }
 
-        /* Search & Results */
         .search-btn { width: 100%; padding: 18px; background: var(--primary-gradient); border: none; border-radius: 16px; color: white; font-weight: 700; margin-top: 20px; cursor: pointer; transition: 0.2s; }
         .location-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         .location-chip { padding: 12px; text-align: center; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: var(--text-sub); font-size: 13px; font-weight: 600; cursor: pointer; }
@@ -174,13 +159,10 @@
         .service-item.selected { background: var(--primary-color); color: white; border-color: var(--primary-color); }
         .business-card { background: var(--bg-card); padding: 16px; border-radius: 16px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; }
         
-        /* Detail Page */
         #detailPage { transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex !important; flex-direction: column; z-index: 100; padding: 0; }
         #detailPage.active { transform: translateY(0); }
         .detail-header-img { height: 120px; background: var(--primary-gradient); position: relative; flex-shrink: 0; }
         .detail-nav { position: absolute; top: var(--safe-top); left: 0; right: 0; padding: 12px 20px; display: flex; justify-content: space-between; }
-        
-        /* 패딩 조정: 하단 버튼에 가려지지 않도록 padding-bottom을 넉넉히 줌 */
         .detail-content { flex: 1; background: var(--bg-dark); margin-top: -24px; border-radius: 24px 24px 0 0; position: relative; padding: 24px 20px 160px; overflow-y: auto; }
         
         .detail-name { font-size: 26px; font-weight: 800; color: white; margin-bottom: 8px; }
@@ -189,25 +171,32 @@
         .info-icon { color: var(--text-sub); width: 24px; }
         .info-text { flex: 1; color: var(--text-main); font-size: 15px; }
 
-        /* [NEW] Fixed Floating Bottom (Button Visibility Fix) */
         .floating-bottom { 
-            position: absolute; 
-            bottom: 0; 
-            left: 0; 
-            right: 0; 
-            /* env(safe-area-inset-bottom) adds padding for iPhone home indicator */
+            position: absolute; bottom: 0; left: 0; right: 0; 
             padding: 24px 20px calc(30px + env(safe-area-inset-bottom)); 
             background: #0f172a; 
             border-top: 1px solid rgba(255,255,255,0.05); 
-            display: flex; 
-            gap: 12px; 
-            z-index: 50; 
+            display: flex; gap: 12px; z-index: 50; 
         }
         .action-btn { flex: 1; height: 56px; border-radius: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border:none; cursor: pointer; transition: 0.2s;}
         .action-btn.primary { background: var(--primary-color); color: white; }
         .action-btn.secondary { background: rgba(255,255,255,0.1); color: white; }
 
-        /* SOS Page Specific Styles */
+        /* ★ iOS 인앱브라우저 안내 배너 */
+        .ios-inapp-hint {
+            display: none;
+            margin: 0 0 16px;
+            padding: 12px 16px;
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.35);
+            border-radius: 12px;
+            font-size: 13px;
+            color: #a5b4fc;
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+        .ios-inapp-hint.visible { display: block; }
+
         #sosPage { z-index: 110; } 
         .sos-header { border-bottom: 1px solid rgba(239, 68, 68, 0.2); }
         .sos-title { color: #fca5a5; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap:6px; }
@@ -216,7 +205,6 @@
         .sos-input { width: 100%; padding: 16px 16px 16px 45px; background: #1e293b; border: 1px solid #ef4444; border-radius: 14px; color: white; font-size: 16px; outline: none; transition: 0.2s; }
         .sos-input:focus { box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25); background: #252f45; }
         .sos-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #f87171; }
-        
         .sos-list-group-title { font-size: 13px; font-weight: 600; color: #94a3b8; margin-bottom: 12px; padding-left: 4px; }
         .sos-list-item { background: #1e293b; padding: 18px; border-radius: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); transition: 0.2s; }
         .sos-list-item:active { background: rgba(239, 68, 68, 0.1); border-color: #ef4444; transform: scale(0.98); }
@@ -224,7 +212,6 @@
         .sos-city { font-size: 13px; color: #94a3b8; margin-left: 6px; }
         .sos-arrow { color: #ef4444; }
 
-        /* SOS Modal Styles */
         .sos-sheet-content { text-align: center; }
         .sos-flag { font-size: 40px; margin-bottom: 16px; display: block; }
         .sos-sheet-title { font-size: 22px; font-weight: 800; color: white; margin-bottom: 8px; }
@@ -232,7 +219,6 @@
         .sos-sheet-btn { background: #ef4444; color: white; width: 100%; padding: 20px; border-radius: 16px; font-size: 18px; font-weight: 800; border: none; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; cursor: pointer; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); margin-bottom: 12px; }
         .sos-sheet-btn:active { transform: scale(0.96); }
 
-        /* Loader & Footer */
         .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 9999; }
         .loading-overlay.show { display: flex; }
         .spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 0.8s linear infinite; }
@@ -246,22 +232,12 @@
         .footer-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
         .footer-link-item { font-size: 12px; color: var(--text-sub); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
 
-        /* Floating Action Button */
         .fab-sos { 
-            position: fixed; 
-            bottom: calc(20px + var(--safe-bottom)); 
-            right: 20px; 
-            width: 56px; height: 56px; 
-            background: var(--sos-gradient); 
-            border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; 
-            color: white; 
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5); 
-            z-index: 90; 
-            cursor: pointer; 
-            transition: transform 0.2s; 
-            border: none; 
-            animation: heartBeat 2s infinite; 
+            position: fixed; bottom: calc(20px + var(--safe-bottom)); right: 20px; 
+            width: 56px; height: 56px; background: var(--sos-gradient); border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; color: white; 
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5); z-index: 90; cursor: pointer; 
+            transition: transform 0.2s; border: none; animation: heartBeat 2s infinite; 
         }
         .fab-sos:active { transform: scale(0.95); }
         .fab-icon { font-size: 28px; }
@@ -272,7 +248,6 @@
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
         }
 
-        /* Modal Base */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
         .modal-overlay.open { display: flex; opacity: 1; }
         .modal-box { width: 90%; max-width: 500px; background: var(--bg-card); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; display: flex; flex-direction: column; max-height: 80vh; transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -282,7 +257,6 @@
         .modal-close { color: var(--text-sub); cursor: pointer; }
         .modal-body { padding: 24px 20px; overflow-y: auto; font-size: 14px; color: var(--text-sub); line-height: 1.6; white-space: pre-line; }
 
-        /* Inquiry Specific */
         .inquiry-options { display: flex; flex-direction: column; gap: 12px; }
         .inquiry-btn { width: 100%; padding: 16px; border-radius: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; border: none; font-size: 15px; }
         .btn-email { background: var(--primary-color); color: white; }
@@ -291,17 +265,14 @@
         .toast-msg { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: white; padding: 12px 24px; border-radius: 30px; font-size: 14px; z-index: 3000; display: none; pointer-events: none; animation: fadeInOut 2s ease forwards; }
         @keyframes fadeInOut { 0% { opacity:0; } 10% { opacity:1; } 90% { opacity:1; } 100% { opacity:0; } }
 
-        /* Install Banner */
         .install-banner { position: fixed; bottom: 20px; left: 20px; right: 20px; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px; display: none; align-items: center; justify-content: space-between; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 9999; backdrop-filter: blur(10px); animation: slideUp 0.5s ease; }
         @keyframes slideUp { from { transform: translateY(100px); opacity:0; } to { transform: translateY(0); opacity:1; } }
         .install-text { color: white; font-size: 14px; font-weight: 600; }
         .install-action { background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; }
         .install-close { color: #94a3b8; font-size: 20px; cursor: pointer; margin-left: 12px; }
 
-        /* Desktop */
         @media (min-width: 768px) {
             .app-container { max-width: 1024px; margin: 0 auto; box-shadow: 0 0 50px rgba(0,0,0,0.5); min-height: 100vh; border: 1px solid rgba(255,255,255,0.05); }
-            /* 데스크탑에서도 auto-fill로 자연스럽게 배치 */
             .category-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
             .modern-menu-grid { grid-template-columns: repeat(4, 1fr); }
             .h-scroll-view { flex-wrap: wrap; overflow-x: visible; padding-right: 0; margin-right: 0; }
@@ -316,13 +287,11 @@
             @keyframes slideUpDesktop { from { transform: translate(-50%, 100px); opacity:0; } to { transform: translate(-50%, 0); opacity:1; } }
         }
         
-        /* Intro Styles (FIXED FOR IPHONE) */
         #introPage { background-color: #F8FAFC !important; color: #0F172A; z-index: 200; }
         .intro-nav { 
-            position: fixed; /* Fixed to stay at top during scroll */
-            top: 0; left: 0; right: 0; 
-            height: calc(60px + env(safe-area-inset-top)); /* Adjust height for notch */
-            padding-top: env(safe-area-inset-top); /* Push content down from notch */
+            position: fixed; top: 0; left: 0; right: 0; 
+            height: calc(60px + env(safe-area-inset-top));
+            padding-top: env(safe-area-inset-top);
             display: flex; align-items: center; justify-content: space-between; 
             padding-left: 20px; padding-right: 20px;
             background: rgba(255, 255, 255, 0.85); 
@@ -340,7 +309,6 @@
 </head>
 <body>
     <div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div></div>
-    
     <div id="toast" class="toast-msg">이메일 주소가 복사되었습니다.</div>
 
     <div class="app-container">
@@ -359,13 +327,14 @@
             </header>
 
             <div class="content-container">
-                <a href="https://kornect.kr/join" target="_blank" class="banner-card">
+                <!-- ★ 수정: <a> → <div> + openExternalLink() 사용 -->
+                <div onclick="openExternalLink('https://kornect.kr/join')" class="banner-card">
                     <div class="banner-content">
                         <span class="banner-title">비즈니스 무료 등록</span>
                         <span class="banner-desc">전 세계 한인들에게 홍보하세요!</span>
                     </div>
                     <span class="material-icons-round banner-icon">storefront</span>
-                </a>
+                </div>
 
                 <div class="stats">
                     <div class="stat-card"><div class="stat-number">50</div><div class="stat-label">국가</div></div>
@@ -375,20 +344,19 @@
 
                 <div class="section">
                     <div class="section-header"><div class="section-title">업체 검색하기</div></div>
-                    
                     <div class="category-grid">
-                        <div class="cat-item" onclick="openCategoryURL('https://www.b-ding.com/coming-soon-02-1')"><div class="cat-icon-box"><span class="material-icons-round">local_taxi</span></div> <div class="cat-name">한인택시</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/minbak')"><div class="cat-icon-box"><span class="material-icons-round">hotel</span></div> <div class="cat-name">한인숙소</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/tour')"><div class="cat-icon-box"><span class="material-icons-round">flag</span></div> <div class="cat-name">투어</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/restaurants')"><div class="cat-icon-box"><span class="material-icons-round">restaurant</span></div> <div class="cat-name">한식당</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/supermarket')"><div class="cat-icon-box"><span class="material-icons-round">shopping_cart</span></div> <div class="cat-name">마트</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/beauty')"><div class="cat-icon-box"><span class="material-icons-round">content_cut</span></div> <div class="cat-name">뷰티</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/law')"><div class="cat-icon-box"><span class="material-icons-round">gavel</span></div> <div class="cat-name">법률/세무</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/daily')"><div class="cat-icon-box"><span class="material-icons-round">build</span></div> <div class="cat-name">생활</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/edu')"><div class="cat-icon-box"><span class="material-icons-round">school</span></div> <div class="cat-name">교육</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/religion')"><div class="cat-icon-box"><span class="material-icons-round">church</span></div> <div class="cat-name">종교</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/society')"><div class="cat-icon-box"><span class="material-icons-round">diversity_3</span></div> <div class="cat-name">동호회</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/gov')"><div class="cat-icon-box"><span class="material-icons-round">account_balance</span></div> <div class="cat-name">기관</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://www.b-ding.com/coming-soon-02-1')"><div class="cat-icon-box"><span class="material-icons-round">local_taxi</span></div><div class="cat-name">한인택시</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/minbak')"><div class="cat-icon-box"><span class="material-icons-round">hotel</span></div><div class="cat-name">한인숙소</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/tour')"><div class="cat-icon-box"><span class="material-icons-round">flag</span></div><div class="cat-name">투어</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/restaurants')"><div class="cat-icon-box"><span class="material-icons-round">restaurant</span></div><div class="cat-name">한식당</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/supermarket')"><div class="cat-icon-box"><span class="material-icons-round">shopping_cart</span></div><div class="cat-name">마트</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/beauty')"><div class="cat-icon-box"><span class="material-icons-round">content_cut</span></div><div class="cat-name">뷰티</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/law')"><div class="cat-icon-box"><span class="material-icons-round">gavel</span></div><div class="cat-name">법률/세무</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/daily')"><div class="cat-icon-box"><span class="material-icons-round">build</span></div><div class="cat-name">생활</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/edu')"><div class="cat-icon-box"><span class="material-icons-round">school</span></div><div class="cat-name">교육</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/religion')"><div class="cat-icon-box"><span class="material-icons-round">church</span></div><div class="cat-name">종교</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/society')"><div class="cat-icon-box"><span class="material-icons-round">diversity_3</span></div><div class="cat-name">동호회</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/gov')"><div class="cat-icon-box"><span class="material-icons-round">account_balance</span></div><div class="cat-name">기관</div></div>
                     </div>
                 </div>
 
@@ -398,7 +366,7 @@
                         <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/ticket')"><div class="modern-icon theme-orange"><span class="material-icons-round">auto_stories</span></div><div class="modern-card-text"><div class="modern-card-title">최저가 티켓</div><div class="modern-card-desc">여행 준비 필수 정보</div></div></div>
                         <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/used-market')"><div class="modern-icon theme-indigo"><span class="material-icons-round">storefront</span></div><div class="modern-card-text"><div class="modern-card-title">리트립 (Re:Trip)</div><div class="modern-card-desc">여행자 간 직거래 장터</div></div></div>
                         <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/shopping')"><div class="modern-icon theme-pink"><span class="material-icons-round">local_fire_department</span></div><div class="modern-card-text"><div class="modern-card-title">담다 (Dam-da)</div><div class="modern-card-desc">여행의 추억을 담다</div></div></div>
-                        <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/freelancer')"><div class="modern-icon theme-blue"><span class="material-icons-round">laptop_mac</span></div><div class="modern-card-text"><div class="modern-card-title">K-메이트</div><div class="modern-card-desc">여행을 돕는 숨은 고수 찾기 </div></div></div>
+                        <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/freelancer')"><div class="modern-icon theme-blue"><span class="material-icons-round">laptop_mac</span></div><div class="modern-card-text"><div class="modern-card-title">K-메이트</div><div class="modern-card-desc">여행을 돕는 숨은 고수 찾기</div></div></div>
                         <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/faq')"><div class="modern-icon theme-teal"><span class="material-icons-round">map</span></div><div class="modern-card-text"><div class="modern-card-title">여행정보 로드맵</div><div class="modern-card-desc">자주 묻는 질문 FAQ</div></div></div>
                         <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/k-contents')"><div class="modern-icon theme-purple"><span class="material-icons-round">play_circle</span></div><div class="modern-card-text"><div class="modern-card-title">K-숏폼 큐레이션</div><div class="modern-card-desc">화제의 영상 & 뉴스</div></div></div>
                     </div>
@@ -414,17 +382,19 @@
                 <div class="section">
                     <div class="section-header"><div class="section-title">✨ 신규 비즈니스</div></div>
                     <div class="h-scroll-view" id="newList">
-                         <div class="skeleton-loader"></div><div class="skeleton-loader"></div>
+                        <div class="skeleton-loader"></div><div class="skeleton-loader"></div>
                     </div>
                 </div>
                 
-                <a href="https://kornect.kr/Partners" target="_blank" class="partner-banner"> 
+                <!-- ★ 수정: <a> → <div> + openExternalLink() 사용 -->
+                <div onclick="openExternalLink('https://kornect.kr/Partners')" class="partner-banner">
                     <div class="banner-content">
                         <span class="banner-title">Kornect 제휴 업체</span>
                         <span class="banner-desc">엄선된 파트너 리스트 확인하기</span>
                     </div>
                     <span class="material-icons-round banner-icon">verified_user</span>
-                </a>
+                </div>
+
                 <footer class="app-footer">
                     <div class="footer-links">
                         <span class="footer-link-item" onclick="openLegalModal('terms')">이용약관</span>
@@ -463,8 +433,7 @@
                     <input type="text" id="sosSearchInput" class="sos-input" placeholder="국가 또는 도시 검색 (예: 일본)">
                 </div>
                 <div class="sos-list-group-title">지원 국가 및 지역</div>
-                <div id="sosListContainer">
-                    </div>
+                <div id="sosListContainer"></div>
             </div>
         </div>
 
@@ -527,7 +496,6 @@
             </nav>
 
             <div style="padding-top: 100px; padding-bottom: 150px; box-sizing: border-box; width: 100%;"> 
-                
                 <section class="hero">
                     <div class="container" style="padding:0 24px;">
                         <span class="section-eyebrow fade-in-up">GLOBAL KOREAN BUSINESS</span>
@@ -539,9 +507,10 @@
                             사장님은 이제 <strong>본업</strong>에만 집중하세요.<br>
                             복잡한 마케팅은 코넥트가 해결합니다.
                         </p>
-                        <a href="https://join-olive.vercel.app" class="btn-primary fade-in-up" target="_blank" style="width:100%; max-width:280px;">
+                        <!-- ★ 수정: target="_blank" 제거, onclick="openExternalLink()" 사용 -->
+                        <button onclick="openExternalLink('https://join-olive.vercel.app')" class="btn-primary fade-in-up" style="width:100%; max-width:280px; border:none; cursor:pointer;">
                             지금 무료로 등록하기
-                        </a>
+                        </button>
                         <div class="fade-in-up" style="margin-top:16px; font-size:12px; color:#64748b;">
                             ⚡️ 1분이면 등록 완료! 별도 비용 없음
                         </div>
@@ -550,7 +519,6 @@
 
                 <div style="padding: 20px;">
                     <div style="margin-bottom:12px; font-weight:700; font-size:18px; color:#1e293b;">이런 고민 있으신가요? 🤔</div>
-                    
                     <div class="intro-card">
                         <div style="display:flex; gap:12px; margin-bottom:8px;">
                             <div style="width:40px; height:40px; background:rgba(59, 130, 246, 0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; color:#3b82f6;">
@@ -562,7 +530,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="intro-card">
                         <div style="display:flex; gap:12px; margin-bottom:8px;">
                             <div style="width:40px; height:40px; background:rgba(244, 63, 94, 0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; color:#f43f5e;">
@@ -578,28 +545,11 @@
 
                 <div style="padding: 0 24px 40px;">
                     <div style="margin-bottom:20px; font-weight:700; font-size:18px; color:#1e293b;">Kornect는 다릅니다 ✨</div>
-                    
                     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
-                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;">
-                            <span class="material-icons-round" style="font-size:32px; color:#6366f1; margin-bottom:8px;">public</span>
-                            <div style="font-weight:700; font-size:14px; margin-bottom:4px;">글로벌 노출</div>
-                            <div style="font-size:11px; color:#64748b;">전 세계 어디서든<br>내 가게 검색 가능</div>
-                        </div>
-                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;">
-                            <span class="material-icons-round" style="font-size:32px; color:#8b5cf6; margin-bottom:8px;">phonelink_setup</span>
-                            <div style="font-weight:700; font-size:14px; margin-bottom:4px;">앱 설치 불필요</div>
-                            <div style="font-size:11px; color:#64748b;">웹으로 즉시 접속<br>접근성 100%</div>
-                        </div>
-                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;">
-                            <span class="material-icons-round" style="font-size:32px; color:#ec4899; margin-bottom:8px;">edit_note</span>
-                            <div style="font-weight:700; font-size:14px; margin-bottom:4px;">간편한 관리</div>
-                            <div style="font-size:11px; color:#64748b;">영업시간, 메뉴 등<br>언제든 수정 가능</div>
-                        </div>
-                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;">
-                            <span class="material-icons-round" style="font-size:32px; color:#10b981; margin-bottom:8px;">verified</span>
-                            <div style="font-weight:700; font-size:14px; margin-bottom:4px;">신뢰도 상승</div>
-                            <div style="font-size:11px; color:#64748b;">리뷰와 평점으로<br>고객 신뢰 확보</div>
-                        </div>
+                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;"><span class="material-icons-round" style="font-size:32px; color:#6366f1; margin-bottom:8px;">public</span><div style="font-weight:700; font-size:14px; margin-bottom:4px;">글로벌 노출</div><div style="font-size:11px; color:#64748b;">전 세계 어디서든<br>내 가게 검색 가능</div></div>
+                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;"><span class="material-icons-round" style="font-size:32px; color:#8b5cf6; margin-bottom:8px;">phonelink_setup</span><div style="font-weight:700; font-size:14px; margin-bottom:4px;">앱 설치 불필요</div><div style="font-size:11px; color:#64748b;">웹으로 즉시 접속<br>접근성 100%</div></div>
+                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;"><span class="material-icons-round" style="font-size:32px; color:#ec4899; margin-bottom:8px;">edit_note</span><div style="font-weight:700; font-size:14px; margin-bottom:4px;">간편한 관리</div><div style="font-size:11px; color:#64748b;">영업시간, 메뉴 등<br>언제든 수정 가능</div></div>
+                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;"><span class="material-icons-round" style="font-size:32px; color:#10b981; margin-bottom:8px;">verified</span><div style="font-weight:700; font-size:14px; margin-bottom:4px;">신뢰도 상승</div><div style="font-size:11px; color:#64748b;">리뷰와 평점으로<br>고객 신뢰 확보</div></div>
                     </div>
                 </div>
 
@@ -608,33 +558,23 @@
                         <h3 style="font-size:18px; font-weight:800; color:#0f172a;">🚀 시작하는 방법</h3>
                         <p style="font-size:13px; color:#64748b;">아주 간단합니다. 3단계만 거치세요.</p>
                     </div>
-
                     <div style="display:flex; flex-direction:column; gap:20px;">
-                        <div style="display:flex; align-items:center; gap:16px;">
-                            <div style="width:32px; height:32px; background:#0f172a; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">1</div>
-                            <div style="font-size:14px; color:#334155;"><strong>'무료로 등록하기'</strong> 버튼 클릭</div>
-                        </div>
+                        <div style="display:flex; align-items:center; gap:16px;"><div style="width:32px; height:32px; background:#0f172a; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">1</div><div style="font-size:14px; color:#334155;"><strong>'무료로 등록하기'</strong> 버튼 클릭</div></div>
                         <div style="height:20px; border-left:2px dashed #cbd5e1; margin:-10px 0 -10px 15px;"></div>
-                        <div style="display:flex; align-items:center; gap:16px;">
-                            <div style="width:32px; height:32px; background:#0f172a; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">2</div>
-                            <div style="font-size:14px; color:#334155;">비즈니스 정보(이름, 위치 등) 입력</div>
-                        </div>
+                        <div style="display:flex; align-items:center; gap:16px;"><div style="width:32px; height:32px; background:#0f172a; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">2</div><div style="font-size:14px; color:#334155;">비즈니스 정보(이름, 위치 등) 입력</div></div>
                         <div style="height:20px; border-left:2px dashed #cbd5e1; margin:-10px 0 -10px 15px;"></div>
-                        <div style="display:flex; align-items:center; gap:16px;">
-                            <div style="width:32px; height:32px; background:#6366f1; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">3</div>
-                            <div style="font-size:14px; color:#334155;"><strong>등록 완료!</strong> 즉시 홍보가 시작됩니다.</div>
-                        </div>
+                        <div style="display:flex; align-items:center; gap:16px;"><div style="width:32px; height:32px; background:#6366f1; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">3</div><div style="font-size:14px; color:#334155;"><strong>등록 완료!</strong> 즉시 홍보가 시작됩니다.</div></div>
                     </div>
                 </div>
 
                 <div style="padding: 40px 24px 20px; text-align:center;">
                     <h2 style="font-size:22px; font-weight:800; color:#0f172a; margin-bottom:12px;">지금 바로 시작하세요</h2>
                     <p style="font-size:14px; color:#64748b; margin-bottom:24px;">이미 전 세계 12,000개 이상의 한인 비즈니스가<br>Kornect와 함께 성장하고 있습니다.</p>
-                    <a href="https://join-olive.vercel.app" class="btn-primary" target="_blank" style="width:100%; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);">
+                    <!-- ★ 수정: target="_blank" 제거, onclick="openExternalLink()" 사용 -->
+                    <button onclick="openExternalLink('https://join-olive.vercel.app')" class="btn-primary" style="width:100%; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3); border:none; cursor:pointer;">
                         내 비즈니스 무료 등록하기
-                    </a>
+                    </button>
                 </div>
-
             </div>
         </div>
     </div>
@@ -652,9 +592,7 @@
                 <a href="#" class="sos-sheet-btn" id="sosCallBtn">
                     <span class="material-icons-round">call</span> 전화 연결
                 </a>
-                <div style="font-size:12px; color:#64748b; margin-top:10px;">
-                    ※ 통화료가 부과될 수 있습니다.
-                </div>
+                <div style="font-size:12px; color:#64748b; margin-top:10px;">※ 통화료가 부과될 수 있습니다.</div>
             </div>
         </div>
     </div>
@@ -668,12 +606,8 @@
             <div class="modal-body" style="text-align:center; padding-bottom:30px;">
                 <p style="margin-bottom:20px;">Kornect 서비스 이용 문의나<br>제휴 제안은 이메일로 보내주세요.</p>
                 <div class="inquiry-options">
-                    <button class="inquiry-btn btn-email" onclick="location.href='mailto:admin@kornect.kr'">
-                        <span class="material-icons-round">send</span> 이메일 앱 열기
-                    </button>
-                    <button class="inquiry-btn btn-copy" onclick="copyEmail()">
-                        <span class="material-icons-round">content_copy</span> 주소 복사하기
-                    </button>
+                    <button class="inquiry-btn btn-email" onclick="location.href='mailto:admin@kornect.kr'"><span class="material-icons-round">send</span> 이메일 앱 열기</button>
+                    <button class="inquiry-btn btn-copy" onclick="copyEmail()"><span class="material-icons-round">content_copy</span> 주소 복사하기</button>
                 </div>
                 <div style="margin-top:16px; font-size:13px; color:#64748b;">admin@kornect.kr</div>
             </div>
@@ -687,18 +621,10 @@
                 <span class="material-icons-round modal-close" onclick="closeModals()">close</span>
             </div>
             <div class="modal-body">
-                <strong>제1조 (목적)</strong><br>
-                본 약관은 Kornect(이하 "회사")가 제공하는 한인 비즈니스 정보 제공 서비스(이하 "서비스")의 이용과 관련하여 회사와 회원의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.<br><br>
-
-                <strong>제2조 (서비스의 내용)</strong><br>
-                1. 회사는 전 세계 한인 비즈니스 정보를 수집하여 이용자에게 제공하는 플랫폼 서비스를 운영합니다.<br>
-                2. 회사는 직접 상품을 판매하거나 용역을 제공하는 당사자가 아니며, 입점 업체와 이용자 간의 거래에 대해 책임을 지지 않습니다.<br><br>
-
-                <strong>제3조 (면책 조항)</strong><br>
-                회사는 플랫폼 내에 등록된 업체의 정보(상호, 연락처, 주소 등)의 정확성, 신뢰성 등에 대하여 보증하지 않으며, 이를 신뢰하여 발생한 손해에 대해 책임을 지지 않습니다.<br><br>
-
-                <strong>제4조 (지식재산권)</strong><br>
-                서비스 내의 모든 콘텐츠에 대한 저작권은 회사 또는 해당 콘텐츠 제공자에게 있습니다.
+                <strong>제1조 (목적)</strong><br>본 약관은 Kornect(이하 "회사")가 제공하는 한인 비즈니스 정보 제공 서비스(이하 "서비스")의 이용과 관련하여 회사와 회원의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.<br><br>
+                <strong>제2조 (서비스의 내용)</strong><br>1. 회사는 전 세계 한인 비즈니스 정보를 수집하여 이용자에게 제공하는 플랫폼 서비스를 운영합니다.<br>2. 회사는 직접 상품을 판매하거나 용역을 제공하는 당사자가 아니며, 입점 업체와 이용자 간의 거래에 대해 책임을 지지 않습니다.<br><br>
+                <strong>제3조 (면책 조항)</strong><br>회사는 플랫폼 내에 등록된 업체의 정보(상호, 연락처, 주소 등)의 정확성, 신뢰성 등에 대하여 보증하지 않으며, 이를 신뢰하여 발생한 손해에 대해 책임을 지지 않습니다.<br><br>
+                <strong>제4조 (지식재산권)</strong><br>서비스 내의 모든 콘텐츠에 대한 저작권은 회사 또는 해당 콘텐츠 제공자에게 있습니다.
             </div>
         </div>
     </div>
@@ -710,18 +636,10 @@
                 <span class="material-icons-round modal-close" onclick="closeModals()">close</span>
             </div>
             <div class="modal-body">
-                <strong>1. 개인정보 수집 항목</strong><br>
-                Kornect는 별도의 회원가입 없이 이용 가능하며, 서비스 제공을 위해 최소한의 정보를 수집합니다.<br>
-                - 필수항목: 서비스 이용 기록, 접속 로그, 쿠키, 위치 정보(이용자 동의 시)<br><br>
-
-                <strong>2. 개인정보 수집 목적</strong><br>
-                수집된 정보는 서비스 제공, 사용자 경험 개선, 접속 빈도 파악 및 서비스 이용 통계 작성을 위해 사용됩니다.<br><br>
-
-                <strong>3. 개인정보의 보유 및 이용 기간</strong><br>
-                수집된 정보는 목적 달성 후 지체 없이 파기합니다. 단, 관계 법령에 따라 보존이 필요한 경우 해당 기간 동안 보관합니다.<br><br>
-
-                <strong>4. 사용자 권리</strong><br>
-                이용자는 언제든지 자신의 개인정보 수집에 대한 동의를 철회하거나 삭제를 요청할 수 있습니다. 문의사항은 admin@kornect.kr로 연락 바랍니다.
+                <strong>1. 개인정보 수집 항목</strong><br>Kornect는 별도의 회원가입 없이 이용 가능하며, 서비스 제공을 위해 최소한의 정보를 수집합니다.<br>- 필수항목: 서비스 이용 기록, 접속 로그, 쿠키, 위치 정보(이용자 동의 시)<br><br>
+                <strong>2. 개인정보 수집 목적</strong><br>수집된 정보는 서비스 제공, 사용자 경험 개선, 접속 빈도 파악 및 서비스 이용 통계 작성을 위해 사용됩니다.<br><br>
+                <strong>3. 개인정보의 보유 및 이용 기간</strong><br>수집된 정보는 목적 달성 후 지체 없이 파기합니다. 단, 관계 법령에 따라 보존이 필요한 경우 해당 기간 동안 보관합니다.<br><br>
+                <strong>4. 사용자 권리</strong><br>이용자는 언제든지 자신의 개인정보 수집에 대한 동의를 철회하거나 삭제를 요청할 수 있습니다. 문의사항은 admin@kornect.kr로 연락 바랍니다.
             </div>
         </div>
     </div>
@@ -747,11 +665,54 @@
         });
     }
 
+    // =====================================================
+    // ★ 인앱브라우저 감지 & 외부 링크 처리 (IIFE 바깥에 선언)
+    // openCategoryURL도 여기서 통합 관리
+    // =====================================================
+    (function setupExternalLinkHandler() {
+        const ua = navigator.userAgent || '';
+        const isAndroid = /Android/i.test(ua);
+        const isIOS = /iPhone|iPad|iPod/i.test(ua);
+        const isInApp = /Instagram|FBAN|FBAV|FB_IAB|Twitter|Line|KakaoTalk|NaverApp|YouTube|NAVER|Daum/i.test(ua);
+
+        /**
+         * openExternalLink(url)
+         * - 안드로이드 인앱브라우저 → intent:// 로 크롬 강제 오픈
+         * - iOS 인앱브라우저      → window.open (강제 불가, 안내 배너로 보완)
+         * - 일반 브라우저         → window.open 새 탭
+         * - PWA(홈 화면 추가)     → window.open 새 탭 (PWA는 인앱 아님)
+         */
+        window.openExternalLink = function(url) {
+            if (!url) return;
+            if (isAndroid && isInApp) {
+                // 크롬 intent 스킴: 실패 시 browser_fallback_url로 원래 URL 열기
+                const clean = url.replace(/^https?:\/\//, '');
+                const intentUrl = 'intent://' + clean
+                    + '#Intent;scheme=https;package=com.android.chrome'
+                    + ';S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
+                window.location.href = intentUrl;
+            } else {
+                window.open(url, '_blank', 'noopener,noreferrer');
+            }
+        };
+
+        // openCategoryURL은 openExternalLink와 동일하게 동작
+        window.openCategoryURL = window.openExternalLink;
+
+        // iOS 인앱브라우저일 때 배너 표시
+        if (isIOS && isInApp) {
+            // DOM 준비 후 배너 노출
+            document.addEventListener('DOMContentLoaded', function() {
+                const hint = document.getElementById('iosInappHint');
+                if (hint) hint.classList.add('visible');
+            });
+        }
+    })();
+
     (function() {
         'use strict';
         const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzN8mtYeMS2JRIABZ0Mkm6CAwDM0UOOdah6mmakuiYlh0Oa6p1enjrZJiYD6PhuwmqoKw/exec';
         
-        // Define sosApp INSIDE the IIFE to ensure it can access showPage safely
         const sosApp = {
             data: [
                 { country: '괌', city: '하갓냐', phone: '+1-671-647-6488', flag: '🇬🇺' },
@@ -814,9 +775,7 @@
                 { country: '홍콩', city: '홍콩', phone: '+852-2529-4141', flag: '🇭🇰' },
             ],
             
-            elements: {
-                listContainer: null, searchInput: null, modal: null, flag: null, title: null, desc: null, callBtn: null
-            },
+            elements: { listContainer: null, searchInput: null, modal: null, flag: null, title: null, desc: null, callBtn: null },
 
             init: function() {
                 try {
@@ -827,23 +786,16 @@
                     this.elements.title = document.getElementById('sosModalTitle');
                     this.elements.desc = document.getElementById('sosModalDesc');
                     this.elements.callBtn = document.getElementById('sosCallBtn');
-
                     if(this.elements.listContainer) this.renderList(this.data);
-
                     if(this.elements.searchInput) {
                         this.elements.searchInput.addEventListener('input', (e) => {
                             const term = e.target.value.toLowerCase().trim();
-                            const filtered = this.data.filter(item => 
-                                item.country.includes(term) || item.city.includes(term)
-                            );
+                            const filtered = this.data.filter(item => item.country.includes(term) || item.city.includes(term));
                             this.renderList(filtered);
                         });
                     }
-                    
                     if(this.elements.modal) {
-                        this.elements.modal.addEventListener('click', (e) => {
-                            if(e.target === this.elements.modal) this.closeSOSModal();
-                        });
+                        this.elements.modal.addEventListener('click', (e) => { if(e.target === this.elements.modal) this.closeSOSModal(); });
                     }
                 } catch(e) { console.error('SOS Init Error', e); }
             },
@@ -852,39 +804,19 @@
                 const container = this.elements.listContainer;
                 if(!container) return;
                 container.innerHTML = '';
-
-                if (data.length === 0) {
-                    container.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b;">검색 결과가 없습니다.</div>`;
-                    return;
-                }
-
+                if (data.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b;">검색 결과가 없습니다.</div>`; return; }
                 data.sort((a, b) => a.country.localeCompare(b.country));
-
                 data.forEach(item => {
                     const div = document.createElement('div');
                     div.className = 'sos-list-item';
-                    div.innerHTML = `
-                        <div style="display:flex; align-items:center;">
-                            <span style="font-size:20px; margin-right:10px;">${item.flag}</span>
-                            <div>
-                                <span class="sos-country">${item.country}</span>
-                                <span class="sos-city">${item.city}</span>
-                            </div>
-                        </div>
-                        <span class="material-icons-round sos-arrow">call</span>
-                    `;
+                    div.innerHTML = `<div style="display:flex; align-items:center;"><span style="font-size:20px; margin-right:10px;">${item.flag}</span><div><span class="sos-country">${item.country}</span><span class="sos-city">${item.city}</span></div></div><span class="material-icons-round sos-arrow">call</span>`;
                     div.onclick = () => this.openSOSModal(item);
                     container.appendChild(div);
                 });
             },
 
             openSOS: function() {
-                // IMPORTANT: showPage is accessible here because it is defined in the IIFE
-                if (typeof showPage === 'function') {
-                    showPage('sosPage');
-                } else {
-                    console.error('showPage function not found');
-                }
+                if (typeof showPage === 'function') showPage('sosPage');
             },
 
             openSOSModal: function(item) {
@@ -895,9 +827,7 @@
                 this.elements.modal.classList.add('open');
             },
 
-            closeSOSModal: function() {
-                this.elements.modal.classList.remove('open');
-            }
+            closeSOSModal: function() { this.elements.modal.classList.remove('open'); }
         };
 
         const categoryEmojiMap = { '한식당/카페': '🍽️', '마트/식품점': '🛒', '뷰티 서비스': '💇', '의료 서비스': '🏥', '법률/세무': '⚖️', '생활 서비스': '🛠️', '교육/학원': '📚', '이사/운송': '📦', '종교': '⛪' };
@@ -920,19 +850,13 @@
             setupEventListeners(); 
             requestUserLocation();
             setupIntroAnimations();
-            
-            // Init SOS App (It is safe to call here)
             sosApp.init();
-            
-            // Initial History State
             if(window.history && window.history.replaceState) {
                 window.history.replaceState({page: 'mainPage'}, '', '#mainPage');
             }
-
             await initAppOptimized();
         });
 
-        // --- Navigation Logic ---
         window.addEventListener('popstate', (event) => {
             const page = event.state ? event.state.page : 'mainPage';
             _updateUIOnly(page);
@@ -952,57 +876,37 @@
             if(target) target.classList.add('active');
         }
 
-        // Global functions for HTML onclick
         window.showPage = showPage;
-        
         window.goBack = () => {
-            if (window.history.length > 1) {
-                window.history.back();
-            } else {
-                _updateUIOnly('mainPage');
-            }
+            if (window.history.length > 1) window.history.back();
+            else _updateUIOnly('mainPage');
         };
-
-        window.openCategoryURL = (url) => window.open(url, '_blank');
         window.goToSearch = () => showPage('searchPage');
         window.goToResults = () => showPage('resultsPage');
         window.doSearch = doSearch;
-        
-        // Expose sosApp to window so HTML onclick="sosApp.openSOS()" works
         window.sosApp = sosApp; 
 
-        // --- Other Functions ---
-        
-        // PWA Install Logic
+        // PWA Install
         let deferredPrompt;
         const installBanner = document.getElementById('installBanner');
         window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
+            e.preventDefault(); deferredPrompt = e;
             if(installBanner) installBanner.style.display = 'flex';
         });
         window.installPWA = async () => {
             if (!deferredPrompt) return;
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
-            deferredPrompt = null;
-            closeInstallBanner();
+            deferredPrompt = null; closeInstallBanner();
         };
-        window.closeInstallBanner = () => {
-            if(installBanner) installBanner.style.display = 'none';
-        };
+        window.closeInstallBanner = () => { if(installBanner) installBanner.style.display = 'none'; };
 
-        // Modal & Legal Logic
-        window.openInquiryModal = () => {
-            document.getElementById('inquiryModal').classList.add('open');
-        }
+        window.openInquiryModal = () => { document.getElementById('inquiryModal').classList.add('open'); }
         window.openLegalModal = (type) => {
             if(type === 'terms') document.getElementById('termsModal').classList.add('open');
             if(type === 'privacy') document.getElementById('privacyModal').classList.add('open');
         }
-        window.closeModals = () => {
-            document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('open'));
-        }
+        window.closeModals = () => { document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('open')); }
         window.copyEmail = () => {
             navigator.clipboard.writeText('admin@kornect.kr').then(() => {
                 const toast = document.getElementById('toast');
@@ -1011,21 +915,14 @@
             });
         }
         document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', (e) => {
-                if(e.target === overlay) window.closeModals();
-            });
+            overlay.addEventListener('click', (e) => { if(e.target === overlay) window.closeModals(); });
         });
 
         function setupIntroAnimations() {
             const introPage = document.getElementById('introPage');
             if(!introPage) return;
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
+                entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
             }, { threshold: 0.1, root: introPage }); 
             introPage.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
         }
@@ -1054,10 +951,7 @@
         function displayFeatured(items, container) {
             if (!container) return;
             container.innerHTML = ''; 
-            if (!items || items.length === 0) { 
-                container.innerHTML = '<div style="color:var(--text-sub); font-size:13px; padding:10px;">데이터가 없습니다.</div>'; 
-                return; 
-            }
+            if (!items || items.length === 0) { container.innerHTML = '<div style="color:var(--text-sub); font-size:13px; padding:10px;">데이터가 없습니다.</div>'; return; }
             const fragment = document.createDocumentFragment();
             items.forEach(biz => {
                 const card = document.createElement('div');
@@ -1083,16 +977,17 @@
                     <div style="display:flex; justify-content:space-between"><div style="color:white; font-weight:700">${biz.name}</div><div style="color:#fbbf24; font-size:13px">⭐ ${biz.rating||0}</div></div>
                     <div style="color:var(--text-sub); font-size:13px; margin-top:4px">📍 ${biz.address||'주소 없음'}</div>
                 </div>`).join('') : '<div style="text-align:center;color:var(--text-sub);padding:40px">검색 결과가 없습니다.</div>';
-            
-            window.handleCardClickProxy = (name) => {
-                const found = list.find(b => b.name === name);
-                if(found) showDetail(found);
-            };
+            window.handleCardClickProxy = (name) => { const found = list.find(b => b.name === name); if(found) showDetail(found); };
         }
 
         function handleCardClick(biz) {
-            if (biz.website && biz.website.length > 5) window.open(biz.website.startsWith('http')?biz.website:'https://'+biz.website, '_blank');
-            else showDetail(biz);
+            // ★ 수정: window.open → openExternalLink 사용
+            if (biz.website && biz.website.length > 5) {
+                const url = biz.website.startsWith('http') ? biz.website : 'https://' + biz.website;
+                openExternalLink(url);
+            } else {
+                showDetail(biz);
+            }
         }
 
         function doSearch() {
@@ -1103,8 +998,7 @@
                 const data = state.allBusinessData[state.selectedCategory] || [];
                 state.currentResultsList = data.filter(biz => biz.location && biz.location.includes(state.selectedLocation));
                 renderBusinessList(state.currentResultsList);
-                hideLoading(); 
-                showPage('resultsPage'); 
+                hideLoading(); showPage('resultsPage'); 
             }, 300);
         }
 
@@ -1114,36 +1008,33 @@
             document.getElementById('detailAddress').textContent = biz.address||'정보 없음';
             document.getElementById('detailPhone').textContent = biz.phone||'정보 없음';
             document.getElementById('detailHours').textContent = biz.hours||'정보 없음';
-            
             const webItem = document.getElementById('websiteItem');
             if(biz.website && biz.website.length > 4 && biz.website !== '정보 없음') {
                 let url = biz.website.startsWith('http') ? biz.website : 'https://' + biz.website;
-                document.getElementById('detailWebsite').innerHTML = `<a href="${url}" target="_blank" style="color:var(--primary-color)">홈페이지 방문</a>`;
+                // ★ 수정: href 대신 onclick으로 openExternalLink 호출
+                document.getElementById('detailWebsite').innerHTML = `<span onclick="openExternalLink('${url}')" style="color:var(--primary-color); cursor:pointer; text-decoration:underline;">홈페이지 방문</span>`;
                 webItem.style.display = 'flex';
             } else { webItem.style.display = 'none'; }
             
             const callBtn = document.getElementById('callBtn');
-            if (biz.phone && biz.phone !== '정보 없음') {
-                callBtn.href = `tel:${biz.phone.replace(/[^0-9+]/g,'')}`;
-                callBtn.style.opacity = '1';
-            } else { callBtn.href = '#'; callBtn.style.opacity = '0.5'; }
+            if (biz.phone && biz.phone !== '정보 없음') { callBtn.href = `tel:${biz.phone.replace(/[^0-9+]/g,'')}`; callBtn.style.opacity = '1'; }
+            else { callBtn.href = '#'; callBtn.style.opacity = '0.5'; }
 
             const mapBtn = document.getElementById('mapBtn');
             const mapURL = biz.googleMapsUrl || biz.googleMapsURL || biz.mapURL;
             const query = biz.address && biz.address !== '정보 없음' ? biz.address : biz.name;
+            const finalMapUrl = (mapURL && mapURL !== '정보 없음') ? mapURL : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+            // ★ 수정: mapBtn도 openExternalLink로 처리
+            mapBtn.removeAttribute('href');
+            mapBtn.onclick = () => openExternalLink(finalMapUrl);
             
-            if (mapURL && mapURL !== '정보 없음') {
-                mapBtn.href = mapURL; mapBtn.target = "_blank";
-            } else {
-                mapBtn.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-                mapBtn.target = "_blank";
-            }
             showPage('detailPage');
         }
 
         function showLoading() { if (dom.loadingOverlay) dom.loadingOverlay.classList.add('show'); }
         function hideLoading() { if (dom.loadingOverlay) dom.loadingOverlay.classList.remove('show'); }
         function requestUserLocation() { if (navigator.geolocation) navigator.geolocation.getCurrentPosition(pos => state.userLocation = pos.coords, () => state.userLocation = null); }
+        
         function setupEventListeners() {
             document.addEventListener('click', e => {
                 if (e.target.classList.contains('location-chip')) {
@@ -1153,24 +1044,22 @@
                     document.querySelectorAll('.service-item').forEach(i => i.classList.remove('selected'));
                     e.target.classList.add('selected'); state.selectedCategory = e.target.dataset.value;
                 }
-                
-                if (e.target.id === 'detailPage' && window.innerWidth >= 768) {
-                    goBack();
-                }
+                if (e.target.id === 'detailPage' && window.innerWidth >= 768) goBack();
             });
         }
 
-        // iOS PWA External Link Fix
+        // ★ 수정: 기존 iOS PWA anchor 처리를 openExternalLink로 통합 교체
+        // 혹시 남아있는 <a target="_blank"> 태그도 인앱브라우저에서 안전하게 처리
         document.addEventListener('click', function(e) {
-            const anchor = e.target.closest('a');
+            const anchor = e.target.closest('a[href]');
             if (!anchor) return;
-            
             const href = anchor.getAttribute('href');
             if (href && href.startsWith('http') && !href.includes(window.location.hostname)) {
                 e.preventDefault();
-                window.open(href, '_blank');
+                openExternalLink(href);
             }
         });
+
     })();
     </script>
 </body>
