@@ -1,1064 +1,1066 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#0f172a">
-    
-    <meta name="agd-partner-manual-verification" />
-    
-    <meta name="description" content="해외 한인 생활의 모든 것을 연결하는 비즈니스 플랫폼">
-    <meta property="og:title" content="Kornect - 해외 한인 비즈니스 검색">
-    
-    <title>Kornect - 해외 한인 비즈니스 검색</title>
-    
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="Kornect Logo 192X192.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0f172a">
+    
+    <meta name="description" content="해외 한인 생활의 모든 것을 연결하는 비즈니스 플랫폼">
+    <meta property="og:title" content="Kornect - 해외 한인 비즈니스 검색">
+    
+    <title>Kornect - 해외 한인 비즈니스 검색</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="Kornect Logo 192X192.png">
 
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    
-    <style>
-        :root {
-            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-            --primary-color: #6366f1;
-            --sos-gradient: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --bg-icon: #334155;
-            --text-main: #f1f5f9;
-            --text-sub: #94a3b8;
-            --text-white: #ffffff;
-            --radius-lg: 24px;
-            --safe-top: env(safe-area-inset-top);
-            --safe-bottom: env(safe-area-inset-bottom);
-        }
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --primary-color: #6366f1;
+            --sos-gradient: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-icon: #334155;
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+            --text-white: #ffffff;
+            --radius-lg: 24px;
+            --safe-top: env(safe-area-inset-top);
+            --safe-bottom: env(safe-area-inset-bottom);
+        }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body {
-            font-family: "Pretendard Variable", Pretendard, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-main);
-            min-height: 100vh;
-            min-height: 100dvh; 
-            overflow: hidden; 
-            display: flex;
-            justify-content: center;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            font-family: "Pretendard Variable", Pretendard, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            min-height: 100dvh; 
+            overflow: hidden; 
+            display: flex;
+            justify-content: center;
+        }
 
-        ::-webkit-scrollbar { width: 6px; display: none; }
-        
-        .app-container {
-            width: 100%; 
-            height: 100vh;
-            height: 100dvh;
-            display: flex; flex-direction: column;
-            position: relative; overflow: hidden;
-            background: var(--bg-dark);
-            max-width: 100%;
-        }
+        ::-webkit-scrollbar { width: 6px; display: none; }
+        
+        .app-container {
+            width: 100%; 
+            height: 100vh;
+            height: 100dvh;
+            display: flex; flex-direction: column;
+            position: relative; overflow: hidden;
+            background: var(--bg-dark);
+            max-width: 100%;
+        }
 
-        .page {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: var(--bg-dark);
-            overflow-y: auto; overflow-x: hidden;
-            padding-bottom: calc(120px + var(--safe-bottom)); 
-            display: none; z-index: 10;
-        }
-        #mainPage { display: block; }
-        .page.active { display: block; animation: fadeIn 0.3s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .page {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-dark);
+            overflow-y: auto; overflow-x: hidden;
+            padding-bottom: calc(120px + var(--safe-bottom)); 
+            display: none; z-index: 10;
+        }
+        #mainPage { display: block; }
+        .page.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .app-header {
-            padding: calc(16px + var(--safe-top)) 20px 16px;
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(12px);
-            position: sticky; top: 0; z-index: 50;
-            display: flex; align-items: center; justify-content: space-between;
-            width: 100%;
-        }
-        
-        .header-brand { display: flex; flex-direction: column; justify-content: center; gap: 5px; }
-        .header-brand-img { height: 42px; width: auto; object-fit: contain; object-position: left; display: block; }
-        .header-brand-slogan { font-size: 14.3px; font-weight: 600; color: #ffffff; letter-spacing: -0.02em; line-height: 1.1; opacity: 0.95; white-space: nowrap; }
+        .app-header {
+            padding: calc(16px + var(--safe-top)) 20px 16px;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(12px);
+            position: sticky; top: 0; z-index: 50;
+            display: flex; align-items: center; justify-content: space-between;
+            width: 100%;
+        }
+        
+        .header-brand { display: flex; flex-direction: column; justify-content: center; gap: 5px; }
+        .header-brand-img { height: 42px; width: auto; object-fit: contain; object-position: left; display: block; }
+        .header-brand-slogan { font-size: 14.3px; font-weight: 600; color: #ffffff; letter-spacing: -0.02em; line-height: 1.1; opacity: 0.95; white-space: nowrap; }
 
-        .header-actions { display: flex; gap: 8px; }
-        .btn-circle { width: 40px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 50%; color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; z-index: 60; position: relative;}
-        
-        .content-container { padding: 0 20px 24px; }
-        .section { margin-bottom: 32px; }
-        .section-header { margin-bottom: 16px; }
-        .section-title { font-size: 19px; font-weight: 700; color: var(--text-white); display: flex; align-items: center; gap: 6px; }
+        .header-actions { display: flex; gap: 8px; }
+        .btn-circle { width: 40px; height: 40px; background: rgba(255,255,255,0.05); border-radius: 50%; color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; z-index: 60; position: relative;}
+        
+        .content-container { padding: 0 20px 24px; }
+        .section { margin-bottom: 32px; }
+        .section-header { margin-bottom: 16px; }
+        .section-title { font-size: 19px; font-weight: 700; color: var(--text-white); display: flex; align-items: center; gap: 6px; }
 
-        .category-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); 
-            gap: 24px 10px; 
-        }
-        .cat-item { display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; transition: transform 0.2s; }
-        .cat-icon-box { width: 60px; height: 60px; background: var(--bg-card); border-radius: 22px; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s; }
-        .cat-icon-box .material-icons-round { font-size: 28px; }
-        .cat-item:active .cat-icon-box { transform: scale(0.95); filter: brightness(1.2); }
-        .cat-name { font-size: 12px; color: var(--text-sub); font-weight: 500; text-align: center; white-space: nowrap; }
+        .category-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); 
+            gap: 24px 10px; 
+        }
+        .cat-item { display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; transition: transform 0.2s; }
+        .cat-icon-box { width: 60px; height: 60px; background: var(--bg-card); border-radius: 22px; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s; }
+        .cat-icon-box .material-icons-round { font-size: 28px; }
+        .cat-item:active .cat-icon-box { transform: scale(0.95); filter: brightness(1.2); }
+        .cat-name { font-size: 12px; color: var(--text-sub); font-weight: 500; text-align: center; white-space: nowrap; }
 
-        .modern-menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-        .modern-card { background: var(--bg-card); border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px; cursor: pointer; transition: 0.2s; border: 1px solid rgba(255,255,255,0.05); }
-        .modern-card:active { transform: scale(0.98); background: rgba(255,255,255,0.1); }
-        .modern-icon { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
-        
-        .theme-orange { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
-        .theme-indigo { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
-        .theme-pink { background: rgba(244, 114, 182, 0.15); color: #f472b6; }
-        .theme-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
-        .theme-teal { background: rgba(45, 212, 191, 0.15); color: #2dd4bf; }
-        .theme-purple { background: rgba(167, 139, 250, 0.15); color: #a78bfa; }
-        
-        .modern-card-text { display: flex; flex-direction: column; gap: 4px; }
-        .modern-card-title { font-size: 15px; font-weight: 700; color: white; }
-        .modern-card-desc { font-size: 11px; color: var(--text-sub); }
+        .modern-menu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .modern-card { background: var(--bg-card); border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 12px; cursor: pointer; transition: 0.2s; border: 1px solid rgba(255,255,255,0.05); }
+        .modern-card:active { transform: scale(0.98); background: rgba(255,255,255,0.1); }
+        .modern-icon { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        
+        .theme-orange { background: rgba(251, 146, 60, 0.15); color: #fb923c; }
+        .theme-indigo { background: rgba(99, 102, 241, 0.15); color: #818cf8; }
+        .theme-pink { background: rgba(244, 114, 182, 0.15); color: #f472b6; }
+        .theme-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+        .theme-teal { background: rgba(45, 212, 191, 0.15); color: #2dd4bf; }
+        .theme-purple { background: rgba(167, 139, 250, 0.15); color: #a78bfa; }
+        
+        .modern-card-text { display: flex; flex-direction: column; gap: 4px; }
+        .modern-card-title { font-size: 15px; font-weight: 700; color: white; }
+        .modern-card-desc { font-size: 11px; color: var(--text-sub); }
 
-        .banner-card { background: var(--primary-gradient); border-radius: var(--radius-lg); padding: 24px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); margin-bottom: 32px; text-decoration: none; transition: transform 0.2s; cursor: pointer; }
-        .banner-title { font-size: 18px; font-weight: 800; color: white; display: block; margin-bottom: 4px;}
-        .banner-desc { font-size: 13px; color: rgba(255,255,255,0.9); display: block;}
-        .banner-icon { font-size: 32px; background: rgba(255,255,255,0.2); padding: 12px; border-radius: 50%; color: white; }
+        .banner-card { background: var(--primary-gradient); border-radius: var(--radius-lg); padding: 24px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); margin-bottom: 32px; text-decoration: none; transition: transform 0.2s; cursor: pointer; }
+        .banner-title { font-size: 18px; font-weight: 800; color: white; display: block; margin-bottom: 4px;}
+        .banner-desc { font-size: 13px; color: rgba(255,255,255,0.9); display: block;}
+        .banner-icon { font-size: 32px; background: rgba(255,255,255,0.2); padding: 12px; border-radius: 50%; color: white; }
 
-        .partner-banner { 
-            background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%); 
-            border-radius: var(--radius-lg); 
-            padding: 24px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            box-shadow: 0 0 20px rgba(14, 165, 233, 0.4); 
-            margin-bottom: 32px; 
-            text-decoration: none; 
-            transition: transform 0.2s; 
-            cursor: pointer;
-        }
-        .partner-banner:active { transform: scale(0.98); }
+        .partner-banner { 
+            background: linear-gradient(135deg, #3b82f6 0%, #0ea5e9 100%); 
+            border-radius: var(--radius-lg); 
+            padding: 24px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.4); 
+            margin-bottom: 32px; 
+            text-decoration: none; 
+            transition: transform 0.2s; 
+            cursor: pointer;
+        }
+        .partner-banner:active { transform: scale(0.98); }
 
-        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 32px; }
-        .stat-card { background: rgba(255,255,255,0.03); padding: 16px 8px; border-radius: 16px; text-align: center; }
-        .stat-number { font-size: 20px; font-weight: 800; color: var(--primary-color); margin-bottom: 4px; }
-        .stat-label { font-size: 11px; color: var(--text-sub); }
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 32px; }
+        .stat-card { background: rgba(255,255,255,0.03); padding: 16px 8px; border-radius: 16px; text-align: center; }
+        .stat-number { font-size: 20px; font-weight: 800; color: var(--primary-color); margin-bottom: 4px; }
+        .stat-label { font-size: 11px; color: var(--text-sub); }
 
-        .h-scroll-view { display: flex; gap: 16px; overflow-x: auto; padding-right: 20px; margin-right: -20px; padding-bottom: 10px; }
-        .biz-card-sm { min-width: 200px; background: var(--bg-card); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s; }
-        .biz-title { font-size: 15px; font-weight: 700; color: white; margin-bottom: 4px; }
-        .biz-meta { font-size: 12px; color: var(--text-sub); }
-        .biz-rating-badge { margin-top: 10px; font-size: 12px; color: #fbbf24; font-weight: 700; }
+        .h-scroll-view { display: flex; gap: 16px; overflow-x: auto; padding-right: 20px; margin-right: -20px; padding-bottom: 10px; }
+        .biz-card-sm { min-width: 200px; background: var(--bg-card); border-radius: 16px; padding: 16px; display: flex; flex-direction: column; cursor: pointer; transition: transform 0.2s; }
+        .biz-title { font-size: 15px; font-weight: 700; color: white; margin-bottom: 4px; }
+        .biz-meta { font-size: 12px; color: var(--text-sub); }
+        .biz-rating-badge { margin-top: 10px; font-size: 12px; color: #fbbf24; font-weight: 700; }
 
-        .search-btn { width: 100%; padding: 18px; background: var(--primary-gradient); border: none; border-radius: 16px; color: white; font-weight: 700; margin-top: 20px; cursor: pointer; transition: 0.2s; }
-        .location-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .location-chip { padding: 12px; text-align: center; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: var(--text-sub); font-size: 13px; font-weight: 600; cursor: pointer; }
-        .location-chip.selected { background: var(--primary-color); color: white; border-color: var(--primary-color); }
-        .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .service-item { padding: 14px; text-align: center; background: var(--bg-card); border-radius: 12px; color: var(--text-main); font-size: 14px; font-weight: 600; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
-        .service-item.selected { background: var(--primary-color); color: white; border-color: var(--primary-color); }
-        .business-card { background: var(--bg-card); padding: 16px; border-radius: 16px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; }
-        
-        #detailPage { transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex !important; flex-direction: column; z-index: 100; padding: 0; }
-        #detailPage.active { transform: translateY(0); }
-        .detail-header-img { height: 120px; background: var(--primary-gradient); position: relative; flex-shrink: 0; }
-        .detail-nav { position: absolute; top: var(--safe-top); left: 0; right: 0; padding: 12px 20px; display: flex; justify-content: space-between; }
-        .detail-content { flex: 1; background: var(--bg-dark); margin-top: -24px; border-radius: 24px 24px 0 0; position: relative; padding: 24px 20px 160px; overflow-y: auto; }
-        
-        .detail-name { font-size: 26px; font-weight: 800; color: white; margin-bottom: 8px; }
-        .info-group { background: var(--bg-card); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
-        .info-item { display: flex; gap: 16px; margin-bottom: 16px; }
-        .info-icon { color: var(--text-sub); width: 24px; }
-        .info-text { flex: 1; color: var(--text-main); font-size: 15px; }
+        .search-btn { width: 100%; padding: 18px; background: var(--primary-gradient); border: none; border-radius: 16px; color: white; font-weight: 700; margin-top: 20px; cursor: pointer; transition: 0.2s; }
+        .location-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .location-chip { padding: 12px; text-align: center; background: var(--bg-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: var(--text-sub); font-size: 13px; font-weight: 600; cursor: pointer; }
+        .location-chip.selected { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+        .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .service-item { padding: 14px; text-align: center; background: var(--bg-card); border-radius: 12px; color: var(--text-main); font-size: 14px; font-weight: 600; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
+        .service-item.selected { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+        .business-card { background: var(--bg-card); padding: 16px; border-radius: 16px; margin-bottom: 12px; cursor: pointer; transition: 0.2s; }
+        
+        #detailPage { transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex !important; flex-direction: column; z-index: 100; padding: 0; }
+        #detailPage.active { transform: translateY(0); }
+        .detail-header-img { height: 120px; background: var(--primary-gradient); position: relative; flex-shrink: 0; }
+        .detail-nav { position: absolute; top: var(--safe-top); left: 0; right: 0; padding: 12px 20px; display: flex; justify-content: space-between; }
+        .detail-content { flex: 1; background: var(--bg-dark); margin-top: -24px; border-radius: 24px 24px 0 0; position: relative; padding: 24px 20px 160px; overflow-y: auto; }
+        
+        .detail-name { font-size: 26px; font-weight: 800; color: white; margin-bottom: 8px; }
+        .info-group { background: var(--bg-card); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+        .info-item { display: flex; gap: 16px; margin-bottom: 16px; }
+        .info-icon { color: var(--text-sub); width: 24px; }
+        .info-text { flex: 1; color: var(--text-main); font-size: 15px; }
 
-        .floating-bottom { 
-            position: absolute; bottom: 0; left: 0; right: 0; 
-            padding: 24px 20px calc(30px + env(safe-area-inset-bottom)); 
-            background: #0f172a; 
-            border-top: 1px solid rgba(255,255,255,0.05); 
-            display: flex; gap: 12px; z-index: 50; 
-        }
-        .action-btn { flex: 1; height: 56px; border-radius: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border:none; cursor: pointer; transition: 0.2s;}
-        .action-btn.primary { background: var(--primary-color); color: white; }
-        .action-btn.secondary { background: rgba(255,255,255,0.1); color: white; }
+        .floating-bottom { 
+            position: absolute; bottom: 0; left: 0; right: 0; 
+            padding: 24px 20px calc(30px + env(safe-area-inset-bottom)); 
+            background: #0f172a; 
+            border-top: 1px solid rgba(255,255,255,0.05); 
+            display: flex; gap: 12px; z-index: 50; 
+        }
+        .action-btn { flex: 1; height: 56px; border-radius: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border:none; cursor: pointer; transition: 0.2s;}
+        .action-btn.primary { background: var(--primary-color); color: white; }
+        .action-btn.secondary { background: rgba(255,255,255,0.1); color: white; }
 
-        /* ★ iOS 인앱브라우저 안내 배너 */
-        .ios-inapp-hint {
-            display: none;
-            margin: 0 0 16px;
-            padding: 12px 16px;
-            background: rgba(99, 102, 241, 0.12);
-            border: 1px solid rgba(99, 102, 241, 0.35);
-            border-radius: 12px;
-            font-size: 13px;
-            color: #a5b4fc;
-            line-height: 1.5;
-            word-break: keep-all;
-        }
-        .ios-inapp-hint.visible { display: block; }
+        /* ★ iOS 인앱브라우저 안내 배너 */
+        .ios-inapp-hint {
+            display: none;
+            margin: 0 0 16px;
+            padding: 12px 16px;
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.35);
+            border-radius: 12px;
+            font-size: 13px;
+            color: #a5b4fc;
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+        .ios-inapp-hint.visible { display: block; }
 
-        #sosPage { z-index: 110; } 
-        .sos-header { border-bottom: 1px solid rgba(239, 68, 68, 0.2); }
-        .sos-title { color: #fca5a5; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap:6px; }
-        .sos-container { padding: 20px; }
-        .sos-search-box { position: relative; margin-bottom: 24px; }
-        .sos-input { width: 100%; padding: 16px 16px 16px 45px; background: #1e293b; border: 1px solid #ef4444; border-radius: 14px; color: white; font-size: 16px; outline: none; transition: 0.2s; }
-        .sos-input:focus { box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25); background: #252f45; }
-        .sos-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #f87171; }
-        .sos-list-group-title { font-size: 13px; font-weight: 600; color: #94a3b8; margin-bottom: 12px; padding-left: 4px; }
-        .sos-list-item { background: #1e293b; padding: 18px; border-radius: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); transition: 0.2s; }
-        .sos-list-item:active { background: rgba(239, 68, 68, 0.1); border-color: #ef4444; transform: scale(0.98); }
-        .sos-country { font-size: 16px; font-weight: 700; color: white; }
-        .sos-city { font-size: 13px; color: #94a3b8; margin-left: 6px; }
-        .sos-arrow { color: #ef4444; }
+        #sosPage { z-index: 110; } 
+        .sos-header { border-bottom: 1px solid rgba(239, 68, 68, 0.2); }
+        .sos-title { color: #fca5a5; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap:6px; }
+        .sos-container { padding: 20px; }
+        .sos-search-box { position: relative; margin-bottom: 24px; }
+        .sos-input { width: 100%; padding: 16px 16px 16px 45px; background: #1e293b; border: 1px solid #ef4444; border-radius: 14px; color: white; font-size: 16px; outline: none; transition: 0.2s; }
+        .sos-input:focus { box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25); background: #252f45; }
+        .sos-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #f87171; }
+        .sos-list-group-title { font-size: 13px; font-weight: 600; color: #94a3b8; margin-bottom: 12px; padding-left: 4px; }
+        .sos-list-item { background: #1e293b; padding: 18px; border-radius: 16px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); transition: 0.2s; }
+        .sos-list-item:active { background: rgba(239, 68, 68, 0.1); border-color: #ef4444; transform: scale(0.98); }
+        .sos-country { font-size: 16px; font-weight: 700; color: white; }
+        .sos-city { font-size: 13px; color: #94a3b8; margin-left: 6px; }
+        .sos-arrow { color: #ef4444; }
 
-        .sos-sheet-content { text-align: center; }
-        .sos-flag { font-size: 40px; margin-bottom: 16px; display: block; }
-        .sos-sheet-title { font-size: 22px; font-weight: 800; color: white; margin-bottom: 8px; }
-        .sos-sheet-desc { color: #94a3b8; font-size: 14px; margin-bottom: 30px; }
-        .sos-sheet-btn { background: #ef4444; color: white; width: 100%; padding: 20px; border-radius: 16px; font-size: 18px; font-weight: 800; border: none; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; cursor: pointer; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); margin-bottom: 12px; }
-        .sos-sheet-btn:active { transform: scale(0.96); }
+        .sos-sheet-content { text-align: center; }
+        .sos-flag { font-size: 40px; margin-bottom: 16px; display: block; }
+        .sos-sheet-title { font-size: 22px; font-weight: 800; color: white; margin-bottom: 8px; }
+        .sos-sheet-desc { color: #94a3b8; font-size: 14px; margin-bottom: 30px; }
+        .sos-sheet-btn { background: #ef4444; color: white; width: 100%; padding: 20px; border-radius: 16px; font-size: 18px; font-weight: 800; border: none; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none; cursor: pointer; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); margin-bottom: 12px; }
+        .sos-sheet-btn:active { transform: scale(0.96); }
 
-        .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 9999; }
-        .loading-overlay.show { display: flex; }
-        .spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 0.8s linear infinite; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .skeleton-loader { background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%); background-size: 200% 100%; animation: loading 1.5s infinite; border-radius: 16px; min-width: 200px; height: 80px; flex-shrink: 0; }
-        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+        .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 9999; }
+        .loading-overlay.show { display: flex; }
+        .spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.1); border-top-color: var(--primary-color); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .skeleton-loader { background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%); background-size: 200% 100%; animation: loading 1.5s infinite; border-radius: 16px; min-width: 200px; height: 80px; flex-shrink: 0; }
+        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-        .app-footer { padding: 40px 20px calc(80px + var(--safe-bottom)) 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 40px; }
-        .footer-logo { font-weight: 800; font-size: 16px; color: var(--text-sub); margin-bottom: 12px; }
-        .footer-info { font-size: 11px; color: #64748b; line-height: 1.6; margin-bottom: 16px; word-break: keep-all;}
-        .footer-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
-        .footer-link-item { font-size: 12px; color: var(--text-sub); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
+        .app-footer { padding: 40px 20px calc(80px + var(--safe-bottom)) 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 40px; }
+        .footer-logo { font-weight: 800; font-size: 16px; color: var(--text-sub); margin-bottom: 12px; }
+        .footer-info { font-size: 11px; color: #64748b; line-height: 1.6; margin-bottom: 16px; word-break: keep-all;}
+        .footer-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+        .footer-link-item { font-size: 12px; color: var(--text-sub); cursor: pointer; text-decoration: underline; text-underline-offset: 4px; }
 
-        .fab-sos { 
-            position: fixed; bottom: calc(20px + var(--safe-bottom)); right: 20px; 
-            width: 56px; height: 56px; background: var(--sos-gradient); border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; color: white; 
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5); z-index: 90; cursor: pointer; 
-            transition: transform 0.2s; border: none; animation: heartBeat 2s infinite; 
-        }
-        .fab-sos:active { transform: scale(0.95); }
-        .fab-icon { font-size: 28px; }
+        .fab-sos { 
+            position: fixed; bottom: calc(20px + var(--safe-bottom)); right: 20px; 
+            width: 56px; height: 56px; background: var(--sos-gradient); border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; color: white; 
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5); z-index: 90; cursor: pointer; 
+            transition: transform 0.2s; border: none; animation: heartBeat 2s infinite; 
+        }
+        .fab-sos:active { transform: scale(0.95); }
+        .fab-icon { font-size: 28px; }
 
-        @keyframes heartBeat {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-        }
+        @keyframes heartBeat {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
 
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
-        .modal-overlay.open { display: flex; opacity: 1; }
-        .modal-box { width: 90%; max-width: 500px; background: var(--bg-card); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; display: flex; flex-direction: column; max-height: 80vh; transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-        .modal-overlay.open .modal-box { transform: scale(1); }
-        .modal-header { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
-        .modal-title { font-size: 18px; font-weight: 700; color: white; }
-        .modal-close { color: var(--text-sub); cursor: pointer; }
-        .modal-body { padding: 24px 20px; overflow-y: auto; font-size: 14px; color: var(--text-sub); line-height: 1.6; white-space: pre-line; }
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+        .modal-overlay.open { display: flex; opacity: 1; }
+        .modal-box { width: 90%; max-width: 500px; background: var(--bg-card); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; display: flex; flex-direction: column; max-height: 80vh; transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .modal-overlay.open .modal-box { transform: scale(1); }
+        .modal-header { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .modal-title { font-size: 18px; font-weight: 700; color: white; }
+        .modal-close { color: var(--text-sub); cursor: pointer; }
+        .modal-body { padding: 24px 20px; overflow-y: auto; font-size: 14px; color: var(--text-sub); line-height: 1.6; white-space: pre-line; }
 
-        .inquiry-options { display: flex; flex-direction: column; gap: 12px; }
-        .inquiry-btn { width: 100%; padding: 16px; border-radius: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; border: none; font-size: 15px; }
-        .btn-email { background: var(--primary-color); color: white; }
-        .btn-copy { background: rgba(255,255,255,0.1); color: white; }
+        .inquiry-options { display: flex; flex-direction: column; gap: 12px; }
+        .inquiry-btn { width: 100%; padding: 16px; border-radius: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; border: none; font-size: 15px; }
+        .btn-email { background: var(--primary-color); color: white; }
+        .btn-copy { background: rgba(255,255,255,0.1); color: white; }
 
-        .toast-msg { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: white; padding: 12px 24px; border-radius: 30px; font-size: 14px; z-index: 3000; display: none; pointer-events: none; animation: fadeInOut 2s ease forwards; }
-        @keyframes fadeInOut { 0% { opacity:0; } 10% { opacity:1; } 90% { opacity:1; } 100% { opacity:0; } }
+        .toast-msg { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: white; padding: 12px 24px; border-radius: 30px; font-size: 14px; z-index: 3000; display: none; pointer-events: none; animation: fadeInOut 2s ease forwards; }
+        @keyframes fadeInOut { 0% { opacity:0; } 10% { opacity:1; } 90% { opacity:1; } 100% { opacity:0; } }
 
-        .install-banner { position: fixed; bottom: 20px; left: 20px; right: 20px; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px; display: none; align-items: center; justify-content: space-between; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 9999; backdrop-filter: blur(10px); animation: slideUp 0.5s ease; }
-        @keyframes slideUp { from { transform: translateY(100px); opacity:0; } to { transform: translateY(0); opacity:1; } }
-        .install-text { color: white; font-size: 14px; font-weight: 600; }
-        .install-action { background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; }
-        .install-close { color: #94a3b8; font-size: 20px; cursor: pointer; margin-left: 12px; }
+        .install-banner { position: fixed; bottom: 20px; left: 20px; right: 20px; background: rgba(30, 41, 59, 0.95); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 16px; display: none; align-items: center; justify-content: space-between; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 9999; backdrop-filter: blur(10px); animation: slideUp 0.5s ease; }
+        @keyframes slideUp { from { transform: translateY(100px); opacity:0; } to { transform: translateY(0); opacity:1; } }
+        .install-text { color: white; font-size: 14px; font-weight: 600; }
+        .install-action { background: var(--primary-color); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; }
+        .install-close { color: #94a3b8; font-size: 20px; cursor: pointer; margin-left: 12px; }
 
-        @media (min-width: 768px) {
-            .app-container { max-width: 1024px; margin: 0 auto; box-shadow: 0 0 50px rgba(0,0,0,0.5); min-height: 100vh; border: 1px solid rgba(255,255,255,0.05); }
-            .category-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
-            .modern-menu-grid { grid-template-columns: repeat(4, 1fr); }
-            .h-scroll-view { flex-wrap: wrap; overflow-x: visible; padding-right: 0; margin-right: 0; }
-            .biz-card-sm { width: calc(33.333% - 11px); min-width: auto; }
-            #detailPage.active { transform: translate(-50%, -50%); top: 50%; left: 50%; width: 600px; height: 80vh; border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); border: 1px solid rgba(255,255,255,0.1); overflow: hidden; }
-            .detail-content { margin-top: 0; padding-top: 24px; }
-            .detail-header-img { height: 160px; }
-            .floating-bottom { position: absolute; border-radius: 0 0 24px 24px; bottom: 0; }
-            #detailPage.active::before { content: ''; position: fixed; top: -50vh; left: -50vw; width: 200vw; height: 200vh; background: rgba(0,0,0,0.6); z-index: -1; backdrop-filter: blur(4px); pointer-events: all; cursor: pointer; }
-            .fab-sos { right: calc(50% - 490px); }
-            .install-banner { width: 400px; left: 50%; transform: translateX(-50%); animation: slideUpDesktop 0.5s ease; }
-            @keyframes slideUpDesktop { from { transform: translate(-50%, 100px); opacity:0; } to { transform: translate(-50%, 0); opacity:1; } }
-        }
-        
-        #introPage { background-color: #F8FAFC !important; color: #0F172A; z-index: 200; }
-        .intro-nav { 
-            position: fixed; top: 0; left: 0; right: 0; 
-            height: calc(60px + env(safe-area-inset-top));
-            padding-top: env(safe-area-inset-top);
-            display: flex; align-items: center; justify-content: space-between; 
-            padding-left: 20px; padding-right: 20px;
-            background: rgba(255, 255, 255, 0.85); 
-            backdrop-filter: blur(12px); 
-            z-index: 1000; 
-            border-bottom: 1px solid rgba(0,0,0,0.05); 
-        }
-        .bg-mesh { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(244, 63, 94, 0.15) 0px, transparent 50%); filter: blur(40px); }
-        .hero { padding: 100px 0 60px; text-align: center; }
-        .section-eyebrow { font-size: 13px; font-weight: 800; color: #3B82F6; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 12px; }
-        .text-gradient { background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #F43F5E 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .intro-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 20px; padding: 24px; margin-bottom: 16px; }
-        .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 16px 32px; font-size: 17px; font-weight: 700; color: white; background: linear-gradient(135deg, #3B82F6 0%, #F43F5E 100%); border-radius: 14px; text-decoration: none; box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.4); }
-    </style>
+        @media (min-width: 768px) {
+            .app-container { max-width: 1024px; margin: 0 auto; box-shadow: 0 0 50px rgba(0,0,0,0.5); min-height: 100vh; border: 1px solid rgba(255,255,255,0.05); }
+            .category-grid { grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); }
+            .modern-menu-grid { grid-template-columns: repeat(4, 1fr); }
+            .h-scroll-view { flex-wrap: wrap; overflow-x: visible; padding-right: 0; margin-right: 0; }
+            .biz-card-sm { width: calc(33.333% - 11px); min-width: auto; }
+            #detailPage.active { transform: translate(-50%, -50%); top: 50%; left: 50%; width: 600px; height: 80vh; border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); border: 1px solid rgba(255,255,255,0.1); overflow: hidden; }
+            .detail-content { margin-top: 0; padding-top: 24px; }
+            .detail-header-img { height: 160px; }
+            .floating-bottom { position: absolute; border-radius: 0 0 24px 24px; bottom: 0; }
+            #detailPage.active::before { content: ''; position: fixed; top: -50vh; left: -50vw; width: 200vw; height: 200vh; background: rgba(0,0,0,0.6); z-index: -1; backdrop-filter: blur(4px); pointer-events: all; cursor: pointer; }
+            .fab-sos { right: calc(50% - 490px); }
+            .install-banner { width: 400px; left: 50%; transform: translateX(-50%); animation: slideUpDesktop 0.5s ease; }
+            @keyframes slideUpDesktop { from { transform: translate(-50%, 100px); opacity:0; } to { transform: translate(-50%, 0); opacity:1; } }
+        }
+        
+        #introPage { background-color: #F8FAFC !important; color: #0F172A; z-index: 200; }
+        .intro-nav { 
+            position: fixed; top: 0; left: 0; right: 0; 
+            height: calc(60px + env(safe-area-inset-top));
+            padding-top: env(safe-area-inset-top);
+            display: flex; align-items: center; justify-content: space-between; 
+            padding-left: 20px; padding-right: 20px;
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(12px); 
+            z-index: 1000; 
+            border-bottom: 1px solid rgba(0,0,0,0.05); 
+        }
+        .bg-mesh { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(244, 63, 94, 0.15) 0px, transparent 50%); filter: blur(40px); }
+        .hero { padding: 100px 0 60px; text-align: center; }
+        .section-eyebrow { font-size: 13px; font-weight: 800; color: #3B82F6; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 12px; }
+        .text-gradient { background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 50%, #F43F5E 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .intro-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 20px; padding: 24px; margin-bottom: 16px; }
+        .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 16px 32px; font-size: 17px; font-weight: 700; color: white; background: linear-gradient(135deg, #3B82F6 0%, #F43F5E 100%); border-radius: 14px; text-decoration: none; box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.4); }
+    </style>
 </head>
 <body>
-    <div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div></div>
-    <div id="toast" class="toast-msg">이메일 주소가 복사되었습니다.</div>
+    <div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div></div>
+    <div id="toast" class="toast-msg">이메일 주소가 복사되었습니다.</div>
 
-    <div class="app-container">
-        
-        <div class="page active" id="mainPage">
-            <header class="app-header">
-                <div class="header-brand">
-                    <img src="https://drive.google.com/thumbnail?id=1FoWG_L4oKEw-FDk6-kO6KY_6E8rU_mig&sz=w1000" class="header-brand-img" alt="Kornect Logo">
-                    <span class="header-brand-slogan">해외 한인 생활의 모든 것을 연결합니다</span>
-                </div>
-                <div class="header-actions">
-                    <button class="btn-circle" onclick="showPage('introPage')" title="서비스 소개">
-                        <span class="material-icons-round">info</span>
-                    </button>
-                </div>
-            </header>
+    <div class="app-container">
+        
+        <div class="page active" id="mainPage">
+            <header class="app-header">
+                <div class="header-brand">
+                    <img src="https://drive.google.com/thumbnail?id=1FoWG_L4oKEw-FDk6-kO6KY_6E8rU_mig&sz=w1000" class="header-brand-img" alt="Kornect Logo">
+                    <span class="header-brand-slogan">해외 한인 생활의 모든 것을 연결합니다</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-circle" onclick="showPage('introPage')" title="서비스 소개">
+                        <span class="material-icons-round">info</span>
+                    </button>
+                </div>
+            </header>
 
-            <div class="content-container">
-                <div onclick="openExternalLink('https://kornect.kr/join')" class="banner-card">
-                    <div class="banner-content">
-                        <span class="banner-title">비즈니스 무료 등록</span>
-                        <span class="banner-desc">전 세계 한인들에게 홍보하세요!</span>
-                    </div>
-                    <span class="material-icons-round banner-icon">storefront</span>
-                </div>
+            <div class="content-container">
+                <!-- ★ 수정: <a> → <div> + openExternalLink() 사용 -->
+                <div onclick="openExternalLink('https://kornect.kr/join')" class="banner-card">
+                    <div class="banner-content">
+                        <span class="banner-title">비즈니스 무료 등록</span>
+                        <span class="banner-desc">전 세계 한인들에게 홍보하세요!</span>
+                    </div>
+                    <span class="material-icons-round banner-icon">storefront</span>
+                </div>
 
-                <div class="stats">
-                    <div class="stat-card"><div class="stat-number">50</div><div class="stat-label">국가</div></div>
-                    <div class="stat-card"><div class="stat-number">340</div><div class="stat-label">도시</div></div>
-                    <div class="stat-card"><div class="stat-number">12,350+</div><div class="stat-label">등록 서비스</div></div>
-                </div>
+                <div class="stats">
+                    <div class="stat-card"><div class="stat-number">50</div><div class="stat-label">국가</div></div>
+                    <div class="stat-card"><div class="stat-number">340</div><div class="stat-label">도시</div></div>
+                    <div class="stat-card"><div class="stat-number">12,350+</div><div class="stat-label">등록 서비스</div></div>
+                </div>
 
-                <div class="section">
-                    <div class="section-header"><div class="section-title">업체 검색하기</div></div>
-                    <div class="category-grid">
-                        <div class="cat-item" onclick="openCategoryURL('https://www.b-ding.com/coming-soon-02-1')"><div class="cat-icon-box"><span class="material-icons-round">local_taxi</span></div><div class="cat-name">한인택시</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/minbak')"><div class="cat-icon-box"><span class="material-icons-round">hotel</span></div><div class="cat-name">한인숙소</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/tour')"><div class="cat-icon-box"><span class="material-icons-round">flag</span></div><div class="cat-name">투어</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/restaurants')"><div class="cat-icon-box"><span class="material-icons-round">restaurant</span></div><div class="cat-name">한식당</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/supermarket')"><div class="cat-icon-box"><span class="material-icons-round">shopping_cart</span></div><div class="cat-name">마트</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/beauty')"><div class="cat-icon-box"><span class="material-icons-round">content_cut</span></div><div class="cat-name">뷰티</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/law')"><div class="cat-icon-box"><span class="material-icons-round">gavel</span></div><div class="cat-name">법률/세무</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/daily')"><div class="cat-icon-box"><span class="material-icons-round">build</span></div><div class="cat-name">생활</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/edu')"><div class="cat-icon-box"><span class="material-icons-round">school</span></div><div class="cat-name">교육</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/religion')"><div class="cat-icon-box"><span class="material-icons-round">church</span></div><div class="cat-name">종교</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/society')"><div class="cat-icon-box"><span class="material-icons-round">diversity_3</span></div><div class="cat-name">동호회</div></div>
-                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/gov')"><div class="cat-icon-box"><span class="material-icons-round">account_balance</span></div><div class="cat-name">기관</div></div>
-                    </div>
-                </div>
+                <div class="section">
+                    <div class="section-header"><div class="section-title">업체 검색하기</div></div>
+                    <div class="category-grid">
+                        <div class="cat-item" onclick="openCategoryURL('https://www.b-ding.com/coming-soon-02-1')"><div class="cat-icon-box"><span class="material-icons-round">local_taxi</span></div><div class="cat-name">한인택시</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/minbak')"><div class="cat-icon-box"><span class="material-icons-round">hotel</span></div><div class="cat-name">한인숙소</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/tour')"><div class="cat-icon-box"><span class="material-icons-round">flag</span></div><div class="cat-name">투어</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/restaurants')"><div class="cat-icon-box"><span class="material-icons-round">restaurant</span></div><div class="cat-name">한식당</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/supermarket')"><div class="cat-icon-box"><span class="material-icons-round">shopping_cart</span></div><div class="cat-name">마트</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/beauty')"><div class="cat-icon-box"><span class="material-icons-round">content_cut</span></div><div class="cat-name">뷰티</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/law')"><div class="cat-icon-box"><span class="material-icons-round">gavel</span></div><div class="cat-name">법률/세무</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/daily')"><div class="cat-icon-box"><span class="material-icons-round">build</span></div><div class="cat-name">생활</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/edu')"><div class="cat-icon-box"><span class="material-icons-round">school</span></div><div class="cat-name">교육</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/religion')"><div class="cat-icon-box"><span class="material-icons-round">church</span></div><div class="cat-name">종교</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/society')"><div class="cat-icon-box"><span class="material-icons-round">diversity_3</span></div><div class="cat-name">동호회</div></div>
+                        <div class="cat-item" onclick="openCategoryURL('https://kornect.kr/gov')"><div class="cat-icon-box"><span class="material-icons-round">account_balance</span></div><div class="cat-name">기관</div></div>
+                    </div>
+                </div>
 
-                <div class="section">
-                    <div class="section-header"><div class="section-title">✨ 주요 서비스</div></div>
-                    <div class="modern-menu-grid">
-                        <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/ticket')"><div class="modern-icon theme-orange"><span class="material-icons-round">auto_stories</span></div><div class="modern-card-text"><div class="modern-card-title">최저가 티켓</div><div class="modern-card-desc">여행 준비 필수 정보</div></div></div>
-                        <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/used-market')"><div class="modern-icon theme-indigo"><span class="material-icons-round">storefront</span></div><div class="modern-card-text"><div class="modern-card-title">리트립 (Re:Trip)</div><div class="modern-card-desc">여행자 간 직거래 장터</div></div></div>
-                        <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/shopping')"><div class="modern-icon theme-pink"><span class="material-icons-round">local_fire_department</span></div><div class="modern-card-text"><div class="modern-card-title">담다 (Dam-da)</div><div class="modern-card-desc">여행의 추억을 담다</div></div></div>
-                        <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/freelancer')"><div class="modern-icon theme-blue"><span class="material-icons-round">laptop_mac</span></div><div class="modern-card-text"><div class="modern-card-title">K-메이트</div><div class="modern-card-desc">여행을 돕는 숨은 고수 찾기</div></div></div>
-                        <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/faq')"><div class="modern-icon theme-teal"><span class="material-icons-round">map</span></div><div class="modern-card-text"><div class="modern-card-title">여행정보 로드맵</div><div class="modern-card-desc">자주 묻는 질문 FAQ</div></div></div>
-                        <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/k-contents')"><div class="modern-icon theme-purple"><span class="material-icons-round">play_circle</span></div><div class="modern-card-text"><div class="modern-card-title">K-숏폼 큐레이션</div><div class="modern-card-desc">화제의 영상 & 뉴스</div></div></div>
-                    </div>
-                </div>
-                
-                <div class="section">
-                    <div class="section-header"><div class="section-title">🔥 인기 비즈니스</div></div>
-                    <div class="h-scroll-view" id="featuredList">
-                        <div class="skeleton-loader"></div><div class="skeleton-loader"></div>
-                    </div>
-                </div>
+                <div class="section">
+                    <div class="section-header"><div class="section-title">✨ 주요 서비스</div></div>
+                    <div class="modern-menu-grid">
+                        <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/ticket')"><div class="modern-icon theme-orange"><span class="material-icons-round">auto_stories</span></div><div class="modern-card-text"><div class="modern-card-title">최저가 티켓</div><div class="modern-card-desc">여행 준비 필수 정보</div></div></div>
+                        <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/used-market')"><div class="modern-icon theme-indigo"><span class="material-icons-round">storefront</span></div><div class="modern-card-text"><div class="modern-card-title">리트립 (Re:Trip)</div><div class="modern-card-desc">여행자 간 직거래 장터</div></div></div>
+                        <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/shopping')"><div class="modern-icon theme-pink"><span class="material-icons-round">local_fire_department</span></div><div class="modern-card-text"><div class="modern-card-title">담다 (Dam-da)</div><div class="modern-card-desc">여행의 추억을 담다</div></div></div>
+                        <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/freelancer')"><div class="modern-icon theme-blue"><span class="material-icons-round">laptop_mac</span></div><div class="modern-card-text"><div class="modern-card-title">K-메이트</div><div class="modern-card-desc">여행을 돕는 숨은 고수 찾기</div></div></div>
+                        <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/faq')"><div class="modern-icon theme-teal"><span class="material-icons-round">map</span></div><div class="modern-card-text"><div class="modern-card-title">여행정보 로드맵</div><div class="modern-card-desc">자주 묻는 질문 FAQ</div></div></div>
+                        <div class="modern-card" onclick="openCategoryURL('https://kornect.kr/k-contents')"><div class="modern-icon theme-purple"><span class="material-icons-round">play_circle</span></div><div class="modern-card-text"><div class="modern-card-title">K-숏폼 큐레이션</div><div class="modern-card-desc">화제의 영상 & 뉴스</div></div></div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-header"><div class="section-title">🔥 인기 비즈니스</div></div>
+                    <div class="h-scroll-view" id="featuredList">
+                        <div class="skeleton-loader"></div><div class="skeleton-loader"></div>
+                    </div>
+                </div>
 
-                <div class="section">
-                    <div class="section-header"><div class="section-title">✨ 신규 비즈니스</div></div>
-                    <div class="h-scroll-view" id="newList">
-                        <div class="skeleton-loader"></div><div class="skeleton-loader"></div>
-                    </div>
-                </div>
-                
-                <div onclick="openExternalLink('https://kornect.kr/Partners')" class="partner-banner">
-                    <div class="banner-content">
-                        <span class="banner-title">Kornect 제휴 업체</span>
-                        <span class="banner-desc">엄선된 파트너 리스트 확인하기</span>
-                    </div>
-                    <span class="material-icons-round banner-icon">verified_user</span>
-                </div>
+                <div class="section">
+                    <div class="section-header"><div class="section-title">✨ 신규 비즈니스</div></div>
+                    <div class="h-scroll-view" id="newList">
+                        <div class="skeleton-loader"></div><div class="skeleton-loader"></div>
+                    </div>
+                </div>
+                
+                <!-- ★ 수정: <a> → <div> + openExternalLink() 사용 -->
+                <div onclick="openExternalLink('https://kornect.kr/Partners')" class="partner-banner">
+                    <div class="banner-content">
+                        <span class="banner-title">Kornect 제휴 업체</span>
+                        <span class="banner-desc">엄선된 파트너 리스트 확인하기</span>
+                    </div>
+                    <span class="material-icons-round banner-icon">verified_user</span>
+                </div>
 
-                <footer class="app-footer">
-                    <div class="footer-links">
-                        <span class="footer-link-item" onclick="openLegalModal('terms')">이용약관</span>
-                        <span style="color:#334155">|</span>
-                        <span class="footer-link-item" onclick="openLegalModal('privacy')" style="font-weight:700">개인정보처리방침</span>
-                        <span style="color:#334155">|</span>
-                        <span class="footer-link-item" onclick="openInquiryModal()">문의하기</span>
-                    </div>
-                    <div class="footer-logo">Kornect</div>
-                    <div class="footer-info">
-                        상호명: Kornect (코넥트) | 대표자: 신영섭<br>
-                        주소: 경기도 광명시 하안로 108, 521호(소하동, 에이스 광명타워)<br>
-                        사업자등록번호: 347-02-03104 | 이메일: admin@kornect.kr<br>
-                        <br>
-                        Kornect는 통신판매중개자로서 거래 당사자가 아니며,<br>
-                        등록된 업체 정보의 정확성에 대해 책임을 지지 않습니다.
-                    </div>
-                    <div style="font-size:10px; color:#475569; margin-top:8px;">© 2026 Kornect. All rights reserved.</div>
-                </footer>
-            </div>
-            
-            <button class="fab-sos" onclick="sosApp.openSOS()">
-                <span class="material-icons-round fab-icon">phonelink_ring</span>
-            </button>
-        </div>
-        
-        <div class="page" id="sosPage">
-            <header class="app-header sos-header">
-                <button class="btn-circle" onclick="goBack()"><span class="material-icons-round">arrow_back</span></button>
-                <div class="sos-title"><span class="material-icons-round">emergency</span> 긴급 영사관 연결</div>
-                <div style="width:40px"></div>
-            </header>
-            <div class="sos-container">
-                <div class="sos-search-box">
-                    <span class="material-icons-round sos-icon">search</span>
-                    <input type="text" id="sosSearchInput" class="sos-input" placeholder="국가 또는 도시 검색 (예: 일본)">
-                </div>
-                <div class="sos-list-group-title">지원 국가 및 지역</div>
-                <div id="sosListContainer"></div>
-            </div>
-        </div>
+                <footer class="app-footer">
+                    <div class="footer-links">
+                        <span class="footer-link-item" onclick="openLegalModal('terms')">이용약관</span>
+                        <span style="color:#334155">|</span>
+                        <span class="footer-link-item" onclick="openLegalModal('privacy')" style="font-weight:700">개인정보처리방침</span>
+                        <span style="color:#334155">|</span>
+                        <span class="footer-link-item" onclick="openInquiryModal()">문의하기</span>
+                    </div>
+                    <div class="footer-logo">Kornect</div>
+                    <div class="footer-info">
+                        상호명: Kornect (코넥트) | 대표자: 신영섭<br>
+                        주소: 경기도 광명시 하안로 108, 521호(소하동, 에이스 광명타워)<br>
+                        사업자등록번호: 347-02-03104 | 이메일: admin@kornect.kr<br>
+                        <br>
+                        Kornect는 통신판매중개자로서 거래 당사자가 아니며,<br>
+                        등록된 업체 정보의 정확성에 대해 책임을 지지 않습니다.
+                    </div>
+                    <div style="font-size:10px; color:#475569; margin-top:8px;">© 2026 Kornect. All rights reserved.</div>
+                </footer>
+            </div>
+            
+            <button class="fab-sos" onclick="sosApp.openSOS()">
+                <span class="material-icons-round fab-icon">phonelink_ring</span>
+            </button>
+        </div>
+        
+        <div class="page" id="sosPage">
+            <header class="app-header sos-header">
+                <button class="btn-circle" onclick="goBack()"><span class="material-icons-round">arrow_back</span></button>
+                <div class="sos-title"><span class="material-icons-round">emergency</span> 긴급 영사관 연결</div>
+                <div style="width:40px"></div>
+            </header>
+            <div class="sos-container">
+                <div class="sos-search-box">
+                    <span class="material-icons-round sos-icon">search</span>
+                    <input type="text" id="sosSearchInput" class="sos-input" placeholder="국가 또는 도시 검색 (예: 일본)">
+                </div>
+                <div class="sos-list-group-title">지원 국가 및 지역</div>
+                <div id="sosListContainer"></div>
+            </div>
+        </div>
 
-        <div class="page" id="searchPage">
-            <header class="app-header">
-                <button class="btn-circle" onclick="goBack()"><span class="material-icons-round">arrow_back</span></button>
-                <div style="color:white; font-weight:700;">검색 설정</div>
-                <div style="width:40px"></div>
-            </header>
-            <div class="content-container" style="padding-top: 20px;">
-                <div class="section">
-                    <div class="section-title" style="margin-bottom:12px;">📍 위치 선택</div>
-                    <div class="location-grid"><div style="color:var(--text-sub); font-size:13px;">로딩 중...</div></div>
-                </div>
-                <div class="section">
-                    <div class="section-title" style="margin-bottom:12px;">🔍 서비스 카테고리</div>
-                    <div class="service-grid"><div style="color:var(--text-sub); font-size:13px;">로딩 중...</div></div>
-                </div>
-                <button class="search-btn" onclick="doSearch()">검색하기</button>
-            </div>
-        </div>
-        
-        <div class="page" id="resultsPage">
-            <header class="app-header">
-                <button class="btn-circle" onclick="goBack()"><span class="material-icons-round">arrow_back</span></button>
-                <div style="color:var(--text-sub); font-size:14px;"><strong id="resultLocation" style="color:var(--primary-color)"></strong>의 <strong id="resultCategory" style="color:var(--primary-color)"></strong></div>
-                <div style="width:40px"></div>
-            </header>
-            <div class="business-list" id="businessList"></div>
-        </div>
-        
-        <div class="page" id="detailPage">
-            <div class="detail-header-img">
-                <div class="detail-nav">
-                    <button class="btn-circle" onclick="goBack()"><span class="material-icons-round">arrow_back</span></button>
-                    <button class="btn-circle"><span class="material-icons-round">share</span></button>
-                </div>
-            </div>
-            <div class="detail-content">
-                <div class="detail-name" id="detailName">...</div>
-                <div style="color:#fbbf24; font-weight:700; margin-bottom:20px;">⭐ <span id="detailRating">...</span></div>
-                <div class="info-group">
-                    <div class="info-item"><span class="material-icons-round info-icon">location_on</span><div class="info-text" id="detailAddress">...</div></div>
-                    <div class="info-item"><span class="material-icons-round info-icon">call</span><div class="info-text" id="detailPhone">...</div></div>
-                    <div class="info-item"><span class="material-icons-round info-icon">schedule</span><div class="info-text" id="detailHours">...</div></div>
-                    <div class="info-item" id="websiteItem" style="display:none"><span class="material-icons-round info-icon">language</span><div class="info-text" id="detailWebsite">...</div></div>
-                </div>
-            </div>
-            <div class="floating-bottom">
-                <a class="action-btn secondary" id="mapBtn" target="_blank"><span class="material-icons-round">map</span> 길찾기</a>
-                <a class="action-btn primary" id="callBtn"><span class="material-icons-round">call</span> 전화하기</a>
-            </div>
-        </div>
+        <div class="page" id="searchPage">
+            <header class="app-header">
+                <button class="btn-circle" onclick="goBack()"><span class="material-icons-round">arrow_back</span></button>
+                <div style="color:white; font-weight:700;">검색 설정</div>
+                <div style="width:40px"></div>
+            </header>
+            <div class="content-container" style="padding-top: 20px;">
+                <div class="section">
+                    <div class="section-title" style="margin-bottom:12px;">📍 위치 선택</div>
+                    <div class="location-grid"><div style="color:var(--text-sub); font-size:13px;">로딩 중...</div></div>
+                </div>
+                <div class="section">
+                    <div class="section-title" style="margin-bottom:12px;">🔍 서비스 카테고리</div>
+                    <div class="service-grid"><div style="color:var(--text-sub); font-size:13px;">로딩 중...</div></div>
+                </div>
+                <button class="search-btn" onclick="doSearch()">검색하기</button>
+            </div>
+        </div>
+        
+        <div class="page" id="resultsPage">
+            <header class="app-header">
+                <button class="btn-circle" onclick="goBack()"><span class="material-icons-round">arrow_back</span></button>
+                <div style="color:var(--text-sub); font-size:14px;"><strong id="resultLocation" style="color:var(--primary-color)"></strong>의 <strong id="resultCategory" style="color:var(--primary-color)"></strong></div>
+                <div style="width:40px"></div>
+            </header>
+            <div class="business-list" id="businessList"></div>
+        </div>
+        
+        <div class="page" id="detailPage">
+            <div class="detail-header-img">
+                <div class="detail-nav">
+                    <button class="btn-circle" onclick="goBack()"><span class="material-icons-round">arrow_back</span></button>
+                    <button class="btn-circle"><span class="material-icons-round">share</span></button>
+                </div>
+            </div>
+            <div class="detail-content">
+                <div class="detail-name" id="detailName">...</div>
+                <div style="color:#fbbf24; font-weight:700; margin-bottom:20px;">⭐ <span id="detailRating">...</span></div>
+                <div class="info-group">
+                    <div class="info-item"><span class="material-icons-round info-icon">location_on</span><div class="info-text" id="detailAddress">...</div></div>
+                    <div class="info-item"><span class="material-icons-round info-icon">call</span><div class="info-text" id="detailPhone">...</div></div>
+                    <div class="info-item"><span class="material-icons-round info-icon">schedule</span><div class="info-text" id="detailHours">...</div></div>
+                    <div class="info-item" id="websiteItem" style="display:none"><span class="material-icons-round info-icon">language</span><div class="info-text" id="detailWebsite">...</div></div>
+                </div>
+            </div>
+            <div class="floating-bottom">
+                <a class="action-btn secondary" id="mapBtn" target="_blank"><span class="material-icons-round">map</span> 길찾기</a>
+                <a class="action-btn primary" id="callBtn"><span class="material-icons-round">call</span> 전화하기</a>
+            </div>
+        </div>
 
-        <div class="page" id="introPage">
-            <div class="bg-mesh"></div>
-            <nav class="intro-nav">
-                <div class="intro-logo" style="font-weight:800; font-size:18px;">Kornect</div>
-                <span class="material-icons-round intro-close-btn" style="font-size:24px; cursor:pointer;" onclick="goBack()">close</span>
-            </nav>
+        <div class="page" id="introPage">
+            <div class="bg-mesh"></div>
+            <nav class="intro-nav">
+                <div class="intro-logo" style="font-weight:800; font-size:18px;">Kornect</div>
+                <span class="material-icons-round intro-close-btn" style="font-size:24px; cursor:pointer;" onclick="goBack()">close</span>
+            </nav>
 
-            <div style="padding-top: 100px; padding-bottom: 150px; box-sizing: border-box; width: 100%;"> 
-                <section class="hero">
-                    <div class="container" style="padding:0 24px;">
-                        <span class="section-eyebrow fade-in-up">GLOBAL KOREAN BUSINESS</span>
-                        <h1 class="fade-in-up" style="font-size:36px; font-weight:800; line-height:1.2; margin-bottom:20px; color:#0F172A;">
-                            한인 비즈니스,<br><span class="text-gradient">세상에 닿다</span>
-                        </h1>
-                        <p class="fade-in-up" style="color:#475569; margin-bottom:32px; font-size:15px; line-height:1.6;">
-                            홍보부터 전 세계 고객 연결까지.<br>
-                            사장님은 이제 <strong>본업</strong>에만 집중하세요.<br>
-                            복잡한 마케팅은 코넥트가 해결합니다.
-                        </p>
-                        <button onclick="openExternalLink('https://join-olive.vercel.app')" class="btn-primary fade-in-up" style="width:100%; max-width:280px; border:none; cursor:pointer;">
-                            지금 무료로 등록하기
-                        </button>
-                        <div class="fade-in-up" style="margin-top:16px; font-size:12px; color:#64748b;">
-                            ⚡️ 1분이면 등록 완료! 별도 비용 없음
-                        </div>
-                    </div>
-                </section>
+            <div style="padding-top: 100px; padding-bottom: 150px; box-sizing: border-box; width: 100%;"> 
+                <section class="hero">
+                    <div class="container" style="padding:0 24px;">
+                        <span class="section-eyebrow fade-in-up">GLOBAL KOREAN BUSINESS</span>
+                        <h1 class="fade-in-up" style="font-size:36px; font-weight:800; line-height:1.2; margin-bottom:20px; color:#0F172A;">
+                            한인 비즈니스,<br><span class="text-gradient">세상에 닿다</span>
+                        </h1>
+                        <p class="fade-in-up" style="color:#475569; margin-bottom:32px; font-size:15px; line-height:1.6;">
+                            홍보부터 전 세계 고객 연결까지.<br>
+                            사장님은 이제 <strong>본업</strong>에만 집중하세요.<br>
+                            복잡한 마케팅은 코넥트가 해결합니다.
+                        </p>
+                        <!-- ★ 수정: target="_blank" 제거, onclick="openExternalLink()" 사용 -->
+                        <button onclick="openExternalLink('https://join-olive.vercel.app')" class="btn-primary fade-in-up" style="width:100%; max-width:280px; border:none; cursor:pointer;">
+                            지금 무료로 등록하기
+                        </button>
+                        <div class="fade-in-up" style="margin-top:16px; font-size:12px; color:#64748b;">
+                            ⚡️ 1분이면 등록 완료! 별도 비용 없음
+                        </div>
+                    </div>
+                </section>
 
-                <div style="padding: 20px;">
-                    <div style="margin-bottom:12px; font-weight:700; font-size:18px; color:#1e293b;">이런 고민 있으신가요? 🤔</div>
-                    <div class="intro-card">
-                        <div style="display:flex; gap:12px; margin-bottom:8px;">
-                            <div style="width:40px; height:40px; background:rgba(59, 130, 246, 0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; color:#3b82f6;">
-                                <span class="material-icons-round">person_search</span>
-                            </div>
-                            <div>
-                                <h3 style="font-size:17px; font-weight:700; color:#0f172a;">고객 확보의 어려움</h3>
-                                <p style="font-size:13px; color:#64748b;">교민 사회와 현지인, 여행객까지...<br>모두에게 홍보하기 막막하셨죠?</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="intro-card">
-                        <div style="display:flex; gap:12px; margin-bottom:8px;">
-                            <div style="width:40px; height:40px; background:rgba(244, 63, 94, 0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; color:#f43f5e;">
-                                <span class="material-icons-round">savings</span>
-                            </div>
-                            <div>
-                                <h3 style="font-size:17px; font-weight:700; color:#0f172a;">부담스러운 마케팅 비용</h3>
-                                <p style="font-size:13px; color:#64748b;">효과를 알 수 없는 비싼 광고비,<br>이제 무료 플랫폼으로 해결하세요.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div style="padding: 20px;">
+                    <div style="margin-bottom:12px; font-weight:700; font-size:18px; color:#1e293b;">이런 고민 있으신가요? 🤔</div>
+                    <div class="intro-card">
+                        <div style="display:flex; gap:12px; margin-bottom:8px;">
+                            <div style="width:40px; height:40px; background:rgba(59, 130, 246, 0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; color:#3b82f6;">
+                                <span class="material-icons-round">person_search</span>
+                            </div>
+                            <div>
+                                <h3 style="font-size:17px; font-weight:700; color:#0f172a;">고객 확보의 어려움</h3>
+                                <p style="font-size:13px; color:#64748b;">교민 사회와 현지인, 여행객까지...<br>모두에게 홍보하기 막막하셨죠?</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="intro-card">
+                        <div style="display:flex; gap:12px; margin-bottom:8px;">
+                            <div style="width:40px; height:40px; background:rgba(244, 63, 94, 0.1); border-radius:10px; display:flex; align-items:center; justify-content:center; color:#f43f5e;">
+                                <span class="material-icons-round">savings</span>
+                            </div>
+                            <div>
+                                <h3 style="font-size:17px; font-weight:700; color:#0f172a;">부담스러운 마케팅 비용</h3>
+                                <p style="font-size:13px; color:#64748b;">효과를 알 수 없는 비싼 광고비,<br>이제 무료 플랫폼으로 해결하세요.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <div style="padding: 0 24px 40px;">
-                    <div style="margin-bottom:20px; font-weight:700; font-size:18px; color:#1e293b;">Kornect는 다릅니다 ✨</div>
-                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
-                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;"><span class="material-icons-round" style="font-size:32px; color:#6366f1; margin-bottom:8px;">public</span><div style="font-weight:700; font-size:14px; margin-bottom:4px;">글로벌 노출</div><div style="font-size:11px; color:#64748b;">전 세계 어디서든<br>내 가게 검색 가능</div></div>
-                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;"><span class="material-icons-round" style="font-size:32px; color:#8b5cf6; margin-bottom:8px;">phonelink_setup</span><div style="font-weight:700; font-size:14px; margin-bottom:4px;">앱 설치 불필요</div><div style="font-size:11px; color:#64748b;">웹으로 즉시 접속<br>접근성 100%</div></div>
-                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;"><span class="material-icons-round" style="font-size:32px; color:#ec4899; margin-bottom:8px;">edit_note</span><div style="font-weight:700; font-size:14px; margin-bottom:4px;">간편한 관리</div><div style="font-size:11px; color:#64748b;">영업시간, 메뉴 등<br>언제든 수정 가능</div></div>
-                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;"><span class="material-icons-round" style="font-size:32px; color:#10b981; margin-bottom:8px;">verified</span><div style="font-weight:700; font-size:14px; margin-bottom:4px;">신뢰도 상승</div><div style="font-size:11px; color:#64748b;">리뷰와 평점으로<br>고객 신뢰 확보</div></div>
-                    </div>
-                </div>
+                <div style="padding: 0 24px 40px;">
+                    <div style="margin-bottom:20px; font-weight:700; font-size:18px; color:#1e293b;">Kornect는 다릅니다 ✨</div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;"><span class="material-icons-round" style="font-size:32px; color:#6366f1; margin-bottom:8px;">public</span><div style="font-weight:700; font-size:14px; margin-bottom:4px;">글로벌 노출</div><div style="font-size:11px; color:#64748b;">전 세계 어디서든<br>내 가게 검색 가능</div></div>
+                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;"><span class="material-icons-round" style="font-size:32px; color:#8b5cf6; margin-bottom:8px;">phonelink_setup</span><div style="font-weight:700; font-size:14px; margin-bottom:4px;">앱 설치 불필요</div><div style="font-size:11px; color:#64748b;">웹으로 즉시 접속<br>접근성 100%</div></div>
+                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;"><span class="material-icons-round" style="font-size:32px; color:#ec4899; margin-bottom:8px;">edit_note</span><div style="font-weight:700; font-size:14px; margin-bottom:4px;">간편한 관리</div><div style="font-size:11px; color:#64748b;">영업시간, 메뉴 등<br>언제든 수정 가능</div></div>
+                        <div style="background:white; padding:16px; border-radius:16px; border:1px solid #e2e8f0; text-align:center;"><span class="material-icons-round" style="font-size:32px; color:#10b981; margin-bottom:8px;">verified</span><div style="font-weight:700; font-size:14px; margin-bottom:4px;">신뢰도 상승</div><div style="font-size:11px; color:#64748b;">리뷰와 평점으로<br>고객 신뢰 확보</div></div>
+                    </div>
+                </div>
 
-                <div style="background:#f1f5f9; padding: 30px 24px; border-radius:24px; margin: 0 20px;">
-                    <div style="text-align:center; margin-bottom:24px;">
-                        <h3 style="font-size:18px; font-weight:800; color:#0f172a;">🚀 시작하는 방법</h3>
-                        <p style="font-size:13px; color:#64748b;">아주 간단합니다. 3단계만 거치세요.</p>
-                    </div>
-                    <div style="display:flex; flex-direction:column; gap:20px;">
-                        <div style="display:flex; align-items:center; gap:16px;"><div style="width:32px; height:32px; background:#0f172a; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">1</div><div style="font-size:14px; color:#334155;"><strong>'무료로 등록하기'</strong> 버튼 클릭</div></div>
-                        <div style="height:20px; border-left:2px dashed #cbd5e1; margin:-10px 0 -10px 15px;"></div>
-                        <div style="display:flex; align-items:center; gap:16px;"><div style="width:32px; height:32px; background:#0f172a; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">2</div><div style="font-size:14px; color:#334155;">비즈니스 정보(이름, 위치 등) 입력</div></div>
-                        <div style="height:20px; border-left:2px dashed #cbd5e1; margin:-10px 0 -10px 15px;"></div>
-                        <div style="display:flex; align-items:center; gap:16px;"><div style="width:32px; height:32px; background:#6366f1; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">3</div><div style="font-size:14px; color:#334155;"><strong>등록 완료!</strong> 즉 홍보가 시작됩니다.</div></div>
-                    </div>
-                </div>
+                <div style="background:#f1f5f9; padding: 30px 24px; border-radius:24px; margin: 0 20px;">
+                    <div style="text-align:center; margin-bottom:24px;">
+                        <h3 style="font-size:18px; font-weight:800; color:#0f172a;">🚀 시작하는 방법</h3>
+                        <p style="font-size:13px; color:#64748b;">아주 간단합니다. 3단계만 거치세요.</p>
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:20px;">
+                        <div style="display:flex; align-items:center; gap:16px;"><div style="width:32px; height:32px; background:#0f172a; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">1</div><div style="font-size:14px; color:#334155;"><strong>'무료로 등록하기'</strong> 버튼 클릭</div></div>
+                        <div style="height:20px; border-left:2px dashed #cbd5e1; margin:-10px 0 -10px 15px;"></div>
+                        <div style="display:flex; align-items:center; gap:16px;"><div style="width:32px; height:32px; background:#0f172a; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">2</div><div style="font-size:14px; color:#334155;">비즈니스 정보(이름, 위치 등) 입력</div></div>
+                        <div style="height:20px; border-left:2px dashed #cbd5e1; margin:-10px 0 -10px 15px;"></div>
+                        <div style="display:flex; align-items:center; gap:16px;"><div style="width:32px; height:32px; background:#6366f1; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; flex-shrink:0;">3</div><div style="font-size:14px; color:#334155;"><strong>등록 완료!</strong> 즉시 홍보가 시작됩니다.</div></div>
+                    </div>
+                </div>
 
-                <div style="padding: 40px 24px 20px; text-align:center;">
-                    <h2 style="font-size:22px; font-weight:800; color:#0f172a; margin-bottom:12px;">지금 바로 시작하세요</h2>
-                    <p style="font-size:14px; color:#64748b; margin-bottom:24px;">이미 전 세계 12,000개 이상의 한인 비즈니스가<br>Kornect와 함께 성장하고 있습니다.</p>
-                    <button onclick="openExternalLink('https://join-olive.vercel.app')" class="btn-primary" style="width:100%; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3); border:none; cursor:pointer;">
-                        내 비즈니스 무료 등록하기
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="modal-overlay" id="sosModal">
-        <div class="modal-box">
-            <div class="modal-header">
-                <span class="modal-title" style="color:#ef4444">🚨 긴급 연결</span>
-                <span class="material-icons-round modal-close" onclick="sosApp.closeSOSModal()">close</span>
-            </div>
-            <div class="modal-body sos-sheet-content">
-                <span class="sos-flag" id="sosModalFlag">🇰🇷</span>
-                <div class="sos-sheet-title" id="sosModalTitle">국가명</div>
-                <div class="sos-sheet-desc" id="sosModalDesc">관할 영사관으로 즉시 연결합니다.</div>
-                <a href="#" class="sos-sheet-btn" id="sosCallBtn">
-                    <span class="material-icons-round">call</span> 전화 연결
-                </a>
-                <div style="font-size:12px; color:#64748b; margin-top:10px;">※ 통화료가 부과될 수 있습니다.</div>
-            </div>
-        </div>
-    </div>
+                <div style="padding: 40px 24px 20px; text-align:center;">
+                    <h2 style="font-size:22px; font-weight:800; color:#0f172a; margin-bottom:12px;">지금 바로 시작하세요</h2>
+                    <p style="font-size:14px; color:#64748b; margin-bottom:24px;">이미 전 세계 12,000개 이상의 한인 비즈니스가<br>Kornect와 함께 성장하고 있습니다.</p>
+                    <!-- ★ 수정: target="_blank" 제거, onclick="openExternalLink()" 사용 -->
+                    <button onclick="openExternalLink('https://join-olive.vercel.app')" class="btn-primary" style="width:100%; box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3); border:none; cursor:pointer;">
+                        내 비즈니스 무료 등록하기
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="sosModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-title" style="color:#ef4444">🚨 긴급 연결</span>
+                <span class="material-icons-round modal-close" onclick="sosApp.closeSOSModal()">close</span>
+            </div>
+            <div class="modal-body sos-sheet-content">
+                <span class="sos-flag" id="sosModalFlag">🇰🇷</span>
+                <div class="sos-sheet-title" id="sosModalTitle">국가명</div>
+                <div class="sos-sheet-desc" id="sosModalDesc">관할 영사관으로 즉시 연결합니다.</div>
+                <a href="#" class="sos-sheet-btn" id="sosCallBtn">
+                    <span class="material-icons-round">call</span> 전화 연결
+                </a>
+                <div style="font-size:12px; color:#64748b; margin-top:10px;">※ 통화료가 부과될 수 있습니다.</div>
+            </div>
+        </div>
+    </div>
 
-    <div class="modal-overlay" id="inquiryModal">
-        <div class="modal-box">
-            <div class="modal-header">
-                <span class="modal-title">문의 및 제휴</span>
-                <span class="material-icons-round modal-close" onclick="closeModals()">close</span>
-            </div>
-            <div class="modal-body" style="text-align:center; padding-bottom:30px;">
-                <p style="margin-bottom:20px;">Kornect 서비스 이용 문의나<br>제휴 제안은 이메일로 보내주세요.</p>
-                <div class="inquiry-options">
-                    <button class="inquiry-btn btn-email" onclick="location.href='mailto:admin@kornect.kr'"><span class="material-icons-round">send</span> 이메일 앱 열기</button>
-                    <button class="inquiry-btn btn-copy" onclick="copyEmail()"><span class="material-icons-round">content_copy</span> 주소 복사하기</button>
-                </div>
-                <div style="margin-top:16px; font-size:13px; color:#64748b;">admin@kornect.kr</div>
-            </div>
-        </div>
-    </div>
+    <div class="modal-overlay" id="inquiryModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-title">문의 및 제휴</span>
+                <span class="material-icons-round modal-close" onclick="closeModals()">close</span>
+            </div>
+            <div class="modal-body" style="text-align:center; padding-bottom:30px;">
+                <p style="margin-bottom:20px;">Kornect 서비스 이용 문의나<br>제휴 제안은 이메일로 보내주세요.</p>
+                <div class="inquiry-options">
+                    <button class="inquiry-btn btn-email" onclick="location.href='mailto:admin@kornect.kr'"><span class="material-icons-round">send</span> 이메일 앱 열기</button>
+                    <button class="inquiry-btn btn-copy" onclick="copyEmail()"><span class="material-icons-round">content_copy</span> 주소 복사하기</button>
+                </div>
+                <div style="margin-top:16px; font-size:13px; color:#64748b;">admin@kornect.kr</div>
+            </div>
+        </div>
+    </div>
 
-    <div class="modal-overlay" id="termsModal">
-        <div class="modal-box">
-            <div class="modal-header">
-                <span class="modal-title">이용약관</span>
-                <span class="material-icons-round modal-close" onclick="closeModals()">close</span>
-            </div>
-            <div class="modal-body">
-                <strong>제1조 (목적)</strong><br>본 약관은 Kornect(이하 "회사")가 제공하는 한인 비즈니스 정보 제공 서비스(이하 "서비스")의 이용과 관련하여 회사와 회원의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.<br><br>
-                <strong>제2조 (서비스의 내용)</strong><br>1. 회사는 전 세계 한인 비즈니스 정보를 수집하여 이용자에게 제공하는 플랫폼 서비스를 운영합니다.<br>2. 회사는 직접 상품을 판매하거나 용역을 제공하는 당사자가 아니며, 입점 업체와 이용자 간의 거래에 대해 책임을 지지 않습니다.<br><br>
-                <strong>제3조 (면책 조항)</strong><br>회사는 플랫폼 내에 등록된 업체의 정보(상호, 연락처, 주소 등)의 정확성, 신뢰성 등에 대하여 보증하지 않으며, 이를 신뢰하여 발생한 손해에 대해 책임을 지지 않습니다.<br><br>
-                <strong>제4조 (지식재산권)</strong><br>서비스 내의 모든 콘텐츠에 대한 저작권은 회사 또는 해당 콘텐츠 제공자에게 있습니다.
-            </div>
-        </div>
-    </div>
+    <div class="modal-overlay" id="termsModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-title">이용약관</span>
+                <span class="material-icons-round modal-close" onclick="closeModals()">close</span>
+            </div>
+            <div class="modal-body">
+                <strong>제1조 (목적)</strong><br>본 약관은 Kornect(이하 "회사")가 제공하는 한인 비즈니스 정보 제공 서비스(이하 "서비스")의 이용과 관련하여 회사와 회원의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.<br><br>
+                <strong>제2조 (서비스의 내용)</strong><br>1. 회사는 전 세계 한인 비즈니스 정보를 수집하여 이용자에게 제공하는 플랫폼 서비스를 운영합니다.<br>2. 회사는 직접 상품을 판매하거나 용역을 제공하는 당사자가 아니며, 입점 업체와 이용자 간의 거래에 대해 책임을 지지 않습니다.<br><br>
+                <strong>제3조 (면책 조항)</strong><br>회사는 플랫폼 내에 등록된 업체의 정보(상호, 연락처, 주소 등)의 정확성, 신뢰성 등에 대하여 보증하지 않으며, 이를 신뢰하여 발생한 손해에 대해 책임을 지지 않습니다.<br><br>
+                <strong>제4조 (지식재산권)</strong><br>서비스 내의 모든 콘텐츠에 대한 저작권은 회사 또는 해당 콘텐츠 제공자에게 있습니다.
+            </div>
+        </div>
+    </div>
 
-    <div class="modal-overlay" id="privacyModal">
-        <div class="modal-box">
-            <div class="modal-header">
-                <span class="modal-title">개인정보처리방침</span>
-                <span class="material-icons-round modal-close" onclick="closeModals()">close</span>
-            </div>
-            <div class="modal-body">
-                <strong>1. 개인정보 수집 항목</strong><br>Kornect는 별도의 회원가입 없이 이용 가능하며, 서비스 제공을 위해 최소한의 정보를 수집합니다.<br>- 필수항목: 서비스 이용 기록, 접속 로그, 쿠키, 위치 정보(이용자 동의 시)<br><br>
-                <strong>2. 개인정보 수집 목적</strong><br>수집된 정보는 서비스 제공, 사용자 경험 개선, 접속 빈도 파악 및 서비스 이용 통계 작성을 위해 사용됩니다.<br><br>
-                <strong>3. 개인정보의 보유 및 이용 기간</strong><br>수집된 정보는 목적 달성 후 지체 없이 파기합니다. 단, 관계 법령에 따라 보존이 필요한 경우 해당 기간 동안 보관합니다.<br><br>
-                <strong>4. 사용자 권리</strong><br>이용자는 언제든지 자신의 개인정보 수집에 대한 동의를 철회하거나 삭제를 요청할 수 있습니다. 문의사항은 admin@kornect.kr로 연락 바랍니다.
-            </div>
-        </div>
-    </div>
-    
-    <div id="installBanner" class="install-banner">
-        <div style="display:flex; align-items:center; gap:12px;">
-            <img src="Kornect Logo 192X192.png" style="width:40px; height:40px; border-radius:8px;">
-            <div class="install-text">앱으로 더 편하게 이용하세요!<br><span style="font-size:11px; color:#94a3b8; font-weight:400;">빠른 접속 및 알림 기능 제공</span></div>
-        </div>
-        <div style="display:flex; align-items:center;">
-            <button class="install-action" onclick="installPWA()">설치</button>
-            <span class="material-icons-round install-close" onclick="closeInstallBanner()">close</span>
-        </div>
-    </div>
-    
-    <script>
-    // Service Worker Registration
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./service-worker.js')
-                .then(reg => console.log('SW Registered', reg))
-                .catch(err => console.log('SW Fail', err));
-        });
-    }
+    <div class="modal-overlay" id="privacyModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <span class="modal-title">개인정보처리방침</span>
+                <span class="material-icons-round modal-close" onclick="closeModals()">close</span>
+            </div>
+            <div class="modal-body">
+                <strong>1. 개인정보 수집 항목</strong><br>Kornect는 별도의 회원가입 없이 이용 가능하며, 서비스 제공을 위해 최소한의 정보를 수집합니다.<br>- 필수항목: 서비스 이용 기록, 접속 로그, 쿠키, 위치 정보(이용자 동의 시)<br><br>
+                <strong>2. 개인정보 수집 목적</strong><br>수집된 정보는 서비스 제공, 사용자 경험 개선, 접속 빈도 파악 및 서비스 이용 통계 작성을 위해 사용됩니다.<br><br>
+                <strong>3. 개인정보의 보유 및 이용 기간</strong><br>수집된 정보는 목적 달성 후 지체 없이 파기합니다. 단, 관계 법령에 따라 보존이 필요한 경우 해당 기간 동안 보관합니다.<br><br>
+                <strong>4. 사용자 권리</strong><br>이용자는 언제든지 자신의 개인정보 수집에 대한 동의를 철회하거나 삭제를 요청할 수 있습니다. 문의사항은 admin@kornect.kr로 연락 바랍니다.
+            </div>
+        </div>
+    </div>
+    
+    <div id="installBanner" class="install-banner">
+        <div style="display:flex; align-items:center; gap:12px;">
+            <img src="Kornect Logo 192X192.png" style="width:40px; height:40px; border-radius:8px;">
+            <div class="install-text">앱으로 더 편하게 이용하세요!<br><span style="font-size:11px; color:#94a3b8; font-weight:400;">빠른 접속 및 알림 기능 제공</span></div>
+        </div>
+        <div style="display:flex; align-items:center;">
+            <button class="install-action" onclick="installPWA()">설치</button>
+            <span class="material-icons-round install-close" onclick="closeInstallBanner()">close</span>
+        </div>
+    </div>
+    
+    <script>
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./service-worker.js')
+                .then(reg => console.log('SW Registered', reg))
+                .catch(err => console.log('SW Fail', err));
+        });
+    }
 
-    // =====================================================
-    // ★ 인앱브라우저 감지 & 외부 링크 처리 (IIFE 바깥에 선언)
-    // openCategoryURL도 여기서 통합 관리
-    // =====================================================
-    (function setupExternalLinkHandler() {
-        const ua = navigator.userAgent || '';
-        const isAndroid = /Android/i.test(ua);
-        const isIOS = /iPhone|iPad|iPod/i.test(ua);
-        const isInApp = /Instagram|FBAN|FBAV|FB_IAB|Twitter|Line|KakaoTalk|NaverApp|YouTube|NAVER|Daum/i.test(ua);
+    // =====================================================
+    // ★ 인앱브라우저 감지 & 외부 링크 처리 (IIFE 바깥에 선언)
+    // openCategoryURL도 여기서 통합 관리
+    // =====================================================
+    (function setupExternalLinkHandler() {
+        const ua = navigator.userAgent || '';
+        const isAndroid = /Android/i.test(ua);
+        const isIOS = /iPhone|iPad|iPod/i.test(ua);
+        const isInApp = /Instagram|FBAN|FBAV|FB_IAB|Twitter|Line|KakaoTalk|NaverApp|YouTube|NAVER|Daum/i.test(ua);
 
-        /**
-         * openExternalLink(url)
-         * - 안드로이드 인앱브라우저 → intent:// 로 크롬 강제 오픈
-         * - iOS 인앱브라우저      → window.open (강제 불가, 안내 배너로 보완)
-         * - 일반 브라우저         → window.open 새 탭
-         * - PWA(홈 화면 추가)     → window.open 새 탭 (PWA는 인앱 아님)
-         */
-        window.openExternalLink = function(url) {
-            if (!url) return;
-            if (isAndroid && isInApp) {
-                // 크롬 intent 스킴: 실패 시 browser_fallback_url로 원래 URL 열기
-                const clean = url.replace(/^https?:\/\//, '');
-                const intentUrl = 'intent://' + clean
-                    + '#Intent;scheme=https;package=com.android.chrome'
-                    + ';S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
-                window.location.href = intentUrl;
-            } else {
-                window.open(url, '_blank', 'noopener,noreferrer');
-            }
-        };
+        /**
+         * openExternalLink(url)
+         * - 안드로이드 인앱브라우저 → intent:// 로 크롬 강제 오픈
+         * - iOS 인앱브라우저      → window.open (강제 불가, 안내 배너로 보완)
+         * - 일반 브라우저         → window.open 새 탭
+         * - PWA(홈 화면 추가)     → window.open 새 탭 (PWA는 인앱 아님)
+         */
+        window.openExternalLink = function(url) {
+            if (!url) return;
+            if (isAndroid && isInApp) {
+                // 크롬 intent 스킴: 실패 시 browser_fallback_url로 원래 URL 열기
+                const clean = url.replace(/^https?:\/\//, '');
+                const intentUrl = 'intent://' + clean
+                    + '#Intent;scheme=https;package=com.android.chrome'
+                    + ';S.browser_fallback_url=' + encodeURIComponent(url) + ';end';
+                window.location.href = intentUrl;
+            } else {
+                window.open(url, '_blank', 'noopener,noreferrer');
+            }
+        };
 
-        // openCategoryURL은 openExternalLink와 동일하게 동작
-        window.openCategoryURL = window.openExternalLink;
+        // openCategoryURL은 openExternalLink와 동일하게 동작
+        window.openCategoryURL = window.openExternalLink;
 
-        // iOS 인앱브라우저일 때 배너 표시
-        if (isIOS && isInApp) {
-            // DOM 준비 후 배너 노출
-            document.addEventListener('DOMContentLoaded', function() {
-                const hint = document.getElementById('iosInappHint');
-                if (hint) hint.classList.add('visible');
-            });
-        }
-    })();
+        // iOS 인앱브라우저일 때 배너 표시
+        if (isIOS && isInApp) {
+            // DOM 준비 후 배너 노출
+            document.addEventListener('DOMContentLoaded', function() {
+                const hint = document.getElementById('iosInappHint');
+                if (hint) hint.classList.add('visible');
+            });
+        }
+    })();
 
-    (function() {
-        'use strict';
-        const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzN8mtYeMS2JRIABZ0Mkm6CAwDM0UOOdah6mmakuiYlh0Oa6p1enjrZJiYD6PhuwmqoKw/exec';
-        
-        const sosApp = {
-            data: [
-                { country: '괌', city: '하갓냐', phone: '+1-671-647-6488', flag: '🇬🇺' },
-                { country: '그리스', city: '아테네', phone: '+30-210-698-4080', flag: '🇬🇷' },
-                { country: '남아공', city: '프리토리아', phone: '+27-12-460-2508', flag: '🇿🇦' },
-                { country: '네덜란드', city: '헤이그', phone: '+31-70-740-0214', flag: '🇳🇱' },
-                { country: '대만', city: '타이베이', phone: '+886-2-2758-8320', flag: '🇹🇼' },
-                { country: '독일', city: '베를린', phone: '+49-30-260-650', flag: '🇩🇪' },
-                { country: '독일', city: '프랑크푸르트', phone: '+49-69-956-7520', flag: '🇩🇪' },
-                { country: '라오스', city: '비엔티안', phone: '+856-21-352-031', flag: '🇱🇦' },
-                { country: '러시아', city: '모스크바', phone: '+7-495-783-2727', flag: '🇷🇺' },
-                { country: '러시아', city: '블라디보스톡', phone: '+7-423-240-2222', flag: '🇷🇺' },
-                { country: '말레이시아', city: '쿠알라룸푸르', phone: '+60-3-4251-2336', flag: '🇲🇾' },
-                { country: '멕시코', city: '멕시코시티', phone: '+52-55-5202-9866', flag: '🇲🇽' },
-                { country: '몽골', city: '울란바토르', phone: '+976-7007-1020', flag: '🇲🇳' },
-                { country: '미국', city: '워싱턴', phone: '+1-202-939-5654', flag: '🇺🇸' },
-                { country: '미국', city: '뉴욕', phone: '+1-646-674-1600', flag: '🇺🇸' },
-                { country: '미국', city: 'LA', phone: '+1-213-385-9300', flag: '🇺🇸' },
-                { country: '미국', city: '샌프란시스코', phone: '+1-415-921-2251', flag: '🇺🇸' },
-                { country: '미국', city: '하와이', phone: '+1-808-595-6109', flag: '🇺🇸' },
-                { country: '베트남', city: '하노이', phone: '+84-90-402-6126', flag: '🇻🇳' },
-                { country: '베트남', city: '호치민', phone: '+84-93-850-0238', flag: '🇻🇳' },
-                { country: '베트남', city: '다낭', phone: '+84-93-246-5036', flag: '🇻🇳' },
-                { country: '벨기에', city: '브뤼셀', phone: '+32-2-675-5777', flag: '🇧🇪' },
-                { country: '브라질', city: '상파울루', phone: '+55-11-3141-1278', flag: '🇧🇷' },
-                { country: '사이판', city: '사이판', phone: '+1-670-234-0422', flag: '🇲🇵' },
-                { country: '스위스', city: '베른', phone: '+41-31-356-2444', flag: '🇨🇭' },
-                { country: '스페인', city: '마드리드', phone: '+34-91-353-2000', flag: '🇪🇸' },
-                { country: '스페인', city: '바르셀로나', phone: '+34-93-487-3153', flag: '🇪🇸' },
-                { country: '싱가포르', city: '싱가포르', phone: '+65-6256-1188', flag: '🇸🇬' },
-                { country: '아랍에미리트', city: '두바이', phone: '+971-4-344-9200', flag: '🇦🇪' },
-                { country: '아르헨티나', city: '부에노스아이레스', phone: '+54-11-4802-8865', flag: '🇦🇷' },
-                { country: '영국', city: '런던', phone: '+44-78-7650-6895', flag: '🇬🇧' },
-                { country: '오스트리아', city: '빈', phone: '+43-1-478-1991', flag: '🇦🇹' },
-                { country: '이탈리아', city: '로마', phone: '+39-06-802461', flag: '🇮🇹' },
-                { country: '이탈리아', city: '밀라노', phone: '+39-02-2906-2641', flag: '🇮🇹' },
-                { country: '인도', city: '뉴델리', phone: '+91-11-4200-7000', flag: '🇮🇳' },
-                { country: '인도네시아', city: '자카르타', phone: '+62-21-2967-2580', flag: '🇮🇩' },
-                { country: '인도네시아', city: '발리', phone: '+62-811-386-7357', flag: '🇮🇩' },
-                { country: '일본', city: '도쿄', phone: '+81-3-3452-7611', flag: '🇯🇵' },
-                { country: '일본', city: '오사카', phone: '+81-90-3050-0746', flag: '🇯🇵' },
-                { country: '일본', city: '후쿠오카', phone: '+81-92-771-0461', flag: '🇯🇵' },
-                { country: '일본', city: '삿포로', phone: '+81-11-218-0288', flag: '🇯🇵' },
-                { country: '중국', city: '베이징', phone: '+86-10-8531-0700', flag: '🇨🇳' },
-                { country: '중국', city: '상하이', phone: '+86-21-6295-5000', flag: '🇨🇳' },
-                { country: '중국', city: '청도', phone: '+86-532-8897-6001', flag: '🇨🇳' },
-                { country: '체코', city: '프라하', phone: '+420-234-090-411', flag: '🇨🇿' },
-                { country: '캄보디아', city: '프놈펜', phone: '+855-23-211-900', flag: '🇰🇭' },
-                { country: '캐나다', city: '오타와', phone: '+1-613-244-5010', flag: '🇨🇦' },
-                { country: '캐나다', city: '밴쿠버', phone: '+1-604-681-9581', flag: '🇨🇦' },
-                { country: '캐나다', city: '토론토', phone: '+1-416-920-3809', flag: '🇨🇦' },
-                { country: '태국', city: '방콕', phone: '+66-81-914-5803', flag: '🇹🇭' },
-                { country: '튀르키예', city: '앙카라', phone: '+90-312-468-4821', flag: '🇹🇷' },
-                { country: '튀르키예', city: '이스탄불', phone: '+90-212-368-8368', flag: '🇹🇷' },
-                { country: '프랑스', city: '파리', phone: '+33-1-4753-0101', flag: '🇫🇷' },
-                { country: '필리핀', city: '마닐라', phone: '+63-917-817-5703', flag: '🇵🇭' },
-                { country: '필리핀', city: '세부', phone: '+63-917-808-3907', flag: '🇵🇭' },
-                { country: '호주', city: '캔버라', phone: '+61-2-6270-4100', flag: '🇦🇺' },
-                { country: '호주', city: '시드니', phone: '+61-2-9210-0200', flag: '🇦🇺' },
-                { country: '홍콩', city: '홍콩', phone: '+852-2529-4141', flag: '🇭🇰' },
-            ],
-            
-            elements: { listContainer: null, searchInput: null, modal: null, flag: null, title: null, desc: null, callBtn: null },
+    (function() {
+        'use strict';
+        const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzN8mtYeMS2JRIABZ0Mkm6CAwDM0UOOdah6mmakuiYlh0Oa6p1enjrZJiYD6PhuwmqoKw/exec';
+        
+        const sosApp = {
+            data: [
+                { country: '괌', city: '하갓냐', phone: '+1-671-647-6488', flag: '🇬🇺' },
+                { country: '그리스', city: '아테네', phone: '+30-210-698-4080', flag: '🇬🇷' },
+                { country: '남아공', city: '프리토리아', phone: '+27-12-460-2508', flag: '🇿🇦' },
+                { country: '네덜란드', city: '헤이그', phone: '+31-70-740-0214', flag: '🇳🇱' },
+                { country: '대만', city: '타이베이', phone: '+886-2-2758-8320', flag: '🇹🇼' },
+                { country: '독일', city: '베를린', phone: '+49-30-260-650', flag: '🇩🇪' },
+                { country: '독일', city: '프랑크푸르트', phone: '+49-69-956-7520', flag: '🇩🇪' },
+                { country: '라오스', city: '비엔티안', phone: '+856-21-352-031', flag: '🇱🇦' },
+                { country: '러시아', city: '모스크바', phone: '+7-495-783-2727', flag: '🇷🇺' },
+                { country: '러시아', city: '블라디보스톡', phone: '+7-423-240-2222', flag: '🇷🇺' },
+                { country: '말레이시아', city: '쿠알라룸푸르', phone: '+60-3-4251-2336', flag: '🇲🇾' },
+                { country: '멕시코', city: '멕시코시티', phone: '+52-55-5202-9866', flag: '🇲🇽' },
+                { country: '몽골', city: '울란바토르', phone: '+976-7007-1020', flag: '🇲🇳' },
+                { country: '미국', city: '워싱턴', phone: '+1-202-939-5654', flag: '🇺🇸' },
+                { country: '미국', city: '뉴욕', phone: '+1-646-674-1600', flag: '🇺🇸' },
+                { country: '미국', city: 'LA', phone: '+1-213-385-9300', flag: '🇺🇸' },
+                { country: '미국', city: '샌프란시스코', phone: '+1-415-921-2251', flag: '🇺🇸' },
+                { country: '미국', city: '하와이', phone: '+1-808-595-6109', flag: '🇺🇸' },
+                { country: '베트남', city: '하노이', phone: '+84-90-402-6126', flag: '🇻🇳' },
+                { country: '베트남', city: '호치민', phone: '+84-93-850-0238', flag: '🇻🇳' },
+                { country: '베트남', city: '다낭', phone: '+84-93-246-5036', flag: '🇻🇳' },
+                { country: '벨기에', city: '브뤼셀', phone: '+32-2-675-5777', flag: '🇧🇪' },
+                { country: '브라질', city: '상파울루', phone: '+55-11-3141-1278', flag: '🇧🇷' },
+                { country: '사이판', city: '사이판', phone: '+1-670-234-0422', flag: '🇲🇵' },
+                { country: '스위스', city: '베른', phone: '+41-31-356-2444', flag: '🇨🇭' },
+                { country: '스페인', city: '마드리드', phone: '+34-91-353-2000', flag: '🇪🇸' },
+                { country: '스페인', city: '바르셀로나', phone: '+34-93-487-3153', flag: '🇪🇸' },
+                { country: '싱가포르', city: '싱가포르', phone: '+65-6256-1188', flag: '🇸🇬' },
+                { country: '아랍에미리트', city: '두바이', phone: '+971-4-344-9200', flag: '🇦🇪' },
+                { country: '아르헨티나', city: '부에노스아이레스', phone: '+54-11-4802-8865', flag: '🇦🇷' },
+                { country: '영국', city: '런던', phone: '+44-78-7650-6895', flag: '🇬🇧' },
+                { country: '오스트리아', city: '빈', phone: '+43-1-478-1991', flag: '🇦🇹' },
+                { country: '이탈리아', city: '로마', phone: '+39-06-802461', flag: '🇮🇹' },
+                { country: '이탈리아', city: '밀라노', phone: '+39-02-2906-2641', flag: '🇮🇹' },
+                { country: '인도', city: '뉴델리', phone: '+91-11-4200-7000', flag: '🇮🇳' },
+                { country: '인도네시아', city: '자카르타', phone: '+62-21-2967-2580', flag: '🇮🇩' },
+                { country: '인도네시아', city: '발리', phone: '+62-811-386-7357', flag: '🇮🇩' },
+                { country: '일본', city: '도쿄', phone: '+81-3-3452-7611', flag: '🇯🇵' },
+                { country: '일본', city: '오사카', phone: '+81-90-3050-0746', flag: '🇯🇵' },
+                { country: '일본', city: '후쿠오카', phone: '+81-92-771-0461', flag: '🇯🇵' },
+                { country: '일본', city: '삿포로', phone: '+81-11-218-0288', flag: '🇯🇵' },
+                { country: '중국', city: '베이징', phone: '+86-10-8531-0700', flag: '🇨🇳' },
+                { country: '중국', city: '상하이', phone: '+86-21-6295-5000', flag: '🇨🇳' },
+                { country: '중국', city: '청도', phone: '+86-532-8897-6001', flag: '🇨🇳' },
+                { country: '체코', city: '프라하', phone: '+420-234-090-411', flag: '🇨🇿' },
+                { country: '캄보디아', city: '프놈펜', phone: '+855-23-211-900', flag: '🇰🇭' },
+                { country: '캐나다', city: '오타와', phone: '+1-613-244-5010', flag: '🇨🇦' },
+                { country: '캐나다', city: '밴쿠버', phone: '+1-604-681-9581', flag: '🇨🇦' },
+                { country: '캐나다', city: '토론토', phone: '+1-416-920-3809', flag: '🇨🇦' },
+                { country: '태국', city: '방콕', phone: '+66-81-914-5803', flag: '🇹🇭' },
+                { country: '튀르키예', city: '앙카라', phone: '+90-312-468-4821', flag: '🇹🇷' },
+                { country: '튀르키예', city: '이스탄불', phone: '+90-212-368-8368', flag: '🇹🇷' },
+                { country: '프랑스', city: '파리', phone: '+33-1-4753-0101', flag: '🇫🇷' },
+                { country: '필리핀', city: '마닐라', phone: '+63-917-817-5703', flag: '🇵🇭' },
+                { country: '필리핀', city: '세부', phone: '+63-917-808-3907', flag: '🇵🇭' },
+                { country: '호주', city: '캔버라', phone: '+61-2-6270-4100', flag: '🇦🇺' },
+                { country: '호주', city: '시드니', phone: '+61-2-9210-0200', flag: '🇦🇺' },
+                { country: '홍콩', city: '홍콩', phone: '+852-2529-4141', flag: '🇭🇰' },
+            ],
+            
+            elements: { listContainer: null, searchInput: null, modal: null, flag: null, title: null, desc: null, callBtn: null },
 
-            init: function() {
-                try {
-                    this.elements.listContainer = document.getElementById('sosListContainer');
-                    this.elements.searchInput = document.getElementById('sosSearchInput');
-                    this.elements.modal = document.getElementById('sosModal');
-                    this.elements.flag = document.getElementById('sosModalFlag');
-                    this.elements.title = document.getElementById('sosModalTitle');
-                    this.elements.desc = document.getElementById('sosModalDesc');
-                    this.elements.callBtn = document.getElementById('sosCallBtn');
-                    if(this.elements.listContainer) this.renderList(this.data);
-                    if(this.elements.searchInput) {
-                        this.elements.searchInput.addEventListener('input', (e) => {
-                            const term = e.target.value.toLowerCase().trim();
-                            const filtered = this.data.filter(item => item.country.includes(term) || item.city.includes(term));
-                            this.renderList(filtered);
-                        });
-                    }
-                    if(this.elements.modal) {
-                        this.elements.modal.addEventListener('click', (e) => { if(e.target === this.elements.modal) this.closeSOSModal(); });
-                    }
-                } catch(e) { console.error('SOS Init Error', e); }
-            },
+            init: function() {
+                try {
+                    this.elements.listContainer = document.getElementById('sosListContainer');
+                    this.elements.searchInput = document.getElementById('sosSearchInput');
+                    this.elements.modal = document.getElementById('sosModal');
+                    this.elements.flag = document.getElementById('sosModalFlag');
+                    this.elements.title = document.getElementById('sosModalTitle');
+                    this.elements.desc = document.getElementById('sosModalDesc');
+                    this.elements.callBtn = document.getElementById('sosCallBtn');
+                    if(this.elements.listContainer) this.renderList(this.data);
+                    if(this.elements.searchInput) {
+                        this.elements.searchInput.addEventListener('input', (e) => {
+                            const term = e.target.value.toLowerCase().trim();
+                            const filtered = this.data.filter(item => item.country.includes(term) || item.city.includes(term));
+                            this.renderList(filtered);
+                        });
+                    }
+                    if(this.elements.modal) {
+                        this.elements.modal.addEventListener('click', (e) => { if(e.target === this.elements.modal) this.closeSOSModal(); });
+                    }
+                } catch(e) { console.error('SOS Init Error', e); }
+            },
 
-            renderList: function(data) {
-                const container = this.elements.listContainer;
-                if(!container) return;
-                container.innerHTML = '';
-                if (data.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b;">검색 결과가 없습니다.</div>`; return; }
-                data.sort((a, b) => a.country.localeCompare(b.country));
-                data.forEach(item => {
-                    const div = document.createElement('div');
-                    div.className = 'sos-list-item';
-                    div.innerHTML = `<div style="display:flex; align-items:center;"><span style="font-size:20px; margin-right:10px;">${item.flag}</span><div><span class="sos-country">${item.country}</span><span class="sos-city">${item.city}</span></div></div><span class="material-icons-round sos-arrow">call</span>`;
-                    div.onclick = () => this.openSOSModal(item);
-                    container.appendChild(div);
-                });
-            },
+            renderList: function(data) {
+                const container = this.elements.listContainer;
+                if(!container) return;
+                container.innerHTML = '';
+                if (data.length === 0) { container.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b;">검색 결과가 없습니다.</div>`; return; }
+                data.sort((a, b) => a.country.localeCompare(b.country));
+                data.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'sos-list-item';
+                    div.innerHTML = `<div style="display:flex; align-items:center;"><span style="font-size:20px; margin-right:10px;">${item.flag}</span><div><span class="sos-country">${item.country}</span><span class="sos-city">${item.city}</span></div></div><span class="material-icons-round sos-arrow">call</span>`;
+                    div.onclick = () => this.openSOSModal(item);
+                    container.appendChild(div);
+                });
+            },
 
-            openSOS: function() {
-                if (typeof showPage === 'function') showPage('sosPage');
-            },
+            openSOS: function() {
+                if (typeof showPage === 'function') showPage('sosPage');
+            },
 
-            openSOSModal: function(item) {
-                this.elements.flag.textContent = item.flag;
-                this.elements.title.textContent = `${item.country} (${item.city})`;
-                this.elements.desc.textContent = `주 ${item.country} 대한민국 영사관으로 연결합니다.`;
-                this.elements.callBtn.href = `tel:${item.phone}`;
-                this.elements.modal.classList.add('open');
-            },
+            openSOSModal: function(item) {
+                this.elements.flag.textContent = item.flag;
+                this.elements.title.textContent = `${item.country} (${item.city})`;
+                this.elements.desc.textContent = `주 ${item.country} 대한민국 영사관으로 연결합니다.`;
+                this.elements.callBtn.href = `tel:${item.phone}`;
+                this.elements.modal.classList.add('open');
+            },
 
-            closeSOSModal: function() { this.elements.modal.classList.remove('open'); }
-        };
+            closeSOSModal: function() { this.elements.modal.classList.remove('open'); }
+        };
 
-        const categoryEmojiMap = { '한식당/카페': '🍽️', '마트/식품점': '🛒', '뷰티 서비스': '💇', '의료 서비스': '🏥', '법률/세무': '⚖️', '생활 서비스': '🛠️', '교육/학원': '📚', '이사/운송': '📦', '종교': '⛪' };
-        const state = { allBusinessData: {}, currentResultsList: [], selectedLocation: '', selectedCategory: '', userLocation: null };
-        const dom = {};
-        
-        function cacheDOMElements() {
-            dom.loadingOverlay = document.getElementById('loadingOverlay');
-            dom.featuredList = document.getElementById('featuredList');
-            dom.newList = document.getElementById('newList');
-            dom.locationGrid = document.querySelector('.location-grid');
-            dom.serviceGrid = document.querySelector('.service-grid');
-            dom.businessList = document.getElementById('businessList');
-            dom.resultLocation = document.getElementById('resultLocation');
-            dom.resultCategory = document.getElementById('resultCategory');
-        }
+        const categoryEmojiMap = { '한식당/카페': '🍽️', '마트/식품점': '🛒', '뷰티 서비스': '💇', '의료 서비스': '🏥', '법률/세무': '⚖️', '생활 서비스': '🛠️', '교육/학원': '📚', '이사/운송': '📦', '종교': '⛪' };
+        const state = { allBusinessData: {}, currentResultsList: [], selectedLocation: '', selectedCategory: '', userLocation: null };
+        const dom = {};
+        
+        function cacheDOMElements() {
+            dom.loadingOverlay = document.getElementById('loadingOverlay');
+            dom.featuredList = document.getElementById('featuredList');
+            dom.newList = document.getElementById('newList');
+            dom.locationGrid = document.querySelector('.location-grid');
+            dom.serviceGrid = document.querySelector('.service-grid');
+            dom.businessList = document.getElementById('businessList');
+            dom.resultLocation = document.getElementById('resultLocation');
+            dom.resultCategory = document.getElementById('resultCategory');
+        }
 
-        document.addEventListener('DOMContentLoaded', async function() { 
-            cacheDOMElements(); 
-            setupEventListeners(); 
-            requestUserLocation();
-            setupIntroAnimations();
-            sosApp.init();
-            if(window.history && window.history.replaceState) {
-                window.history.replaceState({page: 'mainPage'}, '', '#mainPage');
-            }
-            await initAppOptimized();
-        });
+        document.addEventListener('DOMContentLoaded', async function() { 
+            cacheDOMElements(); 
+            setupEventListeners(); 
+            requestUserLocation();
+            setupIntroAnimations();
+            sosApp.init();
+            if(window.history && window.history.replaceState) {
+                window.history.replaceState({page: 'mainPage'}, '', '#mainPage');
+            }
+            await initAppOptimized();
+        });
 
-        window.addEventListener('popstate', (event) => {
-            const page = event.state ? event.state.page : 'mainPage';
-            _updateUIOnly(page);
-            closeModals(); 
-        });
+        window.addEventListener('popstate', (event) => {
+            const page = event.state ? event.state.page : 'mainPage';
+            _updateUIOnly(page);
+            closeModals(); 
+        });
 
-        function showPage(id) {
-            _updateUIOnly(id);
-            if(window.history && window.history.pushState) {
-                window.history.pushState({page: id}, '', `#${id}`);
-            }
-        }
+        function showPage(id) {
+            _updateUIOnly(id);
+            if(window.history && window.history.pushState) {
+                window.history.pushState({page: id}, '', `#${id}`);
+            }
+        }
 
-        function _updateUIOnly(id) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const target = document.getElementById(id);
-            if(target) target.classList.add('active');
-        }
+        function _updateUIOnly(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById(id);
+            if(target) target.classList.add('active');
+        }
 
-        window.showPage = showPage;
-        window.goBack = () => {
-            if (window.history.length > 1) window.history.back();
-            else _updateUIOnly('mainPage');
-        };
-        window.goToSearch = () => showPage('searchPage');
-        window.goToResults = () => showPage('resultsPage');
-        window.doSearch = doSearch;
-        window.sosApp = sosApp; 
+        window.showPage = showPage;
+        window.goBack = () => {
+            if (window.history.length > 1) window.history.back();
+            else _updateUIOnly('mainPage');
+        };
+        window.goToSearch = () => showPage('searchPage');
+        window.goToResults = () => showPage('resultsPage');
+        window.doSearch = doSearch;
+        window.sosApp = sosApp; 
 
-        // PWA Install
-        let deferredPrompt;
-        const installBanner = document.getElementById('installBanner');
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault(); deferredPrompt = e;
-            if(installBanner) installBanner.style.display = 'flex';
-        });
-        window.installPWA = async () => {
-            if (!deferredPrompt) return;
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            deferredPrompt = null; closeInstallBanner();
-        };
-        window.closeInstallBanner = () => { if(installBanner) installBanner.style.display = 'none'; };
+        // PWA Install
+        let deferredPrompt;
+        const installBanner = document.getElementById('installBanner');
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault(); deferredPrompt = e;
+            if(installBanner) installBanner.style.display = 'flex';
+        });
+        window.installPWA = async () => {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            deferredPrompt = null; closeInstallBanner();
+        };
+        window.closeInstallBanner = () => { if(installBanner) installBanner.style.display = 'none'; };
 
-        window.openInquiryModal = () => { document.getElementById('inquiryModal').classList.add('open'); }
-        window.openLegalModal = (type) => {
-            if(type === 'terms') document.getElementById('termsModal').classList.add('open');
-            if(type === 'privacy') document.getElementById('privacyModal').classList.add('open');
-        }
-        window.closeModals = () => { document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('open')); }
-        window.copyEmail = () => {
-            navigator.clipboard.writeText('admin@kornect.kr').then(() => {
-                const toast = document.getElementById('toast');
-                toast.style.display = 'block';
-                setTimeout(() => { toast.style.display = 'none'; }, 2000);
-            });
-        }
-        document.querySelectorAll('.modal-overlay').forEach(overlay => {
-            overlay.addEventListener('click', (e) => { if(e.target === overlay) window.closeModals(); });
-        });
+        window.openInquiryModal = () => { document.getElementById('inquiryModal').classList.add('open'); }
+        window.openLegalModal = (type) => {
+            if(type === 'terms') document.getElementById('termsModal').classList.add('open');
+            if(type === 'privacy') document.getElementById('privacyModal').classList.add('open');
+        }
+        window.closeModals = () => { document.querySelectorAll('.modal-overlay').forEach(el => el.classList.remove('open')); }
+        window.copyEmail = () => {
+            navigator.clipboard.writeText('admin@kornect.kr').then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => { toast.style.display = 'none'; }, 2000);
+            });
+        }
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => { if(e.target === overlay) window.closeModals(); });
+        });
 
-        function setupIntroAnimations() {
-            const introPage = document.getElementById('introPage');
-            if(!introPage) return;
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
-            }, { threshold: 0.1, root: introPage }); 
-            introPage.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
-        }
+        function setupIntroAnimations() {
+            const introPage = document.getElementById('introPage');
+            if(!introPage) return;
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+            }, { threshold: 0.1, root: introPage }); 
+            introPage.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+        }
 
-        async function initAppOptimized() {
-            try {
-                const res = await fetch(GAS_WEB_APP_URL);
-                if(!res.ok) throw new Error('Network error');
-                const data = await res.json();
-                if (data.error) throw new Error(data.error);
-                processData(data);
-            } catch (error) { 
-                console.error('Error:', error);
-                if(dom.featuredList) dom.featuredList.innerHTML = '<div style="padding:10px; font-size:13px; color:#ef4444">데이터 로드 실패</div>';
-                if(dom.newList) dom.newList.innerHTML = '<div style="padding:10px; font-size:13px; color:#ef4444">데이터 로드 실패</div>';
-            }
-        }
+        async function initAppOptimized() {
+            try {
+                const res = await fetch(GAS_WEB_APP_URL);
+                if(!res.ok) throw new Error('Network error');
+                const data = await res.json();
+                if (data.error) throw new Error(data.error);
+                processData(data);
+            } catch (error) { 
+                console.error('Error:', error);
+                if(dom.featuredList) dom.featuredList.innerHTML = '<div style="padding:10px; font-size:13px; color:#ef4444">데이터 로드 실패</div>';
+                if(dom.newList) dom.newList.innerHTML = '<div style="padding:10px; font-size:13px; color:#ef4444">데이터 로드 실패</div>';
+            }
+        }
 
-        function processData(data) {
-            state.allBusinessData = data.businessesByCategory;
-            displayFeatured(data.featured, dom.featuredList);
-            displayFeatured(data.new, dom.newList);
-            populateFilters(data.filters);
-        }
+        function processData(data) {
+            state.allBusinessData = data.businessesByCategory;
+            displayFeatured(data.featured, dom.featuredList);
+            displayFeatured(data.new, dom.newList);
+            populateFilters(data.filters);
+        }
 
-        function displayFeatured(items, container) {
-            if (!container) return;
-            container.innerHTML = ''; 
-            if (!items || items.length === 0) { container.innerHTML = '<div style="color:var(--text-sub); font-size:13px; padding:10px;">데이터가 없습니다.</div>'; return; }
-            const fragment = document.createDocumentFragment();
-            items.forEach(biz => {
-                const card = document.createElement('div');
-                card.className = 'biz-card-sm';
-                card.onclick = () => handleCardClick(biz);
-                card.innerHTML = `<div class="biz-title">${biz.name}</div><div class="biz-meta">${biz.category} • ${biz.location||'위치'}</div><div class="biz-rating-badge">⭐ ${biz.rating||0}</div>`;
-                fragment.appendChild(card);
-            });
-            container.appendChild(fragment);
-        }
+        function displayFeatured(items, container) {
+            if (!container) return;
+            container.innerHTML = ''; 
+            if (!items || items.length === 0) { container.innerHTML = '<div style="color:var(--text-sub); font-size:13px; padding:10px;">데이터가 없습니다.</div>'; return; }
+            const fragment = document.createDocumentFragment();
+            items.forEach(biz => {
+                const card = document.createElement('div');
+                card.className = 'biz-card-sm';
+                card.onclick = () => handleCardClick(biz);
+                card.innerHTML = `<div class="biz-title">${biz.name}</div><div class="biz-meta">${biz.category} • ${biz.location||'위치'}</div><div class="biz-rating-badge">⭐ ${biz.rating||0}</div>`;
+                fragment.appendChild(card);
+            });
+            container.appendChild(fragment);
+        }
 
-        function populateFilters(filters) {
-            if (!dom.locationGrid || !dom.serviceGrid) return;
-            dom.locationGrid.innerHTML = filters.locations.map((loc, i) => `<div class="location-chip ${i===0?'selected':''}" data-value="${loc}">${loc}</div>`).join('');
-            if(filters.locations[0]) state.selectedLocation = filters.locations[0];
-            dom.serviceGrid.innerHTML = filters.categories.map(cat => `<div class="service-item" data-value="${cat}">${categoryEmojiMap[cat]||'❔'} ${cat}</div>`).join('');
-        }
+        function populateFilters(filters) {
+            if (!dom.locationGrid || !dom.serviceGrid) return;
+            dom.locationGrid.innerHTML = filters.locations.map((loc, i) => `<div class="location-chip ${i===0?'selected':''}" data-value="${loc}">${loc}</div>`).join('');
+            if(filters.locations[0]) state.selectedLocation = filters.locations[0];
+            dom.serviceGrid.innerHTML = filters.categories.map(cat => `<div class="service-item" data-value="${cat}">${categoryEmojiMap[cat]||'❔'} ${cat}</div>`).join('');
+        }
 
-        function renderBusinessList(list) {
-            if (!dom.businessList) return;
-            dom.businessList.innerHTML = list.length ? list.map(biz => `
-                <div class="business-card" onclick="handleCardClickProxy('${biz.name}')">
-                    <div style="display:flex; justify-content:space-between"><div style="color:white; font-weight:700">${biz.name}</div><div style="color:#fbbf24; font-size:13px">⭐ ${biz.rating||0}</div></div>
-                    <div style="color:var(--text-sub); font-size:13px; margin-top:4px">📍 ${biz.address||'주소 없음'}</div>
-                </div>`).join('') : '<div style="text-align:center;color:var(--text-sub);padding:40px">검색 결과가 없습니다.</div>';
-            window.handleCardClickProxy = (name) => { const found = list.find(b => b.name === name); if(found) showDetail(found); };
-        }
+        function renderBusinessList(list) {
+            if (!dom.businessList) return;
+            dom.businessList.innerHTML = list.length ? list.map(biz => `
+                <div class="business-card" onclick="handleCardClickProxy('${biz.name}')">
+                    <div style="display:flex; justify-content:space-between"><div style="color:white; font-weight:700">${biz.name}</div><div style="color:#fbbf24; font-size:13px">⭐ ${biz.rating||0}</div></div>
+                    <div style="color:var(--text-sub); font-size:13px; margin-top:4px">📍 ${biz.address||'주소 없음'}</div>
+                </div>`).join('') : '<div style="text-align:center;color:var(--text-sub);padding:40px">검색 결과가 없습니다.</div>';
+            window.handleCardClickProxy = (name) => { const found = list.find(b => b.name === name); if(found) showDetail(found); };
+        }
 
-        function handleCardClick(biz) {
-            // ★ 수정: window.open → openExternalLink 사용
-            if (biz.website && biz.website.length > 5) {
-                const url = biz.website.startsWith('http') ? biz.website : 'https://' + biz.website;
-                openExternalLink(url);
-            } else {
-                showDetail(biz);
-            }
-        }
+        function handleCardClick(biz) {
+            // ★ 수정: window.open → openExternalLink 사용
+            if (biz.website && biz.website.length > 5) {
+                const url = biz.website.startsWith('http') ? biz.website : 'https://' + biz.website;
+                openExternalLink(url);
+            } else {
+                showDetail(biz);
+            }
+        }
 
-        function doSearch() {
-            if (!state.selectedCategory || !state.selectedLocation) { alert('위치와 카테고리를 선택해주세요'); return; }
-            showLoading(); 
-            setTimeout(() => {
-                dom.resultLocation.textContent = state.selectedLocation; dom.resultCategory.textContent = state.selectedCategory;
-                const data = state.allBusinessData[state.selectedCategory] || [];
-                state.currentResultsList = data.filter(biz => biz.location && biz.location.includes(state.selectedLocation));
-                renderBusinessList(state.currentResultsList);
-                hideLoading(); showPage('resultsPage'); 
-            }, 300);
-        }
+        function doSearch() {
+            if (!state.selectedCategory || !state.selectedLocation) { alert('위치와 카테고리를 선택해주세요'); return; }
+            showLoading(); 
+            setTimeout(() => {
+                dom.resultLocation.textContent = state.selectedLocation; dom.resultCategory.textContent = state.selectedCategory;
+                const data = state.allBusinessData[state.selectedCategory] || [];
+                state.currentResultsList = data.filter(biz => biz.location && biz.location.includes(state.selectedLocation));
+                renderBusinessList(state.currentResultsList);
+                hideLoading(); showPage('resultsPage'); 
+            }, 300);
+        }
 
-        function showDetail(biz) {
-            document.getElementById('detailName').textContent = biz.name;
-            document.getElementById('detailRating').textContent = `${biz.rating||0} (${biz.reviews||0})`;
-            document.getElementById('detailAddress').textContent = biz.address||'정보 없음';
-            document.getElementById('detailPhone').textContent = biz.phone||'정보 없음';
-            document.getElementById('detailHours').textContent = biz.hours||'정보 없음';
-            const webItem = document.getElementById('websiteItem');
-            if(biz.website && biz.website.length > 4 && biz.website !== '정보 없음') {
-                let url = biz.website.startsWith('http') ? biz.website : 'https://' + biz.website;
-                // ★ 수정: href 대신 onclick으로 openExternalLink 호출
-                document.getElementById('detailWebsite').innerHTML = `<span onclick="openExternalLink('${url}')" style="color:var(--primary-color); cursor:pointer; text-decoration:underline;">홈페이지 방문</span>`;
-                webItem.style.display = 'flex';
-            } else { webItem.style.display = 'none'; }
-            
-            const callBtn = document.getElementById('callBtn');
-            if (biz.phone && biz.phone !== '정보 없음') { callBtn.href = `tel:${biz.phone.replace(/[^0-9+]/g,'')}`; callBtn.style.opacity = '1'; }
-            else { callBtn.href = '#'; callBtn.style.opacity = '0.5'; }
+        function showDetail(biz) {
+            document.getElementById('detailName').textContent = biz.name;
+            document.getElementById('detailRating').textContent = `${biz.rating||0} (${biz.reviews||0})`;
+            document.getElementById('detailAddress').textContent = biz.address||'정보 없음';
+            document.getElementById('detailPhone').textContent = biz.phone||'정보 없음';
+            document.getElementById('detailHours').textContent = biz.hours||'정보 없음';
+            const webItem = document.getElementById('websiteItem');
+            if(biz.website && biz.website.length > 4 && biz.website !== '정보 없음') {
+                let url = biz.website.startsWith('http') ? biz.website : 'https://' + biz.website;
+                // ★ 수정: href 대신 onclick으로 openExternalLink 호출
+                document.getElementById('detailWebsite').innerHTML = `<span onclick="openExternalLink('${url}')" style="color:var(--primary-color); cursor:pointer; text-decoration:underline;">홈페이지 방문</span>`;
+                webItem.style.display = 'flex';
+            } else { webItem.style.display = 'none'; }
+            
+            const callBtn = document.getElementById('callBtn');
+            if (biz.phone && biz.phone !== '정보 없음') { callBtn.href = `tel:${biz.phone.replace(/[^0-9+]/g,'')}`; callBtn.style.opacity = '1'; }
+            else { callBtn.href = '#'; callBtn.style.opacity = '0.5'; }
 
-            const mapBtn = document.getElementById('mapBtn');
-            const mapURL = biz.googleMapsUrl || biz.googleMapsURL || biz.mapURL;
-            const query = biz.address && biz.address !== '정보 없음' ? biz.address : biz.name;
-            const finalMapUrl = (mapURL && mapURL !== '정보 없음') ? mapURL : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
-            // ★ 수정: mapBtn도 openExternalLink로 처리
-            mapBtn.removeAttribute('href');
-            mapBtn.onclick = () => openExternalLink(finalMapUrl);
-            
-            showPage('detailPage');
-        }
+            const mapBtn = document.getElementById('mapBtn');
+            const mapURL = biz.googleMapsUrl || biz.googleMapsURL || biz.mapURL;
+            const query = biz.address && biz.address !== '정보 없음' ? biz.address : biz.name;
+            const finalMapUrl = (mapURL && mapURL !== '정보 없음') ? mapURL : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+            // ★ 수정: mapBtn도 openExternalLink로 처리
+            mapBtn.removeAttribute('href');
+            mapBtn.onclick = () => openExternalLink(finalMapUrl);
+            
+            showPage('detailPage');
+        }
 
-        function showLoading() { if (dom.loadingOverlay) dom.loadingOverlay.classList.add('show'); }
-        function hideLoading() { if (dom.loadingOverlay) dom.loadingOverlay.classList.remove('show'); }
-        function requestUserLocation() { if (navigator.geolocation) navigator.geolocation.getCurrentPosition(pos => state.userLocation = pos.coords, () => state.userLocation = null); }
-        
-        function setupEventListeners() {
-            document.addEventListener('click', e => {
-                if (e.target.classList.contains('location-chip')) {
-                    document.querySelectorAll('.location-chip').forEach(c => c.classList.remove('selected'));
-                    e.target.classList.add('selected'); state.selectedLocation = e.target.dataset.value;
-                } else if (e.target.classList.contains('service-item')) {
-                    document.querySelectorAll('.service-item').forEach(i => i.classList.remove('selected'));
-                    e.target.classList.add('selected'); state.selectedCategory = e.target.dataset.value;
-                }
-                if (e.target.id === 'detailPage' && window.innerWidth >= 768) goBack();
-            });
-        }
+        function showLoading() { if (dom.loadingOverlay) dom.loadingOverlay.classList.add('show'); }
+        function hideLoading() { if (dom.loadingOverlay) dom.loadingOverlay.classList.remove('show'); }
+        function requestUserLocation() { if (navigator.geolocation) navigator.geolocation.getCurrentPosition(pos => state.userLocation = pos.coords, () => state.userLocation = null); }
+        
+        function setupEventListeners() {
+            document.addEventListener('click', e => {
+                if (e.target.classList.contains('location-chip')) {
+                    document.querySelectorAll('.location-chip').forEach(c => c.classList.remove('selected'));
+                    e.target.classList.add('selected'); state.selectedLocation = e.target.dataset.value;
+                } else if (e.target.classList.contains('service-item')) {
+                    document.querySelectorAll('.service-item').forEach(i => i.classList.remove('selected'));
+                    e.target.classList.add('selected'); state.selectedCategory = e.target.dataset.value;
+                }
+                if (e.target.id === 'detailPage' && window.innerWidth >= 768) goBack();
+            });
+        }
 
-        // ★ 수정: 기존 iOS PWA anchor 처리를 openExternalLink로 통합 교체
-        // 혹시 남아있는 <a target="_blank"> 태그도 인앱브라우저에서 안전하게 처리
-        document.addEventListener('click', function(e) {
-            const anchor = e.target.closest('a[href]');
-            if (!anchor) return;
-            const href = anchor.getAttribute('href');
-            if (href && href.startsWith('http') && !href.includes(window.location.hostname)) {
-                e.preventDefault();
-                openExternalLink(href);
-            }
-        });
+        // ★ 수정: 기존 iOS PWA anchor 처리를 openExternalLink로 통합 교체
+        // 혹시 남아있는 <a target="_blank"> 태그도 인앱브라우저에서 안전하게 처리
+        document.addEventListener('click', function(e) {
+            const anchor = e.target.closest('a[href]');
+            if (!anchor) return;
+            const href = anchor.getAttribute('href');
+            if (href && href.startsWith('http') && !href.includes(window.location.hostname)) {
+                e.preventDefault();
+                openExternalLink(href);
+            }
+        });
 
-    })();
-    </script>
+    })();
+    </script>
 </body>
 </html>
